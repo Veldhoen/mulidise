@@ -1,0 +1,26 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Hermann and Blunsom}2013]{hermann2013multilingual}
+Karl~Moritz Hermann and Phil Blunsom.
+\newblock 2013.
+\newblock Multilingual distributed representations without word alignment.
+
+\bibitem[\protect\citename{Hermann}2014]{Hermann2014}
+Karl~Moritz Hermann.
+\newblock 2014.
+\newblock {\em {Distributed Representations for Compositional Semantics}}.
+\newblock {Ph.D.} thesis.
+
+\bibitem[\protect\citename{Klementiev \bgroup et al.\egroup
+  }2012]{klementiev2012inducing}
+Alexandre Klementiev, Ivan Titov, and Binod Bhattarai.
+\newblock 2012.
+\newblock Inducing crosslingual distributed representations of words.
+
+\bibitem[\protect\citename{Mikolov \bgroup et al.\egroup
+  }2013]{mikolov2013exploiting}
+Tomas Mikolov, Quoc~V Le, and Ilya Sutskever.
+\newblock 2013.
+\newblock Exploiting similarities among languages for machine translation.
+
+\end{thebibliography}
