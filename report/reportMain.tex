@@ -1,0 +1,29 @@
+\documentclass[twocolumn]{article}
+\usepackage[margin=2cm,a4paper]{geometry}
+
+\usepackage{amsmath}
+\usepackage{subcaption,graphicx}
+\usepackage{enumerate}
+\usepackage{hyperref}
+
+\title{Fancy Title}
+\author{Sara Veldhoen \and Benno Kruit}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{s:introduction}
+\input{introduction}
+\section{Related Work}\label{s:relatedWork}
+\input{relatedWork}
+\section{Experiments}\label{s:experiments}
+\input{experiments}
+\section{Results and discussion}\label{s:results}
+\input{results}
+\section{Conclusion}\label{s:conclusion}
+\input{conclusion}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
