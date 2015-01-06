@@ -10,8 +10,24 @@ An averaged version of the perceptron algorithm is trained for document classifi
 
 We thus compute classification accuracy to compare the existing approaches described above to each other and to the new models introduced in \ref{s:newApproach}.
 
-
 %As a baseline, \cite{klementiev2012inducing} compares to wordcount features. Translations are done via glossing or machine translation.
+
+
+
+
+
+%Alternative:
+The WIT TED corpus \cite{cettolo2012} contains short documents with transcriptions and translations of TED talks, with topic annotations. The original distribution was aimed at machine translation, but \cite{hermann2014multilingual} propose it for a multilingual document classification task.
+
+
+English paired in both directions with other languages, seven of which are also in the Europarl corpus: Spanish, German, Italian, Dutch, Portuguese, Polish, and Romanian.
+%Slovenian is not in the Hermann-Blunsom dataset!
+% Non-Europarl: Arabic, Russian, Turkish, and Chinese, Farsi, 
+
+The classification labels in this set are technology, culture, science, global issues, design, business, entertainment, arts, politics, education, art, health, creativity, economics, and biology. Note that a document can have more than one topic annotation. 
+
+
+
 
 
 

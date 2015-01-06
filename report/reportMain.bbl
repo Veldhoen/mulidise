@@ -1,9 +1,23 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\citename{Cettolo \bgroup et al.\egroup }2012]{cettolo2012}
+Mauro Cettolo, Christian Girardi, and Marcello Federico.
+\newblock 2012.
+\newblock Wit$^3$: Web inventory of transcribed and translated talks.
+\newblock In {\em Proceedings of the 16$^{th}$ Conference of the European
+  Association for Machine Translation (EAMT)}, pages 261--268, Trento, Italy,
+  May.
+
 \bibitem[\protect\citename{Hermann and Blunsom}2013]{hermann2013multilingual}
 Karl~Moritz Hermann and Phil Blunsom.
 \newblock 2013.
 \newblock Multilingual distributed representations without word alignment.
+
+\bibitem[\protect\citename{Hermann and Blunsom}2014]{hermann2014multilingual}
+Karl~Moritz Hermann and Phil Blunsom.
+\newblock 2014.
+\newblock {Multilingual Models for Compositional Distributional Semantics}.
+\newblock In {\em Proceedings of ACL}.
 
 \bibitem[\protect\citename{Hermann}2014]{Hermann2014}
 Karl~Moritz Hermann.
