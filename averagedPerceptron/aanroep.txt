@@ -1,0 +1,20 @@
+java  -ea -Xmx2000m -cp
+      ../../bin CollectionPreprocessor
+      --text-dir        #original text document
+      --word-embeddings #trained embeddings
+      --vector-file     #goal
+
+
+
+# train, i.e. create model:
+java  -ea -Xmx2000m -cp
+      ../../bin ApLearn
+      --train-set  $datapath/doc-reprs/train.en-DE100.de
+      --model-name $datapath/classifiers/avperc.en-de.en
+      --epoch-num 10
+
+# test:
+java  -ea -Xmx2000m -cp
+      ../../bin   ApClassify
+      --test-set $datapath/doc-reprs/test.en-de.en
+      --model-name $datapath/classifiers/avperc.en-de.en

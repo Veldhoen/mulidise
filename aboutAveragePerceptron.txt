@@ -1,0 +1,4 @@
+Data format for training the averaged perceptron with the code form Klementiev:
+
+A document with on each line an example: first the label, and then a vector representing the document.
+The code was designed to learn a single topic for each document, but we can use it for binary classification per class (positive/ negative). In this way, we can use it for the TED classification data as well. 
