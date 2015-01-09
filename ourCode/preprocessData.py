@@ -2,30 +2,42 @@
 
 import sys, getopt
 
-def encodetext(text,embeddings,idfs):
-    tokens = text.split()
-    summedEmbeddings = [0]*len(embeddings.getkeys[0])
-    for token in tokens:
-        weight = idfs.setdefault(token, default=1)
-        summedEmbeddings+= [value*weight for value in embeddings[token]]
-        numerator += weight
+def encodeText(fromFile):
+    summedEmbeddings = [0]*len(embeddings.keys()[0])
+    norm = 0
+
+    with open(fromFile, 'r') as f:
+         for line in f:
+             for token in line.split():
+                 token = token.lower()
+                 if token in embeddings:
+                     weight = idf.setdefault(token, 1)
+                     # if there is no idf value, use 1
+                     summedEmbeddings+= [value*weight for value in embeddings[token]]
+                     norm += weight
+                 else:
+                     print 'no entry for', token
+                     break
+    documentEmbedding = [value/norm for value in summedEmbeddings]
 
 def initializeEmbeddings(fromFile):
+    print 'initializing embeddings...'
     global embeddings
     embeddings = dict()
-    with open(fromFile, r) as f:
+    with open(fromFile, 'r') as f:
          for line in f:
-             word, vector = line.split(':')
-             embeddings[word] = [num(val) for val in vector.split()]
+             parts = line.strip().split(':')
+             embeddings[parts[0].strip()] = [float(val) for val in parts[1].split()]
+    print 'done.'
 
 def initializeIDFS(fromFile):
     print 'initializing idf values...'
+
     global idf
     with open(fromFile, 'r') as f:
-         print 'opened',fromFile, len(f), 'lines.'
          for line in f:
-             word, dunno = line.split(':')
-             print word, dunno
+             parts = line.strip().split()
+             idf[parts[0]]=float(parts[2])
     print 'done.'
 
 def main(argv):
@@ -55,15 +67,21 @@ def main(argv):
         print errorMessage
         sys.exit()
 
+    initializeEmbeddings(embeddingsFile)
+
+
     global idf
     idf = dict()
     try: initializeIDFS(idfFile)
     except: idf
-    
-    for key, value in idf.iteritems():
-        print 'key:', key
-        print 'value:', value
 
+    encodeText(textFile)
+
+#    for key, value in idf.iteritems():
+#        print 'word:', key, 'idf:', value
+
+#    for key, value in embeddings.iteritems():
+#        print 'word:', key, 'embedding:', value
 
 #    print 'Files:', textFile,embeddings,output,idf
 
