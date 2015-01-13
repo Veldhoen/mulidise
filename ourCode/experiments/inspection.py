@@ -17,7 +17,7 @@ def inspect_words(model):
         for w in l:
             print '%s:' % w
             print model.most_similar(w, topn=10)
-            print [(w,d) for (w,d) in model.most_similar(w, topn=100) if suf in w]
+            print most_similar_suffixed(model, suf, w, topn=10)
 
     simtot = 0.0
     for row in csv.DictReader(open('dictionary.csv')):
@@ -25,3 +25,7 @@ def inspect_words(model):
         print row, sim
         simtot += sim
     print 'total:', simtot
+
+def most_similar_suffixed(model, suffix, positive=[], negative=[], topn=10):
+    sim = model.most_similar(positive, negative, topn=10000000)
+    return [(w,d) for w,d in sim if w.endswith(suffix)][:topn]

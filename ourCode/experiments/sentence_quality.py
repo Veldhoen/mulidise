@@ -2,6 +2,8 @@
 from gensim.models.doc2vec import Doc2Vec, LabeledLineSentence, LabeledSentence
 from itertools import izip, islice
 import string
+import sys
+from inspection import inspect_sentences
 
 def preprocess(s):
     return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
@@ -16,7 +18,7 @@ class LiteralLineSentence(object):
             line = preprocess(line)
             yield LabeledSentence(words=line.split(), labels=[line])
 
-f = '/Users/benno/Documents/ Misc/data/de-en/europarl-v7.de-en.en'
+f = sys.argv[1]+'/europarl-v7.de-en.en'
 n = 50000
 sentences = LiteralLineSentence(f, n)
 print '%s sentences' % n
@@ -31,12 +33,4 @@ for epoch in range(10):
     print epoch
     model.alpha -= 0.002  # decrease the learning rate
 
-lines = [
-'you will be aware from the press and television that there have been a number of bomb explosions and killings in sri lanka'
-,'but madam president my personal request has not been met'
-,'we then put it to a vote'
-,'thank you very much'
-]
-
-for l in lines:
-    print '%s:\n' % l, model.most_similar(l, topn=10)
+inspect_sentences(model)
