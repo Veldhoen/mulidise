@@ -2,6 +2,8 @@
 
 import sys, getopt, os
 import shutil
+import numpy
+from numpy import array
 
 def walkDataDir(inDir, outDir):
     print 'walking',inDir,'...'
@@ -31,7 +33,7 @@ def walkDataDir(inDir, outDir):
 
 
 def encodeText(fromFile):
-    summedEmbeddings = [0]*len(embeddings.values()[1])
+    summedEmbeddings = numpy.zeros(len(embeddings.values()[1]))
     norm = 0
 
     with open(fromFile, 'r') as f:
@@ -43,17 +45,13 @@ def encodeText(fromFile):
                  if token in embeddings:
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
-                     weighedEmbedding = [value*weight for value in embeddings[token]]
-                     if len(weighedEmbedding) != len(summedEmbeddings):
-                        print 'weird'
-                        sys.exit()
-                     summedEmbeddings=[sum(x) for x in zip(summedEmbeddings,weighedEmbedding )]
+                     summedEmbeddings+=weight*embeddings[token]
                      norm += weight
                  else:
 #                     print 'no entry for', token
                      break
-    if norm == 0: norm = 1
-    documentEmbedding = [value/norm for value in summedEmbeddings]
+    if norm == 0: norm = 1.0
+    documentEmbedding = summedEmbeddings/norm
     return documentEmbedding
 
 def walkLanguages(inDir,outDir):
@@ -72,7 +70,7 @@ def initializeEmbeddings(fromFile):
     with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split(':')
-             embeddings[parts[0].strip()] = [float(val) for val in parts[1].split()]
+             embeddings[parts[0].strip()] = array([float(val) for val in parts[1].split()])
     print 'done.'
 
 def initializeIDFS(fromFile):
