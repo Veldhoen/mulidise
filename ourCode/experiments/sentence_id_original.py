@@ -3,9 +3,9 @@ from gensim.models.doc2vec import Doc2Vec, LabeledLineSentence, LabeledSentence
 from itertools import izip, islice
 from random import shuffle
 import string
-import csv
 import timeit
 import sys
+from inspection import inspect_words, inspect_sentences
 
 def preprocess(s):
     return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
@@ -48,24 +48,5 @@ for epoch in range(10):
 stop = timeit.default_timer()
 print 'Running time %ss' % (stop - start)
 
-en = ['mrs_en', 'april_en', 'objection_en', 'debate_en', 'answer_en']
-de = ['frau_de', 'april_de', 'einwand_de', 'debatte_de', 'antwort_de']
-for w, suf in [(en, '_de'), (de, '_en')]:
-    print '%s:' % w
-    print model.most_similar(w, topn=10)
-    print [(w,d) for (w,d) in model.most_similar(w, topn=100) if suf in w]
-
-lines = [
-'but madam president my personal request has not been met'
-,'we then put it to a vote'
-,'thank you very much'
-]
-for l in lines:
-    print '%s:\n' % l, model.most_similar(l, topn=10)
-
-simtot = 0.0
-for row in csv.DictReader(open('dictionary.csv')):
-    sim = model.similarity(*['%s_%s'%(a,b) for (b,a) in row.items()])
-    print row, sim
-    simtot += sim
-print 'total:', simtot
+inspect_sentences(model)
+inspect_words(model)
