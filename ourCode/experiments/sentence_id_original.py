@@ -4,9 +4,11 @@ from itertools import izip, islice
 from random import shuffle
 import string
 import csv
+import timeit
+import sys
 
 def preprocess(s):
-	return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
+    return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
 
 class BitextDoubleSentence(object):
     def __init__(self, filename, size):
@@ -17,21 +19,23 @@ class BitextDoubleSentence(object):
         f = self.filename
         with open(f + 'en') as ens, open(f + 'de') as des: 
             for i, (en, de) in enumerate(islice(izip(ens, des), self.size)):
-                en = ['%s_en'%w for w in preprocess(en).split()]
+                pen = preprocess(en)
+                en = ['%s_en'%w for w in pen.split()]
                 de = ['%s_de'%w for w in preprocess(de).split()]
                 langs = [en, de]
                 shuffle(langs)
                 for l in langs:
-                    yield LabeledSentence(words=l, labels=['SENT_%s'%i])
+                    yield LabeledSentence(words=l, labels=[pen])
 
 print 'Simply training German and English words with the bitext sentence id as label'
+start = timeit.default_timer()
 
-f = '/Users/benno/Documents/ Misc/data/de-en/europarl-v7.de-en.'
-n = 50000
+f = sys.argv[1]+'/europarl-v7.de-en.'
+n = 200000
 sentences = BitextDoubleSentence(f, n)
 print '%s sentences' % n
 
-model = Doc2Vec(alpha=0.025, min_alpha=0.025)
+model = Doc2Vec(alpha=0.025, min_alpha=0.025, size=256, workers=8)
 model.build_vocab(sentences)
 print '%s words in vocab' % (len(model.vocab) - n)
 
@@ -41,11 +45,21 @@ for epoch in range(10):
     print epoch
     model.alpha -= 0.002  # decrease the learning rate
 
+stop = timeit.default_timer()
+print 'Running time %ss' % (stop - start)
+
 ws = ['mrs_en', 'april_en', 'objection_en', 'debate_en', 'answer_en']
 ws += ['frau_de', 'april_de', 'einwand_de', 'debatte_de', 'antwort_de']
 for w in ws:
     print '%s:\n' % w, model.most_similar(w, topn=10)
 
+lines = [
+'but madam president my personal request has not been met'
+,'we then put it to a vote'
+,'thank you very much'
+]
+for l in lines:
+    print '%s:\n' % l, model.most_similar(l, topn=10)
 
 simtot = 0.0
 for row in csv.DictReader(open('dictionary.csv')):
