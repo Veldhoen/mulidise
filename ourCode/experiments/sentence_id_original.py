@@ -31,7 +31,7 @@ print 'Simply training German and English words with the bitext sentence id as l
 start = timeit.default_timer()
 
 f = sys.argv[1]+'/europarl-v7.de-en.'
-n = 200000
+n = 500000
 sentences = BitextDoubleSentence(f, n)
 print '%s sentences' % n
 
@@ -48,10 +48,12 @@ for epoch in range(10):
 stop = timeit.default_timer()
 print 'Running time %ss' % (stop - start)
 
-ws = ['mrs_en', 'april_en', 'objection_en', 'debate_en', 'answer_en']
-ws += ['frau_de', 'april_de', 'einwand_de', 'debatte_de', 'antwort_de']
-for w in ws:
-    print '%s:\n' % w, model.most_similar(w, topn=10)
+en = ['mrs_en', 'april_en', 'objection_en', 'debate_en', 'answer_en']
+de = ['frau_de', 'april_de', 'einwand_de', 'debatte_de', 'antwort_de']
+for w, suf in [(en, '_de'), (de, '_en')]:
+    print '%s:' % w
+    print model.most_similar(w, topn=10)
+    print [(w,d) for (w,d) in model.most_similar(w, topn=100) if suf in w]
 
 lines = [
 'but madam president my personal request has not been met'

@@ -1,6 +1,6 @@
 Simply training German and English words with the bitext sentence id as label
-200000 sentences
-39932 words in vocab
+500000 sentences
+58341 words in vocab
 epochs
 0
 1
@@ -12,34 +12,22 @@ epochs
 7
 8
 9
-Running time 520.822551966s
-mrs_en:
-[('ms_en', 0.6884334683418274), ('patricia_en', 0.5610401630401611), ('astrid_en', 0.5483640432357788), ('b504442000 by maes lucas rod sch\xc3\xb6rling and boumedi\xc3\xa8nethiery on behalf of the vertsale group', 0.5074962377548218), ('anna_en', 0.4307422637939453), ('dagmar_en', 0.4208296537399292), ('wallis report a502532000', 0.39577627182006836), ('margot_en', 0.3851509690284729), (' de the amendments put forward by the honourable members ford ceyhun boumedienethiery s\xc3\xb6rensen schroedter and lambert seek to perpetuate a notion which the wise men have unequivocally rejected', 0.3843008875846863), ('mcnally report a500062001', 0.3776199519634247)]
-april_en:
-[('june_en', 0.5793277025222778), ('july_en', 0.5766991376876831), ('march_en', 0.5664693713188171), ('november_en', 0.5576372146606445), ('october_en', 0.5051504373550415), ('august_en', 0.5044853687286377), ('december_en', 0.4424487352371216), ('february_en', 0.4356577396392822), ('september_en', 0.41433900594711304), ('january_en', 0.39687204360961914)]
-objection_en:
-[('objections_en', 0.39744073152542114), ('doubt_en', 0.38610005378723145), ('longer_en', 0.3714492917060852), ('we have not said no to a directive before', 0.36979955434799194), ('amendment_en', 0.36151111125946045), ('engineer_en', 0.3486688733100891), ('10492001_en', 0.3440985381603241), ('whatsoever_en', 0.32419320940971375), ('invitation_en', 0.319286584854126), ('stranger_en', 0.315060019493103)]
-debate_en:
-[('discussion_en', 0.44431072473526), ('we asked for a whistleblower s regulation and this is now in place', 0.4305356442928314), ('topic_en', 0.42615991830825806), ('insistence_en', 0.39653128385543823), ('issue_en', 0.39548516273498535), ('text_en', 0.3794930577278137), ('bias_en', 0.3758476674556732), ('lifetime_en', 0.3649149239063263), ('region_en', 0.36236971616744995), ('mud_en', 0.36195263266563416)]
-answer_en:
-[('answers_en', 0.4954201281070709), ('reply_en', 0.470919668674469), ('ask_en', 0.3742560148239136), ('plea_en', 0.37130826711654663), ('excuse_en', 0.3672316074371338), ('liking_en', 0.3601793944835663), ('return_en', 0.3594214916229248), ('offload_en', 0.3586757183074951), ('attachment_en', 0.3541233539581299), ('write_en', 0.34978359937667847)]
-frau_de:
-[('nicole_de', 0.48148223757743835), ('i am the president of the european parliament', 0.4707530438899994), ('we therefore welcome commissioner wallstr\xc3\xb6m s brief visit for it can contribute to this awareness', 0.4278724789619446), ('b5\xc2\xad00632001 by mrs hautala mrs maes mr gahrton and mrs mckenna on behalf of the group of the greenseuropean free alliance on the law on the khmer rouge trial', 0.42649710178375244), ('president', 0.4168848991394043), ('karamanou and klamt reports a502562001 and a501832001', 0.41295915842056274), ('b5\xc2\xad03832001 by mrs grosset\xc3\xaate mr morillon mr lamassoure and mrs fourtou on behalf of the ppe\xc2\xadde group on the floods in the somme france', 0.40553903579711914), ('b503712000 by mrs banotti and mrs pack on behalf of the group of the european peoples party christian democrats and the european democrats', 0.3985399603843689), ('i would therefore urge andrew to withdraw his request since mrs buitenweg and others want a vote to be taken on the s\xc3\xb6rensen and karamanou reports this morning', 0.3972737789154053), ('caroline_de', 0.39671120047569275)]
-april_de:
-[('juli_de', 0.6598815321922302), ('februar_de', 0.630052924156189), ('november_de', 0.6134346723556519), ('juni_de', 0.6054611206054688), ('m\xc3\xa4rz_de', 0.5789873600006104), ('mai_de', 0.5722605586051941), ('oktober_de', 0.5549038648605347), ('januar_de', 0.5456655025482178), ('fr\xc3\xbchjahr_de', 0.502941370010376), ('august_de', 0.45726004242897034)]
-einwand_de:
-[('kommissionsvorschlag_de', 0.3839499354362488), ('teil_de', 0.35454288125038147), ('rechtsakt_de', 0.35306239128112793), ('punkt_de', 0.35034725069999695), ('unterschied_de', 0.3345828652381897), ('zweck_de', 0.3322010338306427), ('konvent_de', 0.3320721983909607), ('sieg_de', 0.3313635587692261), ('rechnungsabschlu\xc3\x9f_de', 0.3305307626724243), ('schritt_de', 0.3284294009208679)]
-debatte_de:
-[('aussprache_de', 0.5648680329322815), ('diskussion_de', 0.5209850072860718), ('verhandlungen_de', 0.44670289754867554), ('daten_de', 0.3875831365585327), ('richtlinie_de', 0.38678669929504395), ('praxis_de', 0.37717241048812866), ('krisenregion_de', 0.3741401135921478), ('rahmenvereinbarung_de', 0.37238240242004395), ('krise_de', 0.3673025965690613), ('debatten_de', 0.3666524887084961)]
-antwort_de:
-[('reaktion_de', 0.5166526436805725), ('reise_de', 0.43113821744918823), ('zusicherung_de', 0.42530500888824463), ('botschaft_de', 0.40540650486946106), ('zusage_de', 0.4042450189590454), ('pflicht_de', 0.39868390560150146), ('dynamisierung_de', 0.39236217737197876), ('f\xc3\xa4higkeit_de', 0.3905545473098755), ('angelegenheit_de', 0.38829469680786133), ('untersuchung_de', 0.38795292377471924)]
+Running time 1588.61196399s
+['mrs_en', 'april_en', 'objection_en', 'debate_en', 'answer_en']:
+[('reply_en', 0.4784805178642273), ('discussion_en', 0.4256502389907837), ('opinion_en', 0.42302894592285156), ('focus_en', 0.4103353023529053), ('counterreport_en', 0.410124808549881), ('ambivalence_en', 0.4072208106517792), ('overemphasis_en', 0.4028550684452057), ('insistence_en', 0.38705572485923767), ('pawn_en', 0.38694795966148376), ('runup_en', 0.38509079813957214)]
+[]
+['frau_de', 'april_de', 'einwand_de', 'debatte_de', 'antwort_de']:
+[('mitteilung_de', 0.44592171907424927), ('haushaltsdurchf\xc3\xbchrung_de', 0.4406850337982178), ('aktion_de', 0.4279581904411316), ('kampagne_de', 0.41305720806121826), ('verfahrensweise_de', 0.4078347682952881), ('nordsee_de', 0.40399521589279175), ('februar_de', 0.40338557958602905), ('aussprache_de', 0.4020720422267914), ('ausgabenseite_de', 0.4010920524597168), ('beratung_de', 0.39733096957206726)]
+[]
 but madam president my personal request has not been met:
-[('this cannot possibly be true it is not true and i would argue that even the members speeches illustrate that it is not true', 0.30763790011405945), ('if you manage as much your presidential term will have been a job well done', 0.3057813346385956), ('a decision on vaccination is not easy', 0.30372896790504456), ('woolly_en', 0.29214972257614136), ('if that were the case they would not need ratification from all 15 member states', 0.2883874177932739), ('i can reassure mrs ferrer that catalan has not been omitted', 0.28706973791122437), ('but today i arrived in parliament i opened my window in the office in the tower and i could not hear strasbourg airport i could not even hear the railway', 0.28594815731048584), ('the commission then said that it would of course reply to the questionnaire despite the fact that this point was not clarified', 0.2857739329338074), ('the danish social democrats in the european parliament welcome the initiative concerning common rules for family reunification although we have nonetheless voted against a number of points including the oneyear rule', 0.2807582914829254), ('nevertheless these matters are done in secret', 0.2804829180240631)]
+[('i should like to express my personal and heartfelt thanks to secretarygeneral priestley and his staff for the efficient and bold manner in which he met this request and has provided us with the information required', 0.4208791255950928), ('i hope mr president that you will act on my request', 0.39913618564605713), ('i have been a member of this parliament for 17 years', 0.3896896541118622), ('finally human rights', 0.3887377381324768), ('so i welcome this resolution and i commend it', 0.3782557249069214), ('therefore my report calls for a number of things', 0.3720805048942566), ('this is my personal view', 0.37171798944473267), ('at any rate that is my hope', 0.36892038583755493), ('it will ensure that the conditions for accession are met', 0.3680606782436371), ('mr president i am of course making this request on behalf of my group', 0.366386353969574)]
 we then put it to a vote:
-[('they then suggested a nominal vote so a count could be taken', 0.3984866142272949), ('we again urged the chinese to begin a dialogue with the dalai lama', 0.38751909136772156), ('i was unable to vote electronically since i do not have a card', 0.3872447609901428), ('that is why it is important that we vote this afternoon', 0.38242125511169434), ('mr president i should like to request that it not be taken this evening', 0.3757622241973877), ('i suggest that we vote this evening', 0.35688266158103943), ('i listened to it very carefully', 0.3507630228996277), ('it is therefore important that there be a coordination strategy', 0.3473924994468689), ('predates_en', 0.34596893191337585), ('it was like a dialogue of the deaf last night', 0.3455539345741272)]
+[('they then suggested a nominal vote so a count could be taken', 0.4259014129638672), ('we would then vote in favour of them', 0.40067005157470703), ('however i would like to make one comment and then put a question to you', 0.3952151834964752), ('we really do have to say something to persuade them', 0.3838876485824585), ('there was a vote on this matter', 0.36597520112991333), ('but if you voted on this then i will not put the question', 0.3637956976890564), ('we also need the country whose flag the ship flies to bear liability', 0.36328232288360596), ('mr president at this point in the debate there is not perhaps a very great deal new to add but i shall nonetheless have a try', 0.36101335287094116), ('it has taken nine years to get this legislation', 0.359763503074646), ('the relationship is not merely a political one centred on the madrid summit', 0.35832545161247253)]
 thank you very much:
-[('thank you very much mr president', 0.7827407121658325), ('thank you very much commissioner', 0.7247724533081055), ('thank you very much commissioner patten', 0.7217113971710205), ('thank you very much madam president', 0.697555661201477), ('thank you very much ladies and gentlemen', 0.6712340116500854), ('thank you very much commissioner vitorino', 0.6632258892059326), ('madam president thank you very much', 0.6440267562866211), ('thank you madam president', 0.6343845129013062), ('thank you very much mrs reding', 0.6294955015182495), ('thank you very much mrs de palacio', 0.6287872195243835)]
-{'de': 'herr', 'en': 'mr'} 0.0414954748352
-{'de': 'april', 'en': 'april'} 0.063580380309
-{'de': 'ich', 'en': 'i'} -0.0425263447085
-total: 0.0625495104357
+[('thank you very much mr president', 0.777478814125061), ('thank you very much madam president', 0.7197104692459106), ('thank you very much commissioner', 0.7161067128181458), ('thank you', 0.6754220724105835), ('thank you very much commissioner patten', 0.6342074275016785), ('thank you very much commissioner fischler', 0.633531928062439), ('thank you very much mr solana', 0.6177575588226318), ('thank you very much commissioner bolkestein', 0.6140202283859253), ('\xc2\xa0\xc2\xa0 thank you very much commissioner', 0.5909199714660645), ('thank you very much mrs de palacio', 0.5825599431991577)]
+{'de': 'herr', 'en': 'mr'} 0.148207077298
+{'de': 'april', 'en': 'april'} 0.138018679873
+{'de': 'september', 'en': 'september'} 0.144741515683
+{'de': 'ich', 'en': 'i'} -0.072155706631
+{'de': 'aber', 'en': 'but'} 0.0466025248232
+{'de': 'sagte', 'en': 'said'} 0.153006608662
