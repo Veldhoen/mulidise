@@ -1,16 +1,15 @@
 #!/usr/bin/python
 from gensim.models.doc2vec import Doc2Vec, LabeledLineSentence, LabeledSentence
 from itertools import izip, islice
-from random import shuffle
 import string
-import timeit
 import sys
+import timeit
 from inspection import inspect_words, inspect_sentences
 
 def preprocess(s):
     return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
 
-class BitextDoubleSentence(object):
+class BitextMergedSentence(object):
     def __init__(self, filename, size):
         self.filename = filename
         self.size = size
@@ -22,20 +21,17 @@ class BitextDoubleSentence(object):
                 pen = preprocess(en)
                 en = ['%s_en'%w for w in pen.split()]
                 de = ['%s_de'%w for w in preprocess(de).split()]
-                langs = [en, de]
-                shuffle(langs)
-                for l in langs:
-                    yield LabeledSentence(words=l, labels=[pen])
+                yield LabeledSentence(words=en+de, labels=[pen])
 
-print 'Simply training German and English words with the bitext sentence id as label'
+print 'Learning sentence embeddings'
 start = timeit.default_timer()
 
 f = sys.argv[1]+'/europarl-v7.de-en.'
-n = 500000
-sentences = BitextDoubleSentence(f, n)
+n = 50000
+sentences = BitextMergedSentence(f, n)
 print '%s sentences' % n
 
-model = Doc2Vec(alpha=0.025, min_alpha=0.025, size=256, workers=8)
+model = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=256)
 model.build_vocab(sentences)
 print '%s words in vocab' % (len(model.vocab) - n)
 
@@ -44,9 +40,29 @@ for epoch in range(10):
     model.train(sentences)
     print epoch
     model.alpha -= 0.002  # decrease the learning rate
-
 stop = timeit.default_timer()
 print 'Running time %ss' % (stop - start)
 
 inspect_sentences(model)
+
+
+print 'Learning word embeddings'
+# scale the sentence vectors
+for s in sentences:
+    for l in s.labels:
+        if l in model.vocab:
+            model.syn0[model.vocab[l].index] *= 5
+
+model.dm = 1 # switch over to Distributed Memory
+model.train_lbls = False # stop training sentences
+model.alpha = 0.025
+
+print 'epochs'
+for epoch in range(10):
+    model.train(sentences)
+    print epoch
+    model.alpha -= 0.002  # decrease the learning rate
+stop = timeit.default_timer()
+print 'Running time %ss' % (stop - start)
+
 inspect_words(model)
