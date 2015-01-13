@@ -1,0 +1,21 @@
+50000 sentences
+20074 words in vocab
+epochs
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+you will be aware from the press and television that there have been a number of bomb explosions and killings in sri lanka:
+[('there have already been hundreds of deaths', 0.45417720079421997), ('that advertising agency made some very nice advertisements and hundreds of thousands of leaflets were distributed', 0.41563329100608826), ('we had the bse crisis in europe and several european countries suffered from swine fever outbreaks', 0.4138796329498291), ('there have only been nine rejections', 0.4123844504356384), ('tens of thousands of people live and sleep a stone s throw away from the runway', 0.3958796560764313), ('nothing short of a cessation of the conflict will end the misery of the tamils in sri lanka and nothing else will end the number of people seeking refuge in the european union', 0.3896513879299164), ('you will remember mr president ladies and gentlemen and it has been mentioned that some iranian jews were arrested for spying for israel a few years ago', 0.37949833273887634), ('mr president over the last few days we have read in the press that the european parliament is a haven for thieves', 0.37834465503692627), ('oz s impression is also echoed in the israeli press', 0.37155067920684814), ('leyla azan is still in prison and so are thousands of kurds', 0.3702848255634308)]
+but madam president my personal request has not been met:
+[('madam president has my vote been counted', 0.4924604594707489), ('madam president senator casas was my husband', 0.48805394768714905), ('why have the staircases not been improved since my accident', 0.4657417833805084), ('i was not wearing my glasses', 0.45667698979377747), ('unfortunately the commissioner has not yet arrived although she is on her way', 0.4483910799026489), ('madam president i should like to respond to what my fellow member has just said', 0.4458427131175995), ('madam president my colleague mr fischler made a statement on this yesterday', 0.4315384030342102), ('madam president this brings me to the end of my speech', 0.4276159107685089), ('my second point has been touched upon by the previous speaker', 0.4258081912994385), ('madam president mr pirker has not spoken on the agenda', 0.4236052334308624)]
+we then put it to a vote:
+[('let us proceed to the vote', 0.5331685543060303), ('meanwhile we have to offer the commission a vote of confidence', 0.5085015892982483), ('that ought to mean that we have more time on thursday', 0.5047772526741028), ('we all agree on this', 0.5013203024864197), ('i request that this be put to the vote', 0.5013146996498108), ('we would be happy to vote', 0.5010388493537903), ('we will certainly have to keep a close eye on that', 0.4973694682121277), ('then we shall follow the usual procedure hearing one speaker in favour and one against', 0.49472498893737793), ('we will have the opportunity to do so on other occasions', 0.48717790842056274), ('they then suggested a nominal vote so a count could be taken', 0.48503634333610535)]
+thank you very much:
+[('thank you very much mr obiols', 0.8346514701843262), ('thank you very much commissioner bolkestein', 0.8328206539154053), ('thank you very much commissioner', 0.8288703560829163), ('thank you very much mr cox', 0.8172017931938171), ('thank you very much mr vitorino', 0.8088046908378601), ('thank you very much minister', 0.8077993988990784), ('thank you very much mr patten', 0.8077847957611084), ('thank you very much commissioner verheugen', 0.8049246668815613), ('thank you very much mrs langenhagen', 0.803106963634491), ('thank you very much commissioner vitorino', 0.8013923168182373)]
