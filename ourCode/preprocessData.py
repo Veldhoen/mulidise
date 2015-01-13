@@ -10,8 +10,6 @@ def walkDataDir(inDir, outDir):
     try: shutil.rmtree(outDir, ignore_errors=True)
     except: print 'problem removing tree'
 
-
-#    try:
     for kind in kinds:
         print kind
         kindDir = os.path.join(inDir,kind)
@@ -22,15 +20,11 @@ def walkDataDir(inDir, outDir):
                 labelDir = os.path.join(kindDir,topic,labels[i])
                 for fileName in os.listdir(labelDir):
                     emb = encodeText(os.path.join(labelDir,fileName))
+                    if len(emb)<1:
+                       print 'watsgeburt', fileName
+                       sys.exit()
                     outFile = os.path.join(outDir,kind,topic)+'.emb'
-
-
                     outputEmbeddings(emb, i+1,outFile)
-
-#        print topicDirs
-#    except:
- #       print 'help!'
-
 
 
 
@@ -43,11 +37,14 @@ def encodeText(fromFile):
              for token in line.split():
                  token = token.lower()
                  #DELETE THE NEXT LINE!
-                 token = token.split('_')[0]
+                 token = ''.join(token.split('_')[:-1])
                  if token in embeddings:
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
                      weighedEmbedding = [value*weight for value in embeddings[token]]
+                     if len(weighedEmbedding) != len(summedEmbeddings):
+                        print 'weird'
+                        sys.exit()
                      summedEmbeddings=[sum(x) for x in zip(summedEmbeddings,weighedEmbedding )]
                      norm += weight
                  else:
