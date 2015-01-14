@@ -2,8 +2,11 @@
 
 import sys, getopt, os
 import shutil
+import numpy
+from numpy import array
 
 def walkDataDir(inDir, outDir):
+    print 'walking',inDir,'...'
     kinds = ['train','test']
     labels = ['positive', 'negative']
 
@@ -23,13 +26,14 @@ def walkDataDir(inDir, outDir):
                     if len(emb)<1:
                        print 'watsgeburt', fileName
                        sys.exit()
-                    outFile = os.path.join(outDir,kind,topic)+'.emb'
+                    outFile = os.path.join(outDir,kind+'.'+topic+'.emb')
                     outputEmbeddings(emb, i+1,outFile)
+    print 'Done.'
 
 
 
 def encodeText(fromFile):
-    summedEmbeddings = [0]*len(embeddings.values()[1])
+    summedEmbeddings = numpy.zeros(len(embeddings.values()[1]))
     norm = 0
 
     with open(fromFile, 'r') as f:
@@ -41,18 +45,23 @@ def encodeText(fromFile):
                  if token in embeddings:
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
-                     weighedEmbedding = [value*weight for value in embeddings[token]]
-                     if len(weighedEmbedding) != len(summedEmbeddings):
-                        print 'weird'
-                        sys.exit()
-                     summedEmbeddings=[sum(x) for x in zip(summedEmbeddings,weighedEmbedding )]
+                     summedEmbeddings+=weight*embeddings[token]
                      norm += weight
                  else:
 #                     print 'no entry for', token
                      break
-    if norm == 0: norm = 1
-    documentEmbedding = [value/norm for value in summedEmbeddings]
+    if norm == 0: norm = 1.0
+    documentEmbedding = summedEmbeddings/norm
     return documentEmbedding
+
+def walkLanguages(inDir,outDir):
+    lans = ['en','it','de','es','fr','nl','pb','pl','ro']
+    # English/ pivot language:
+    walkDataDir(os.path.join(inDir,lans[0]+'-'+lans[1]),os.path.join(outDir,lans[0]))
+    # Other languages:
+    for lan in lans[1:]:
+        walkDataDir(os.path.join(inDir,lan+'-'+lans[0]),os.path.join(outDir,lan))
+
 
 def initializeEmbeddings(fromFile):
     print 'initializing embeddings...'
@@ -61,7 +70,7 @@ def initializeEmbeddings(fromFile):
     with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split(':')
-             embeddings[parts[0].strip()] = [float(val) for val in parts[1].split()]
+             embeddings[parts[0].strip()] = array([float(val) for val in parts[1].split()])
     print 'done.'
 
 def initializeIDFS(fromFile):
@@ -121,10 +130,7 @@ def main(argv):
     try: initializeIDFS(idfFile)
     except: idf
 
-    walkDataDir(dataDir,outDir)
-#    documentEmbedding = encodeText(textFile)
-#    outputEmbeddings(documentEmbedding, label, outputFile)
-
+    walkLanguages(dataDir,outDir)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
