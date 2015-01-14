@@ -47,14 +47,15 @@ inspect_sentences(model)
 
 
 print 'Learning word embeddings'
-# scale the sentence vectors
-for s in sentences:
-    for l in s.labels:
-        if l in model.vocab:
-            model.syn0[model.vocab[l].index] *= 5
+# # scale the sentence vectors
+# for s in sentences:
+#     for l in s.labels:
+#         if l in model.vocab:
+#             model.syn0[model.vocab[l].index] *= 5
 
-model.dm = 1 # switch over to Distributed Memory
+model.sg = 0 # switch over to Distributed Memory
 model.train_lbls = False # stop training sentences
+model.train_words = True
 model.alpha = 0.025
 
 print 'epochs'
