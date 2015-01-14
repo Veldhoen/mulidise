@@ -52,6 +52,7 @@ print 'Learning word embeddings'
 
 model.sg = 0 # switch over to Distributed Memory
 model.train_lbls = False # stop training sentences
+model.train_words = True
 model.alpha = 0.025
 
 print 'epochs'
