@@ -1,19 +1,26 @@
-benno=/~/bkruit/mulidise
-sara=/~/sveldhoen/mulidise
+benno=/home/bkruit/mulidise
+sara=/home/sveldhoen/mulidise
 
-experiment=$benno/experiment1
-embeddings=$benno.document-representations/data/embeddings/original-de-en.en
+experiment=$1
+embeddings=$benno/document-representations/data/embeddings/original-de-en.en
 
-tedDocs=$sara/ted-cld
+mkdir $experiment/docEmbeddings
+mkdir $experiment/models
+mkdir $experiment/results
+
+
+tedDocs=$sara/ted-cldc
 tedIDFs=$sara/idfsTED
-classifiers=benno/document-representations/bin
+classifiers=$benno/document-representations/bin
+preprocess=$benno/mulidise/ourCode/preprocessData.py
 
-# preprocess data
-python preprocessData.py \
-       -d $tedData
-       -e $embeddings
-       -o $experiment/docEmbeddings
+echo preprocess data...
+python -u $preprocess\
+       -d $tedDocs \
+       -e $embeddings \
+       -o $experiment/docEmbeddings \
        -i $tedIDFs
+echo done.
 
 languages=(en de es fr it nl pb pl ro)
 topics=(art arts biology business creativity culture design economics education entertainment global health politics science technology)
@@ -35,15 +42,13 @@ done
 for lan1 in ${languages[@]}; do
   otherLans=`echo ${languages[@]}| sed "s/\b$lan\b//g"`
   for lan2 in ${otherLans[@]}; do
-    echo $lan1-$lan2 >> $experiment/output/results.txt
     for topic in ${topics[@]}; do
-      echo $topic >> $experiment/output/results.txt
       #test classifier of lan1 on lan2
       java  -ea -Xmx2000m -cp \
         $classifiers ApClassify
         --test-set $experiment/docEmbeddings/$lan2/test.$topic.emb \
         --model-name $experiment/models/$lan.$topic.model \
-        >> $experiment/output/results.txt
+        > $experiment/results/$lan1-$lan2.$topic.result
     done
   done
 done
