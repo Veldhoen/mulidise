@@ -3,10 +3,7 @@ from gensim.models.doc2vec import Doc2Vec, LabeledLineSentence, LabeledSentence
 from itertools import izip, islice
 import string
 import sys
-from inspection import inspect_sentences
-
-def preprocess(s):
-    return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
+from inspection import preprocess, inspect_sentences
 
 class LiteralLineSentence(object):
     def __init__(self, filename, size):

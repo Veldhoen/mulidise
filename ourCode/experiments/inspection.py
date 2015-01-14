@@ -1,5 +1,8 @@
 import csv
 
+def preprocess(s):
+    return s.lower().translate(string.maketrans("",""), string.punctuation)
+
 def inspect_sentences(model):
     lines = [
     'you will be aware from the press and television that there have been a number of bomb explosions and killings in sri lanka'

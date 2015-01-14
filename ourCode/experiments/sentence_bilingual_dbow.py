@@ -4,10 +4,7 @@ from itertools import izip, islice
 import string
 import sys
 import timeit
-from inspection import inspect_words, inspect_sentences
-
-def preprocess(s):
-    return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
+from inspection import preprocess, inspect_words, inspect_sentences
 
 class BitextMergedSentence(object):
     def __init__(self, filename, size):
@@ -47,13 +44,13 @@ inspect_sentences(model)
 
 
 print 'Learning word embeddings'
-# scale the sentence vectors
-for s in sentences:
-    for l in s.labels:
-        if l in model.vocab:
-            model.syn0[model.vocab[l].index] *= 5
+# # scale the sentence vectors
+# for s in sentences:
+#     for l in s.labels:
+#         if l in model.vocab:
+#             model.syn0[model.vocab[l].index] *= 5
 
-model.dm = 1 # switch over to Distributed Memory
+model.sg = 0 # switch over to Distributed Memory
 model.train_lbls = False # stop training sentences
 model.alpha = 0.025
 
