@@ -1,4 +1,5 @@
 import csv
+import string
 
 def preprocess(s):
     return s.lower().translate(string.maketrans("",""), string.punctuation)

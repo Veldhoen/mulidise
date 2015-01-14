@@ -2,7 +2,6 @@
 from gensim.models.doc2vec import Doc2Vec, LabeledLineSentence, LabeledSentence
 from itertools import izip, islice
 from random import shuffle
-import string
 import timeit
 import sys
 from inspection import preprocess, inspect_words
