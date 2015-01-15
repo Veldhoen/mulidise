@@ -45,8 +45,14 @@ def encodeText(fromFile):
                  if token in embeddings:
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
-                     summedEmbeddings+=weight*embeddings[token]
-                     norm += weight
+		     try:
+                       summedEmbeddings+=weight*embeddings[token]
+                       norm += weight
+		     except:
+			print 'problem for document', fromFile
+		       	print token, weight, embeddings[token], summedEmbeddings
+			sys.exit()
+			
                  else:
 #                     print 'no entry for', token
                      break
@@ -70,7 +76,11 @@ def initializeEmbeddings(fromFile):
     with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split(':')
-             embeddings[parts[0].strip()] = array([float(val) for val in parts[1].split()])
+             emb = array([float(val) for val in parts[1].split()])
+	     if len(emb)>0:
+                embeddings[parts[0].strip()] = emb
+	     else:
+		print 'no embedding for:',parts[0].strip() 
     print 'done.'
 
 def initializeIDFS(fromFile):
