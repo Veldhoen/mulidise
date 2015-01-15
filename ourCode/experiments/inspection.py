@@ -2,7 +2,7 @@ import csv
 import string
 
 def preprocess(s):
-    return s.lower().translate(string.maketrans("",""), string.punctuation)
+    return s.rstrip().lower().translate(string.maketrans("",""), string.punctuation)
 
 def inspect_sentences(model):
     lines = [
