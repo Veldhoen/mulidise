@@ -63,3 +63,12 @@ for lan1 in ${languages[@]}; do
   done
 done
 echo done.
+
+
+FILES=$experiment/results/*
+OUT=$experiment/results/allResults.txt
+for f in $FILES
+do
+  echo -n $f | sed 's/.*\/\///' | sed 's/\./\t/g'| sed 's/result//' >> $OUT
+  cat $f | grep -Po '\d+.\d+' >> $OUT
+done
