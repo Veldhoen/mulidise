@@ -4,9 +4,13 @@ import sys, getopt, os
 import shutil
 import numpy
 from numpy import array
+from multiprocessing import Pool
 
-def walkDataDir(inDir, outDir):
-    print 'walking',inDir,'...'
+
+def walkDataDir(dirs):
+    inDir = dirs[0]
+    outDir = dirs[1]
+    print '\twalking',inDir,'...'
     kinds = ['train','test']
     labels = ['positive', 'negative']
 
@@ -28,7 +32,7 @@ def walkDataDir(inDir, outDir):
                        sys.exit()
                     outFile = os.path.join(outDir,kind+'.'+topic+'.emb')
                     outputEmbeddings(emb, i+1,outFile)
-    print 'Done.'
+    print '\tdone.'
 
 
 
@@ -45,14 +49,8 @@ def encodeText(fromFile):
                  if token in embeddings:
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
-		     try:
-                       summedEmbeddings+=weight*embeddings[token]
-                       norm += weight
-		     except:
-			print 'problem for document', fromFile
-		       	print token, weight, embeddings[token], summedEmbeddings
-			sys.exit()
-			
+                     summedEmbeddings+=weight*embeddings[token]
+                     norm += weight
                  else:
 #                     print 'no entry for', token
                      break
@@ -61,37 +59,41 @@ def encodeText(fromFile):
     return documentEmbedding
 
 def walkLanguages(inDir,outDir):
+    p = Pool()
     lans = ['en','it','de','es','fr','nl','pb','pl','ro']
+    ins = [os.path.join(inDir,lan+'-'+lans[0]) for lan in lans[1:]]
+    ins.insert(0,os.path.join(inDir,lans[0]+'-'+lans[1]))
+    outs=[os.path.join(outDir,lan) for lan in lans]
+
+
+    p.map(walkDataDir,zip(ins,outs))
+
     # English/ pivot language:
-    walkDataDir(os.path.join(inDir,lans[0]+'-'+lans[1]),os.path.join(outDir,lans[0]))
+#    walkDataDir(os.path.join(inDir,lans[0]+'-'+lans[1]),os.path.join(outDir,lans[0]))
     # Other languages:
-    for lan in lans[1:]:
-        walkDataDir(os.path.join(inDir,lan+'-'+lans[0]),os.path.join(outDir,lan))
+#    for lan in lans[1:]:
+#        walkDataDir(os.path.join(inDir,lan+'-'+lans[0]),os.path.join(outDir,lan))
 
 
 def initializeEmbeddings(fromFile):
-    print 'initializing embeddings...'
+    print '\tinitializing embeddings...'
     global embeddings
     embeddings = dict()
     with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split(':')
-             emb = array([float(val) for val in parts[1].split()])
-	     if len(emb)>0:
-                embeddings[parts[0].strip()] = emb
-	     else:
-		print 'no embedding for:',parts[0].strip() 
-    print 'done.'
+             embeddings[parts[0].strip()] = array([float(val) for val in parts[1].split()])
+    print '\tdone.'
 
 def initializeIDFS(fromFile):
-    print 'initializing idf values...'
+    print '\tinitializing idf values...'
 
     global idf
     with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split()
              idf[parts[0]]=float(parts[2])
-    print 'done.'
+    print '\tdone.'
 
 def outputEmbeddings(emb, label, outputFile):
     d = os.path.dirname(outputFile)

@@ -1,49 +1,74 @@
-benno=/~/bkruit/mulidise
-sara=/~/sveldhoen/mulidise
+benno=/home/bkruit/mulidise
+sara=/home/sveldhoen/mulidise
 
-experiment=$benno/experiment1
-embeddings=$benno.document-representations/data/embeddings/original-de-en.en
+experiment=$1
+embeddings=$benno/document-representations/data/embeddings/original-de-en.en
 
-tedDocs=$sara/ted-cld
+mkdir -p $experiment/docEmbeddings
+mkdir $experiment/models
+mkdir $experiment/results
+
+
+tedDocs=$sara/ted-cldc
 tedIDFs=$sara/idfsTED
-classifiers=benno/document-representations/bin
+classifiers=$benno/document-representations/bin
+preprocess=$benno/mulidise/ourCode/preprocessData.py
 
-# preprocess data
-python preprocessData.py \
-       -d $tedData
-       -e $embeddings
-       -o $experiment/docEmbeddings
+date
+echo preprocess data...
+python -u $preprocess\
+       -d $tedDocs \
+       -e $embeddings \
+       -o $experiment/docEmbeddings \
        -i $tedIDFs
+echo done.
 
+
+date
+echo training models...
 languages=(en de es fr it nl pb pl ro)
 topics=(art arts biology business creativity culture design economics education entertainment global health politics science technology)
 
 for lan in ${languages[@]}; do
-  echo $lan
   for topic in ${topics[@]}; do
-    echo $topic
+    echo -e '\t' $lan-$topic
     # train, i.e. create model:
     java  -ea -Xmx2000m -cp \
       $classifiers ApLearn  \
       --train-set  $experiment/docEmbeddings/$lan/train.$topic.emb \
       --model-name $experiment/models/$lan.$topic.model \
-      --epoch-num 10
+      --epoch-num 10 &
   done
 done
+echo done.
 
+wait
+
+date
+echo testing models...
 
 for lan1 in ${languages[@]}; do
-  otherLans=`echo ${languages[@]}| sed "s/\b$lan\b//g"`
-  for lan2 in ${otherLans[@]}; do
-    echo $lan1-$lan2 >> $experiment/output/results.txt
+#  otherLans=`echo ${languages[@]}| sed "s/\b$lan\b//g"`
+# for lan2 in ${otherLans[@]}; do
+  for lan2 in ${languages[@]}; do
     for topic in ${topics[@]}; do
-      echo $topic >> $experiment/output/results.txt
+      echo -e '\t' $lan1-$lan2: $topic
       #test classifier of lan1 on lan2
       java  -ea -Xmx2000m -cp \
-        $classifiers ApClassify
+        $classifiers ApClassify \
         --test-set $experiment/docEmbeddings/$lan2/test.$topic.emb \
         --model-name $experiment/models/$lan.$topic.model \
-        >> $experiment/output/results.txt
+        > $experiment/results/$lan1-$lan2.$topic.result &
     done
   done
+done
+echo done.
+
+
+FILES=$experiment/results/*
+OUT=$experiment/results/allResults.txt
+for f in $FILES
+do
+  echo -n $f | sed 's/.*\/\///' | sed 's/\./\t/g'| sed 's/result//' >> $OUT
+  cat $f | grep -Po '\d+.\d+' >> $OUT
 done
