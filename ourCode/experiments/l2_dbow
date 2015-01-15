@@ -1,0 +1,61 @@
+Learning to predict all l2 words from every l1 word
+50000 sentences
+52583 words in vocab
+epochs
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Running time 3093.35382223s
+mrs_en:
+[('shooting_en', 0.29262372851371765), ('suggest_en', 0.2697181701660156), ('sensationelle_de', 0.26395687460899353), ('diskutabel_de', 0.2468082159757614), ('still_en', 0.24415040016174316), ('important_en', 0.24398165941238403), ('community_en', 0.24104216694831848), ('moldawiens_de', 0.23400405049324036), ('vernetzten_de', 0.23332332074642181), ('zollunion_de', 0.23143304884433746)]
+[('sensationelle_de', 0.26395687460899353), ('diskutabel_de', 0.2468082159757614), ('moldawiens_de', 0.23400405049324036), ('vernetzten_de', 0.23332332074642181), ('zollunion_de', 0.23143304884433746), ('verringerung_de', 0.2300751656293869), ('pietro_de', 0.22385390102863312), ('alpentransit_de', 0.22173896431922913), ('b74012_de', 0.2199651002883911), ('abgewickelt_de', 0.2179320752620697)]
+april_en:
+[('unleserlich_de', 0.25358501076698303), ('resulting_en', 0.24820518493652344), ('verlustausgleichs_de', 0.2410162389278412), ('kommissionsentwurfs_de', 0.23806020617485046), ('toppriorit\xc3\xa4ten_de', 0.23561345040798187), ('angelegt_de', 0.23545409739017487), ('vogelpopulation_de', 0.23282742500305176), ('wirksamwerden_de', 0.23251833021640778), ('orientiert_de', 0.2270905077457428), ('au\xc3\x9ferdienststellung_de', 0.22206079959869385)]
+[('unleserlich_de', 0.25358501076698303), ('verlustausgleichs_de', 0.2410162389278412), ('kommissionsentwurfs_de', 0.23806020617485046), ('toppriorit\xc3\xa4ten_de', 0.23561345040798187), ('angelegt_de', 0.23545409739017487), ('vogelpopulation_de', 0.23282742500305176), ('wirksamwerden_de', 0.23251833021640778), ('orientiert_de', 0.2270905077457428), ('au\xc3\x9ferdienststellung_de', 0.22206079959869385), ('bildungssysteme_de', 0.22191357612609863)]
+objection_en:
+[('busquin_de', 0.2569568157196045), ('stellenbesetzung_de', 0.25158482789993286), ('etablieren_de', 0.2417038083076477), ('hippocrates_en', 0.24124662578105927), ('souver\xc3\xa4n_de', 0.2372809499502182), ('1999468ec_en', 0.2288115918636322), ('marpol_en', 0.22483158111572266), ('prosecutions_en', 0.22365440428256989), ('kunststoffen_de', 0.22341497242450714), ('patten_de', 0.22251923382282257)]
+[('busquin_de', 0.2569568157196045), ('stellenbesetzung_de', 0.25158482789993286), ('etablieren_de', 0.2417038083076477), ('souver\xc3\xa4n_de', 0.2372809499502182), ('kunststoffen_de', 0.22341497242450714), ('patten_de', 0.22251923382282257), ('bananensektor_de', 0.21800927817821503), ('ungarischen_de', 0.2162361890077591), ('ehemann_de', 0.21430721879005432), ('verdanken_de', 0.21253791451454163)]
+debate_en:
+[('eurocrats_en', 0.26307547092437744), ('funktionieren_de', 0.2401571422815323), ('obscures_en', 0.23679354786872864), ('\xc3\xb6ffentlich_de', 0.2326555699110031), ('oberfl\xc3\xa4chliche_de', 0.22952571511268616), ('neuer\xc3\xb6rterung_de', 0.22796101868152618), ('minimalforderung_de', 0.22688943147659302), ('durchgesetzt_de', 0.22432298958301544), ('promises_en', 0.2207568883895874), ('auge_de', 0.2198125720024109)]
+[('funktionieren_de', 0.2401571422815323), ('\xc3\xb6ffentlich_de', 0.2326555699110031), ('oberfl\xc3\xa4chliche_de', 0.22952571511268616), ('neuer\xc3\xb6rterung_de', 0.22796101868152618), ('minimalforderung_de', 0.22688943147659302), ('durchgesetzt_de', 0.22432298958301544), ('auge_de', 0.2198125720024109), ('sachschaden_de', 0.2166496068239212), ('sorgf\xc3\xa4ltigen_de', 0.21570107340812683), ('feiertage_de', 0.21521012485027313)]
+answer_en:
+[('squeeze_en', 0.2633781433105469), ('haushaltsplan_de', 0.2477920800447464), ('120t_en', 0.24694958329200745), ('kmu_de', 0.24657854437828064), ('a500172000_de', 0.24221467971801758), ('koentwicklung_de', 0.2311791181564331), ('europolabkommen_de', 0.23001712560653687), ('ver\xc3\xb6ffentlichten_de', 0.2298271656036377), ('steuerharmonisierung_de', 0.2253745198249817), ('stehendes_de', 0.22328701615333557)]
+[('haushaltsplan_de', 0.2477920800447464), ('kmu_de', 0.24657854437828064), ('a500172000_de', 0.24221467971801758), ('koentwicklung_de', 0.2311791181564331), ('europolabkommen_de', 0.23001712560653687), ('ver\xc3\xb6ffentlichten_de', 0.2298271656036377), ('steuerharmonisierung_de', 0.2253745198249817), ('stehendes_de', 0.22328701615333557), ('ordnungsrahmen_de', 0.22294190526008606), ('grunds\xc3\xa4tzliche_de', 0.22160911560058594)]
+frau_de:
+[('hierdurch_de', 0.25935840606689453), ('berichterstatter_de', 0.25916895270347595), ('eingespannt_de', 0.2492724359035492), ('als_de', 0.24740073084831238), ('transparenten_de', 0.2428302764892578), ('sicherheitsberater_de', 0.23640631139278412), ('menschenrechtskommissionen_de', 0.2304030805826187), ('ebensowenig_de', 0.22921344637870789), ('zahlungsvorg\xc3\xa4ngen_de', 0.22888536751270294), ('wiedergutzumachen_de', 0.22811883687973022)]
+[('wales_en', 0.2263420969247818), ('reminiscing_en', 0.21890848875045776), ('spotlight_en', 0.21598570048809052), ('lipservice_en', 0.21562156081199646), ('cohort_en', 0.2114178091287613), ('c5\xc2\xad01972000\xc2\xad19990103avc_en', 0.20961323380470276), ('incinerators_en', 0.20574934780597687), ('basket_en', 0.20421138405799866), ('twopronged_en', 0.20147643983364105), ('powerless_en', 0.1993604153394699)]
+april_de:
+[('gigantischem_de', 0.2578051686286926), ('coherent_en', 0.2487160712480545), ('schwerpunktm\xc3\xa4\xc3\x9fig_de', 0.23997342586517334), ('s\xc3\xbc\xc3\x9fwasserzufuhr_de', 0.23658007383346558), ('der_de', 0.23540782928466797), ('durchkommt_de', 0.23304417729377747), ('lldcs_en', 0.2301749885082245), ('\xc2\xad_de', 0.22751043736934662), ('arbeite_de', 0.2261294424533844), ('mi\xc3\x9fbilligen_de', 0.2250591516494751)]
+[('coherent_en', 0.2487160712480545), ('lldcs_en', 0.2301749885082245), ('plate_en', 0.2227967083454132), ('abu_en', 0.21869367361068726), ('uncles_en', 0.21562190353870392), ('irreparably_en', 0.21246086061000824), ('likewise_en', 0.21062928438186646), ('workplaces_en', 0.20805171132087708), ('prudence_en', 0.20534692704677582), ('deregulation_en', 0.20338845252990723)]
+einwand_de:
+[('b\xc3\xbcrgerbewegungen_de', 0.27599722146987915), ('abfallentsorgungseinrichtungen_de', 0.2533518671989441), ('verarbeitungsindustrie_de', 0.24469594657421112), ('abbauen_de', 0.23967117071151733), ('zusammentritt_de', 0.23469248414039612), ('noncontentious_en', 0.22484418749809265), ('ragamuffin_en', 0.2235286980867386), ('gespenstisch_de', 0.22101525962352753), ('bigliardo_en', 0.21966056525707245), ('cutting_de', 0.21924646198749542)]
+[('noncontentious_en', 0.22484418749809265), ('ragamuffin_en', 0.2235286980867386), ('bigliardo_en', 0.21966056525707245), ('posthaste_en', 0.21522191166877747), ('risking_en', 0.21059414744377136), ('secretarygeneral_en', 0.2046627253293991), ('migratory_en', 0.20359860360622406), ('slave_en', 0.20260195434093475), ('taxing_en', 0.20121031999588013), ('edges_en', 0.2006937712430954)]
+debatte_de:
+[('lines_de', 0.27570050954818726), ('reciprocity_en', 0.2589252293109894), ('hilfskr\xc3\xa4fte_de', 0.2510737180709839), ('darf_de', 0.24602140486240387), ('extraterritorialer_de', 0.2436317801475525), ('evasion_en', 0.242225781083107), ('seixas_en', 0.23761315643787384), ('mitgliedstaatenebene_de', 0.23603180050849915), ('ashore_en', 0.23053134977817535), ('addressed_en', 0.22835850715637207)]
+[('reciprocity_en', 0.2589252293109894), ('evasion_en', 0.242225781083107), ('seixas_en', 0.23761315643787384), ('ashore_en', 0.23053134977817535), ('addressed_en', 0.22835850715637207), ('deceitful_en', 0.2180744707584381), ('reemerging_en', 0.21720659732818604), ('depopulation_en', 0.20744986832141876), ('decided_en', 0.20348940789699554), ('combating_en', 0.198436439037323)]
+antwort_de:
+[('cornillet_en', 0.27242422103881836), ('siedlungsabf\xc3\xa4lle_de', 0.2622309923171997), ('besteht_de', 0.23793217539787292), ('illicit_en', 0.23737269639968872), ('fl\xc3\xa4chenpr\xc3\xa4mie_de', 0.2240123599767685), ('rectified_en', 0.2227712869644165), ('verallgemeinerung_de', 0.2211969494819641), ('zur\xc3\xbcckhaben_de', 0.21992290019989014), ('19970352cns_de', 0.21895121037960052), ('pay_en', 0.21774111688137054)]
+[('cornillet_en', 0.27242422103881836), ('illicit_en', 0.23737269639968872), ('rectified_en', 0.2227712869644165), ('pay_en', 0.21774111688137054), ('b\xc3\xa9guin_en', 0.21412216126918793), ('sense_en', 0.2132648527622223), ('stamp_en', 0.21107639372348785), ('modification_en', 0.2054872065782547), ('fry_en', 0.20510470867156982), ('upside_en', 0.2046060562133789)]
+{'de': 'herr', 'en': 'mr'} 0.0672777527131
+{'de': 'april', 'en': 'april'} -0.0428400708859
+{'de': 'september', 'en': 'september'} -0.0327055317888
+{'de': 'ich', 'en': 'i'} -0.0100362290671
+{'de': 'aber', 'en': 'but'} -0.0266514868143
+{'de': 'sagte', 'en': 'said'} -0.023910151276
+{'de': 'drei', 'en': 'three'} -0.041425494635
+{'de': 'vier', 'en': 'four'} -0.0546068902769
+{'de': 'millionen', 'en': 'million'} -0.129386500977
+{'de': 'freitag', 'en': 'friday'} 0.0876755143647
+{'de': 'prozent', 'en': 'percent'} 0.0426542909678
+{'de': 'markt', 'en': 'market'} -0.0320358379306
+{'de': 'regierung', 'en': 'government'} -0.0185714489651
+{'de': 'jahren', 'en': 'years'} 0.088617482873
+{'de': 'warum', 'en': 'why'} 0.0846210937921
+total: -0.0413235079063

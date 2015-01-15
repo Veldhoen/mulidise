@@ -2,7 +2,8 @@ benno=/home/bkruit/mulidise
 sara=/home/sveldhoen/mulidise
 
 experiment=$1
-embeddings=$benno/document-representations/data/embeddings/original-de-en.en
+embeddings=$2
+#embeddings=$benno/document-representations/data/embeddings/original-de-en.en
 
 mkdir -p $experiment/docEmbeddings
 mkdir $experiment/models
@@ -63,3 +64,15 @@ for lan1 in ${languages[@]}; do
   done
 done
 echo done.
+
+wait
+
+date
+FILES=$experiment/results/*
+OUT=$experiment/results/allResults.txt
+echo 'src\ttar\ttopic\taccracy'>$OUT
+for f in $FILES
+do
+  echo -n $f | sed 's/.*\/\///' | sed 's/\./\t/g'| sed 's/-/\t/' | sed 's/result//' >> $OUT
+  cat $f | grep -Po '\d+.\d+' >> $OUT
+done
