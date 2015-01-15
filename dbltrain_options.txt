@@ -1,0 +1,70 @@
+BiCVM Distributed Representation Learner: Copyright 2013-2014 Karl Moritz Hermann
+
+Allowed options:
+  --type arg (=additive)           type of model (additive, flattree)
+  --input1 arg                     l1 corpus. sentence aligned to l2.
+  --input2 arg                     l2 corpus. sentence aligned to l1.
+  --model1-in arg                  initial model 1
+  --model2-in arg                  initial model 2
+  --model1-out arg (=modelA)       base filename of model 1 output files
+  --model2-out arg (=modelB)       base filename of model 2 output files
+  --tree arg (=ccg)                tree type (ccg, stanford)
+  -s [ --cv-split ] arg (=-1)      cross-validation (split)
+  --word-width arg (=50)           width of word representation vectors.
+  --iterations arg (=-1)           (maximum) number of iterations (lbfgs 
+                                   default: 0 / sgd 250)
+  --ftiterations arg (=1000)       (maximum) number of finetune iterations
+  --dump-frequency arg (=10)       frequency at which to dump the model
+  -n [ --num-sentences ] arg (=0)  number of sentences to consider
+  --method arg (=lbfgs)            training method (options: 
+                                   lbfgs,sgd,fgc,adagrad)
+  --linesearch arg (=armijo)       LBFGS linesearch (morethuente, wolfe, 
+                                   armijo, strongwolfe)
+  --embeddings arg (=-1)           use embeddings to initialize dictionary 
+                                   (0=senna,1=turian,2=cldc)
+  --batches arg (=100)             number batches (adagrad minibatch)
+  --ftcbatches arg (=100)          number finetune batches (adagrad minibatch)
+  --initI arg (=1)                 initialize weight matrices to partial 
+                                   identity?
+  --updateD1 arg (=1)              learn D weights?
+  --updateF1 arg (=1)              learn F weights?
+  --updateWd1 arg (=1)             learn Wd weights?
+  --updateWl1 arg (=1)             learn Wl weights?
+  --updateD2 arg (=1)              learn D weights for B?
+  --updateF2 arg (=1)              learn F weights for B?
+  --updateWd2 arg (=1)             learn Wd weights for B?
+  --updateWl2 arg (=1)             learn Wl weights for B?
+  --calc_rae_error1 arg (=0)       consider the reconstruction error?
+  --calc_lbl_error1 arg (=0)       consider the label error?
+  --calc_bi_error1 arg (=0)        consider the bi error (matching root)?
+  --calc_thr_error1 arg (=0)       consider the throughprop error?
+  --calc_uae_error1 arg (=0)       consider the unfolding error?
+  --calc_rae_error2 arg (=0)       consider the reconstruction error?
+  --calc_lbl_error2 arg (=0)       consider the label error?
+  --calc_bi_error2 arg (=0)        consider the bi error (matching root)?
+  --calc_thr_error2 arg (=0)       consider the throughprop error?
+  --calc_uae_error2 arg (=0)       consider the unfolding error?
+  --lambdaD arg (=1)               L2 Regularization for Embeddings
+  --lambdaWd arg (=1)              L2 Regularization for Tree Matrices
+  --lambdaBd arg (=1)              L2 Regularization for Tree Biases
+  --lambdaWl arg (=1)              L2 Regularization for Label Matrices
+  --lambdaBl arg (=1)              L2 Regularization for Label Biases
+  --l1 arg (=0)                    L1 Regularization
+  --alpha arg (=0.200000003)       autoencoder error vs label error
+  --gamma arg (=0.100000001)       noisy error as percentage of normal bi-error
+  --epsilon arg (=9.99999997e-07)  convergence parameter for LBFGS
+  --eta arg (=0.200000003)         (initial) eta for SGD
+  --ftceta arg (=0.00999999978)    (initial) eta for finetune AdaGrad
+  --norm arg (=0)                  normalization type (see train_update.cc)
+  -d [ --dynamic-mode ] arg (=0)   type of sentence representation: 0 
+                                   (root+avg), 1 (root), 2 (avg), 
+                                   3(concat-all), 4 (complicated)
+  --noise arg (=2)                 number of noise samples per positive 
+                                   training example
+  --hinge_loss_margin arg (=1)     Hinge loss margin
+
+Command line specific options:
+  -h [ --help ]                    print help message
+  -c [ --config ] arg              config file specifying additional command 
+                                   line options
+

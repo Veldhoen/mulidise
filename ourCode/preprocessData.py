@@ -41,7 +41,7 @@ def encodeText(fromFile):
              for token in line.split():
                  token = token.lower()
                  #DELETE THE NEXT LINE!
-                 token = ''.join(token.split('_')[:-1])
+#                 token = ''.join(token.split('_')[:-1])
                  if token in embeddings:
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
@@ -75,7 +75,7 @@ def initializeEmbeddings(fromFile):
     embeddings = dict()
     with open(fromFile, 'r') as f:
          for line in f:
-             parts = line.strip().split(':')
+             parts = line.strip().split(' : ')
              emb = array([float(val) for val in parts[1].split()])
 	     if len(emb)>0:
                 embeddings[parts[0].strip()] = emb
