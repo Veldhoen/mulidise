@@ -51,13 +51,15 @@ public class ApClassifyF1 {
         Model mod = Model.load(modelName);
 
         int correct = 0;
-        int tP = 0;
-        int fP = 0;
-        int tN = 0;
-        int fN = 0;
+        double tP = 0;
+        double fP = 0;
+        double tN = 0;
+        double fN = 0;
 
         for (Example ex : data) {
             int pred = mod.predictLabel(ex.sv);
+//	    System.out.println("prediction: "+pred+", true:"+ex.label);
+
             if (pred == 1) {
               // predicted positive (1)
               if (pred == ex.label) tP ++;
@@ -74,9 +76,9 @@ public class ApClassifyF1 {
             }
 
         }
-        float precision=tP/(tP+fP);
-        float recall = tP/(tP+fN);
-        float f1 = 2*precision*recall/(precision+recall);
+        double precision=tP/(tP+fP);
+        double recall = tP/(tP+fN);
+        double f1 = 2*precision*recall/(precision+recall);
         System.out.println("Accuracy: " + (((double) correct) / data.size())+", precision: " + precision+", recall: "+recall+", F1: "+f1);
 
     }

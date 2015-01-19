@@ -62,7 +62,7 @@ for lan1 in ${languages[@]}; do
       echo -e '\t' $lan1-$lan2: $topic
       #test classifier of lan1 on lan2
       java  -ea -Xmx2000m -cp \
-        $classifiers ApClassify \
+        $classifiers ApClassifyF1 \
         --test-set $experiment/docEmbeddings/$lan2/test.$topic.emb \
         --model-name $experiment/models/$lan.$topic.model \
         > $experiment/results/$lan1-$lan2.$topic.result &
