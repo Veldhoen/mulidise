@@ -55,9 +55,10 @@ wait
 date
 FILES=$experiment/results/*
 OUT=$experiment/results/allResults.txt
-echo -e "src\ttar\ttopic\taccuracy">$OUT
+echo -e "src\ttar\ttopic\taccuracy\tprecision\trecall\tF1">$OUT
 for f in $FILES
 do
-  echo -n $f | sed 's/.*\/\///' | sed 's/\./\t/g'| sed 's/-/\t/' | sed 's/result//' >> $OUT
-  cat $f | grep -Po '\d+.\d+' >> $OUT
+  echo -n $f | sed 's/.*\/\///' | sed 's/\./\t/g'| sed 's/-/\t/' | sed 's/result//g' >> $OUT
+  numbers=`cat $f | grep -Po '\d+.\d+'`
+  echo $numbers | sed 's/ /\t/g' >> $OUT
 done
