@@ -5,6 +5,14 @@ experiment=$1
 embeddings=$2
 #embeddings=$benno/document-representations/data/embeddings/original-de-en.en
 
+
+#languages=(en de es fr it nl pb pl ro)
+languages=(en)
+topics=(art arts biology business creativity culture design economics education entertainment global health politics science technology)
+
+
+
+
 mkdir -p $experiment/docEmbeddings
 mkdir $experiment/models
 mkdir $experiment/results
@@ -27,8 +35,6 @@ echo done.
 
 date
 echo training models...
-languages=(en de es fr it nl pb pl ro)
-topics=(art arts biology business creativity culture design economics education entertainment global health politics science technology)
 
 for lan in ${languages[@]}; do
   for topic in ${topics[@]}; do
