@@ -70,7 +70,7 @@ wait
 date
 FILES=$experiment/results/*
 OUT=$experiment/results/allResults.txt
-echo 'src\ttar\ttopic\taccracy'>$OUT
+echo -e "src\ttar\ttopic\taccuracy">$OUT
 for f in $FILES
 do
   echo -n $f | sed 's/.*\/\///' | sed 's/\./\t/g'| sed 's/-/\t/' | sed 's/result//' >> $OUT
