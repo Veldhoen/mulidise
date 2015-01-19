@@ -1,0 +1,80 @@
+Simply training German and English words with the bitext sentence id as label
+500000 sentences
+58341 words in vocab
+epochs
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+you will be aware from the press and television that there have been a number of bomb explosions and killings in sri lanka:
+[('i witnessed among the americans and certainly in their administration more restraint than we generally give them credit for over here or than we can infer from the sometimes unfortunately chosen words of the president', 0.347249299287796), ('mr medina ortega has made reference to certain scandals in the country which he knows best', 0.33503955602645874), ('i would like to thank the many people who have helped to achieve this outcome in which we all share the commission and its staff the various partners in dialogue from the member states but also \xe2\x80\x93 even though i am repeating myself \xe2\x80\x93 from switzerland and norway and the members of all the groups in this house and their assistants', 0.33463147282600403), ('i have meanwhile gleaned from the press that the united states is backtracking from it', 0.3191593885421753), ('if by the end of these meetings parliament has obtained its rightful budgetary powers  codecision on all expenditure and revenue  that will be a satisfactory outcome', 0.3178251385688782), ('then there are the posts for the commission surely that must be seen as an important achievement in this set of budgetary negotiations', 0.3154830038547516), ('it is not always just whales and seals which the public wants protected and which attract without doubt greater attention from them', 0.31397345662117004), ('can we try to find some way of conveying our views to the russian government and sorting out this question of freedom of the press and expression which bedevils relations between the russian federation and the european union', 0.31123945116996765), ('obviously we have to be cautious and err on the side of safety', 0.31122922897338867), ('is it the case that the car industry definitely cannot afford these', 0.307076632976532)]
+but madam president my personal request has not been met:
+[('i hope mr president that you will act on my request', 0.4341386556625366), ('the request was not submitted in time', 0.4263068437576294), ('that is why i would earnestly request that when the time comes you do not vote in favour of amendment no 17', 0.40300050377845764), ('the presidentinoffice of the council informs me that minister tremonti will deal with this subject not him', 0.3915472626686096), ('this is in my view an incredibly important message', 0.3889712691307068), ('i hope that was not true', 0.3802891969680786), ('i nonetheless wish to ask a question', 0.37990885972976685), ('mr president i welcome the commission communication', 0.374556303024292), ('i would advocate that way forward', 0.37069687247276306), ('i nonetheless wish you good luck over the next six months', 0.36609718203544617)]
+we then put it to a vote:
+[('they then suggested a nominal vote so a count could be taken', 0.4011545777320862), ('we would then vote in favour of them', 0.3957515358924866), ('it has taken nine years to get this legislation', 0.36250925064086914), ('we need to put an end to this hypocrisy', 0.3603563606739044), ('might i be permitted to raise a very important issue for the british meps coming to strasbourg', 0.3574773669242859), ('it follows from this  if we emphasise the member states responsibility in this area  that the member states also have a specific responsibility for taking the action now required to put it another way the economic problems which we currently face in europes economy are largely the economic problems of large member states namely france italy and germany', 0.35645025968551636), ('so put amendment no 3 to the vote first', 0.3539350628852844), ('we also need the country whose flag the ship flies to bear liability', 0.3516680598258972), ('i see no reason not to proceed to a vote', 0.34607958793640137), ('there being no member who wishes to speak against this urgent procedure we shall put the matter to the vote', 0.3452962636947632)]
+thank you very much:
+[('thank you very much mr president', 0.7945116758346558), ('thank you very much madam president', 0.7342332601547241), ('thank you very much commissioner', 0.71170973777771), ('thank you', 0.6797266006469727), ('thank you very much commissioner patten', 0.6421314477920532), ('thank you very much commissioner bolkestein', 0.6341440081596375), ('thank you very much commissioner fischler', 0.6326008439064026), ('thank you very much mrs de palacio', 0.6286638975143433), ('thank you very much commissioner nielson', 0.6061443090438843), ('thank you very much commissioner de palacio', 0.5909916162490845)]
+epochs
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Running time 3719.72000289s
+mrs_en:
+[('behalf_en', 0.6720197796821594), ('gallagher_en', 0.6024608612060547), ('fischler_en', 0.593890905380249), ('bullmann_en', 0.5831607580184937), ('pertaining_en', 0.5371795296669006), ('haarder_en', 0.5339275598526001), ('constitutionality_en', 0.53361976146698), ('cox_en', 0.5284258127212524), ('conquered_en', 0.5283516645431519), ('savary_en', 0.5261194109916687)]
+[('verk\xc3\xa4uflich_de', 0.521854043006897), ('freilassen_de', 0.5092184543609619), ('fruchtbringende_de', 0.5059587955474854), ('haushalts\xc3\xbcbersch\xc3\xbcsse_de', 0.5040584802627563), ('sozialrechtlichen_de', 0.5014951229095459), ('zeitvorgaben_de', 0.49257218837738037), ('amerikanischer_de', 0.48853445053100586), ('k\xc3\xa4uflich_de', 0.48775145411491394), ('usb\xc3\xbcrger_de', 0.48639464378356934), ('benutzte_de', 0.4836561679840088)]
+april_en:
+[('february_en', 0.6537957191467285), ('mine_en', 0.5692312121391296), ('preparations_en', 0.5663036108016968), ('appropriations_en', 0.554490327835083), ('recital_en', 0.5507619380950928), ('basis_en', 0.5466447472572327), ('statute_en', 0.545966625213623), ('metres_en', 0.5268166661262512), ('numbers_en', 0.5229755640029907), ('14_en', 0.5127720832824707)]
+[('lastenteilung_de', 0.5104050636291504), ('erfolgte_de', 0.4505012631416321), ('aufzubauen_de', 0.43469732999801636), ('verf\xc3\xbcgbaren_de', 0.43061527609825134), ('woche_de', 0.43001845479011536), ('wortlaut_de', 0.42272019386291504), ('unentgeltliche_de', 0.4209417700767517), ('ukraine_de', 0.42081624269485474), ('buchstaben_de', 0.42078137397766113), ('kuwait_de', 0.42020493745803833)]
+objection_en:
+[('umstrukturierung_de', 0.5338115096092224), ('doubt_en', 0.5302311182022095), ('content_en', 0.5152227282524109), ('further_en', 0.5088559985160828), ('question_en', 0.5030873417854309), ('longer_en', 0.49632132053375244), ('noted_en', 0.4957308769226074), ('nii_en', 0.4952141046524048), ('comment_en', 0.49425461888313293), ('effect_en', 0.49388688802719116)]
+[('umstrukturierung_de', 0.5338115096092224), ('einstimmige_de', 0.43898487091064453), ('h\xc3\xb6flichkeit_de', 0.4383859932422638), ('geisel_de', 0.43736785650253296), ('tanker_de', 0.4302840232849121), ('diskriminierend_de', 0.42732617259025574), ('schreckliche_de', 0.4240318238735199), ('beobachterdelegation_de', 0.4232175350189209), ('kan\xc3\xa4le_de', 0.4220726191997528), ('weges_de', 0.41367703676223755)]
+debate_en:
+[('vieh_de', 0.5147261619567871), ('issue_en', 0.5060822367668152), ('oostlander_en', 0.49772223830223083), ('absurder_de', 0.49638596177101135), ('signature_en', 0.4829551577568054), ('house\xe2\x80\x99s_en', 0.47384145855903625), ('un_en', 0.4733682870864868), ('multiethnic_en', 0.46331337094306946), ('army_en', 0.46179717779159546), ('text_en', 0.45446115732192993)]
+[('vieh_de', 0.5147261619567871), ('absurder_de', 0.49638596177101135), ('rei\xc3\x9ft_de', 0.39951813220977783), ('multifunktionale_de', 0.39904236793518066), ('durchl\xc3\xa4uft_de', 0.3927772045135498), ('490_de', 0.3885176181793213), ('u\xc2\xa0a_de', 0.3839299976825714), ('154_de', 0.3821064531803131), ('poos_de', 0.3807913362979889), ('sprunghaften_de', 0.3782881200313568)]
+answer_en:
+[('fact_en', 0.5479288101196289), ('question_en', 0.52105313539505), ('invite_en', 0.48882219195365906), ('departure_en', 0.48791956901550293), ('\xe2\x80\x93_en', 0.4782259464263916), ('amend_en', 0.47558945417404175), ('moment_en', 0.4726688265800476), ('vernommen_de', 0.4675539433956146), ('opted_en', 0.46512967348098755), ('enron_en', 0.465014785528183)]
+[('vernommen_de', 0.4675539433956146), ('114_de', 0.45061302185058594), ('zwingen_de', 0.4402421712875366), ('elektronische_de', 0.4352864623069763), ('zyniker_de', 0.42935577034950256), ('folgender_de', 0.42436113953590393), ('vorbild_de', 0.420632541179657), ('stra\xc3\x9feng\xc3\xbcterverkehr_de', 0.4193011522293091), ('bonde_de', 0.41791000962257385), ('zweiter_de', 0.41619354486465454)]
+frau_de:
+[('kollegin_de', 0.5948370099067688), ('astrid_de', 0.48962515592575073), ('ursula_de', 0.4551500678062439), ('heidi_de', 0.44398099184036255), ('just as commissioner wallstr\xc3\xb6m pointed out children are the most vulnerable', 0.44374915957450867), ('vorredner_de', 0.440776526927948), ('i would like to thank commissioner wallstr\xc3\xb6m for her reply', 0.42988836765289307), ('nicole_de', 0.4287339746952057), ('brigitte_de', 0.41267040371894836), ('pernille_de', 0.40973877906799316)]
+[('monitors_en', 0.3511955738067627), ('secrets_en', 0.3399735689163208), ('nonexistent_en', 0.3195827007293701), ('reintroduction_en', 0.3136024475097656), ('electoral_en', 0.3095647394657135), ('customs_en', 0.30837148427963257), ('intensifying_en', 0.3072882890701294), ('60_en', 0.30644547939300537), ('flight_en', 0.303500771522522), ('prospectus_en', 0.30087438225746155)]
+april_de:
+[('m\xc3\xa4rz_de', 0.5656967759132385), ('eisenbahnwesen_de', 0.5588122606277466), ('mai_de', 0.5581705570220947), ('dezember_de', 0.5515916347503662), ('bausektor_de', 0.5483734607696533), ('interventionsm\xc3\xb6glichkeiten_de', 0.5475057363510132), ('kalkulation_de', 0.539071798324585), ('rechtsbehelf_de', 0.5261483192443848), ('anschluss_de', 0.524361252784729), ('november_de', 0.5233798027038574)]
+[('spelt_en', 0.4411294460296631), ('rewarded_en', 0.4402278959751129), ('intensity_en', 0.4147144556045532), ('quasi_en', 0.404682993888855), ('sweep_en', 0.40329787135124207), ('clashes_en', 0.3908943235874176), ('mockery_en', 0.3893890082836151), ('files_en', 0.38911205530166626), ('comfortable_en', 0.3786409795284271), ('forbearance_en', 0.37172672152519226)]
+einwand_de:
+[('libanon_de', 0.4516568183898926), ('anachronistischen_de', 0.4506303071975708), ('633_en', 0.43956559896469116), ('nutzbarmachung_de', 0.4393501281738281), ('vorsitz_de', 0.4188237190246582), ('politicising_en', 0.4169085621833801), ('12551999_en', 0.41076603531837463), ('segen_de', 0.39707130193710327), ('k\xc3\xb6nigsweg_de', 0.3963444232940674), ('aragon_en', 0.3937576115131378)]
+[('633_en', 0.43956559896469116), ('politicising_en', 0.4169085621833801), ('12551999_en', 0.41076603531837463), ('aragon_en', 0.3937576115131378), ('onset_en', 0.3921266496181488), ('hue_en', 0.392082154750824), ('senators_en', 0.38919755816459656), ('piraeus_en', 0.3814868628978729), ('blockages_en', 0.3732740879058838), ('dreams_en', 0.3632320165634155)]
+debatte_de:
+[('gew\xc3\xa4hrleistung_de', 0.5382797718048096), ('verantwortung_de', 0.5210235118865967), ('weiterf\xc3\xbchrung_de', 0.5140758752822876), ('verdeutlichung_de', 0.5125521421432495), ('ideologie_de', 0.50870281457901), ('firma_de', 0.5080842971801758), ('entw\xc3\xbcrfe_de', 0.5073710680007935), ('hauptgrund_de', 0.5069367289543152), ('beschlussfassung_de', 0.5068936347961426), ('verhalten_de', 0.5047243237495422)]
+[('controllers_en', 0.46199890971183777), ('merchant_en', 0.45887893438339233), ('deposits_en', 0.4511445164680481), ('additive_en', 0.4404252767562866), ('italy\xe2\x80\x99s_en', 0.4346185624599457), ('sis_en', 0.42700833082199097), ('c503411999_en', 0.4258856177330017), ('ness_en', 0.41961556673049927), ('barred_en', 0.41799989342689514), ('specious_en', 0.41439902782440186)]
+antwort_de:
+[('pl\xc3\xa4diert_de', 0.5842071771621704), ('beeindruckende_de', 0.5834227800369263), ('direktma\xc3\x9fnahmen_de', 0.5639679431915283), ('nachmittag_de', 0.5596057176589966), ('elementare_de', 0.5465041399002075), ('\xc3\x9cbergangszeit_de', 0.5431504249572754), ('\xc3\x9cbernahmerichtlinie_de', 0.5369224548339844), ('ohrfeige_de', 0.5364097356796265), ('schattenberichterstatterin_de', 0.531413197517395), ('ehrgeizig_de', 0.5252149105072021)]
+[('options_en', 0.5070392489433289), ('input_en', 0.48940509557724), ('muchdebated_en', 0.48098671436309814), ('hostilities_en', 0.4809432327747345), ('shortcomings_en', 0.47319960594177246), ('strikes_en', 0.47110211849212646), ('reflected_en', 0.4703729748725891), ('scale_en', 0.4665144681930542), ('overlook_en', 0.46524620056152344), ('dogs_en', 0.45978713035583496)]
+{'de': 'herr', 'en': 'mr'} -0.000636744347927
+{'de': 'april', 'en': 'april'} 0.0725351783253
+{'de': 'september', 'en': 'september'} -0.0752213093015
+{'de': 'ich', 'en': 'i'} -0.0931820207889
+{'de': 'aber', 'en': 'but'} -0.128014781784
+{'de': 'sagte', 'en': 'said'} -0.11992444902
+{'de': 'drei', 'en': 'three'} 0.194414819651
+{'de': 'vier', 'en': 'four'} 0.0303771238933
+{'de': 'millionen', 'en': 'million'} 0.0225255018504
+{'de': 'freitag', 'en': 'friday'} 0.205424675691
+{'de': 'prozent', 'en': 'percent'} 0.29008145882
+{'de': 'markt', 'en': 'market'} -0.113085378148
+{'de': 'regierung', 'en': 'government'} -0.10075387349
+{'de': 'jahren', 'en': 'years'} 0.0197268058729
+{'de': 'warum', 'en': 'why'} -0.0978397141534
+total: 0.10642729307
