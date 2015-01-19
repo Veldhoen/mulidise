@@ -67,16 +67,16 @@ public class ApClassifyF1 {
               // predicted negative (2)
               if (pred == ex.label) tN ++;
               else fN ++;
-            }  
+            }
 
             if (pred == ex.label) {
                 correct++;
             }
 
         }
-        precision=tP/(tP+fP);
-        recall = tP/(tP+fN);
-        f1 = 2*precision*recall/(precision+recall);
+        float precision=tP/(tP+fP);
+        float recall = tP/(tP+fN);
+        float f1 = 2*precision*recall/(precision+recall);
         System.out.println("Accuracy: " + (((double) correct) / data.size())+", precision: " + precision+", recall: "+recall+", F1: "+f1);
 
     }
