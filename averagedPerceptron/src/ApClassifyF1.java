@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ApClassify {
+public class ApClassifyF1 {
 
     private static Map<String,String> getParamMap(String args[]) {
         HashMap<String,String> name2Value = new HashMap<String, String>();
@@ -51,13 +51,31 @@ public class ApClassify {
         Model mod = Model.load(modelName);
 
         int correct = 0;
+        int tP = 0;
+        int fP = 0;
+        int tN = 0;
+        int fN = 0;
+
         for (Example ex : data) {
             int pred = mod.predictLabel(ex.sv);
+            if (pred == 1) {
+              // predicted positive (1)
+              if (pred == ex.label) tP ++;
+              else fP ++;
+            }
+            else {
+              // predicted negative (2)
+              if (pred == ex.label) tN ++;
+              else fN ++;
+
             if (pred == ex.label) {
                 correct++;
             }
         }
-        System.out.println("Accuracy: " + (((double) correct) / data.size()));
+        precision=tP/(tP+fP);
+        recall = tP/(tP+fN);
+        f1 = 2*precision*recall/(precision+recall);
+        System.out.println("Accuracy: " + (((double) correct) / data.size())+", precision: " + precision+", recall: "+recall+", F1: "+f1);
 
     }
 
