@@ -67,10 +67,12 @@ public class ApClassifyF1 {
               // predicted negative (2)
               if (pred == ex.label) tN ++;
               else fN ++;
+            }  
 
             if (pred == ex.label) {
                 correct++;
             }
+
         }
         precision=tP/(tP+fP);
         recall = tP/(tP+fN);
