@@ -12,23 +12,27 @@ def inspect_sentences(model):
     ,'thank you very much'
     ]
     for l in lines:
-        print '%s:\n' % l, model.most_similar(l, topn=10)
+        if l in model:
+            print '%s:\n' % l, model.most_similar(l, topn=10)
 
 def inspect_words(model):
     en = ['mrs_en', 'april_en', 'objection_en', 'debate_en', 'answer_en']
     de = ['frau_de', 'april_de', 'einwand_de', 'debatte_de', 'antwort_de']
     for l, suf in [(en, '_de'), (de, '_en')]:
         for w in l:
-            print '%s:' % w
-            print model.most_similar(w, topn=10)
-            print most_similar_suffixed(model, suf, w, topn=10)
-
-    simtot = 0.0
-    for row in csv.DictReader(open('dictionary.csv')):
-        sim = model.similarity(*['%s_%s'%(a,b) for (b,a) in row.items()])
-        print row, sim
-        simtot += sim
-    print 'total:', simtot
+            if w in model:
+                print '%s:' % w
+                print model.most_similar(w, topn=10)
+                print most_similar_suffixed(model, suf, w, topn=10)
+    try:
+        simtot = 0.0
+        for row in csv.DictReader(open('dictionary.csv')):
+            sim = model.similarity(*['%s_%s'%(a,b) for (b,a) in row.items()])
+            print row, sim
+            simtot += sim
+        print 'total:', simtot
+    except:
+        print '(dictionary failed)'
 
 def most_similar_suffixed(model, suffix, positive=[], negative=[], topn=10):
     sim = model.most_similar(positive, negative, topn=10000000)
