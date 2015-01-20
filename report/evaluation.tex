@@ -1,0 +1,42 @@
+%Reproducing existing work with more languages
+%New approach: based on par2vec (2 flavors)
+
+
+\section{Evaluation}
+
+It is not trivial to measure the quality of the multilingual word embeddings. The semantic space should be reliable for each language in isolation, and consistent across languages. 
+Even the former is not easy to assess. In \cite{mikolov2013efficient}, an analogy task is introduced to this aim.
+
+The latter is evaluated on a real-world task of cross-lingual document classification. The former is evaluated
+
+
+
+
+\subsection{Document classification}
+In \cite{klementiev2012inducing}, a real-world task is introduced to this end: cross-lingual document classification. The task, that is also used in \cite{hermann2013multilingual}, is based on Reuters corpora, which has topic-annotated documents. The evaluation data is available for English and German documents that belong to a single topic, and thus the gold standard can be represented by a one-hot vector.
+
+Each document is represented by the average of the representations of its tokens (in \cite{klementiev2012inducing}, the average is weighted by $idf$ score), or sentences (in \cite{hermann2013multilingual}).
+An averaged version of the perceptron algorithm is trained for document classification in one language, and tested on data in another resulting in a classification accuracy score. If the semantic space is coherent between languages, performance should not be much worse than monolingual document classification.
+
+%As a baseline, we compute chance accuracy for the majority class estimate. Alternatively, \cite{klementiev2012inducing} compares to wordcount features. Translations are done via glossing or machine translation. It is also common to compare to a MT baseline. 
+
+
+
+
+
+%Alternative:
+The WIT TED corpus \cite{cettolo2012} contains short documents with transcriptions and translations of TED talks, with topic annotations. The original distribution was aimed at machine translation, but \cite{hermann2014multilingual} propose it for a multilingual document classification task. The major advantage of this task is the availability of documents in many languages. It has documents in English paired in both directions with other languages, seven of which are also in the Europarl corpus: Spanish, French, German, Italian, Dutch, Portuguese, Polish, and Romanian.
+
+The classification labels in this set are technology, culture, science, global issues, design, business, entertainment, arts, politics, education, art, health, creativity, economics, and biology. Note that contrary to the previous task, a document can have more than one topic annotation. A binary classifier is thus trained for each topic, using the same system as before. Performance is reported both as classification accuracy and F1 score.
+
+
+
+
+
+
+
+%In \cite{mikolov2013exploiting}, the evaluation is performed on a test set of gold-standard word translations, again from Google Translate. The word representation in the source language is transformed using $W$, and a ranked list of the nearest words in the target language is the output. The precision at ranks 1 and 5 is reported. 
+% Gaan we dat nou ook nog doen of niet?
+
+%For visualizing the vector space, we will project a selection of words onto a plane and highlight semantic relationships.
+%We will also visualize rare words and words with high variability across languages.
