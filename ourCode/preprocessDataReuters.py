@@ -38,8 +38,13 @@ def walkDataDir(inDir, outDir):
 
 
 def encodeText(fromFile,tag):
+#    print 'encoding', fromFile, 'language:', tag
     summedEmbeddings = numpy.zeros(len(embeddings.values()[1]))
+#    if tag == '_de':
+#       return summedEmbeddings
     norm = 0
+    tokensInDic = 0
+    tokensNotInDic = 0
 
     with open(fromFile, 'r') as f:
          for line in f:
@@ -47,6 +52,8 @@ def encodeText(fromFile,tag):
                  token = token.lower()+tag
                  #DELETE THE NEXT LINE!
                  if token in embeddings:
+                     tokensInDic +=1
+#		     print 'entry for', token
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
 		     try:
@@ -58,10 +65,12 @@ def encodeText(fromFile,tag):
 			sys.exit()
 			
                  else:
+                     tokensNotInDic+=1
 #                     print 'no entry for', token
-                     break
     if norm == 0: norm = 1.0
     documentEmbedding = summedEmbeddings/norm
+#    print 'Nr of tokens in dict:', tokensInDic, 'out of', tokensInDic+tokensNotInDic
+#    print summedEmbeddings
     return documentEmbedding
 
 
