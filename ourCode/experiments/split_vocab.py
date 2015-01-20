@@ -4,6 +4,7 @@ from itertools import izip, islice
 import sys
 import timeit
 from inspection import preprocess, inspect_words, inspect_sentences
+from numpy import sqrt, newaxis, float32 as REAL
 
 class BitextTriples(object):
     def __init__(self, filename, size):
@@ -48,10 +49,10 @@ print 'Building two vocabularies'
 sentences_en = (LabeledSentence(words=en, labels=[pen]) for pen, en, de in BitextTriples(f, n))
 sentences_de = (LabeledSentence(words=de, labels=[pen]) for pen, en, de in BitextTriples(f, n))
 
-model_en = Doc2Vec(alpha=0.025, min_alpha=0.025, size=256, min_count=0)
+model_en = Doc2Vec(alpha=0.015, min_alpha=0.015, size=256, min_count=0)
 model_en.build_vocab(sentences_en)
 model_en.train_lbls = False
-model_de = Doc2Vec(alpha=0.025, min_alpha=0.025, size=256, min_count=0)
+model_de = Doc2Vec(alpha=0.015, min_alpha=0.015, size=256, min_count=0)
 model_de.build_vocab(sentences_de)
 model_de.train_lbls = False
 print 'Running time %ss' % (timeit.default_timer() - start)
@@ -78,6 +79,11 @@ for w in model_de.vocab:
     if w in model:
         model.syn0[model.vocab[w].index] = model_de.syn0[model_de.vocab[w].index]
 
+model.syn0norm = (model.syn0 / sqrt((model.syn0 ** 2).sum(-1))[..., newaxis]).astype(REAL)
+model_en.syn0norm = (model_en.syn0 / sqrt((model_en.syn0 ** 2).sum(-1))[..., newaxis]).astype(REAL)
+model_de.syn0norm = (model_de.syn0 / sqrt((model_de.syn0 ** 2).sum(-1))[..., newaxis]).astype(REAL)
+
+
 print 'Running time %ss' % (timeit.default_timer() - start)
 
 inspect_words(model)
@@ -85,18 +91,28 @@ inspect_words(model_en)
 inspect_words(model_de)
 
 
-raise SystemExit
-
-
 # Train two vocabularies
 print 'epochs'
 for epoch in range(10):
+    sentences_en = (LabeledSentence(words=en, labels=[pen]) for pen, en, de in BitextTriples(f, n))
+    sentences_de = (LabeledSentence(words=de, labels=[pen]) for pen, en, de in BitextTriples(f, n))
     model_en.train(sentences_en)
     model_de.train(sentences_de)
     print epoch
-    model_en.alpha -= 0.002  # decrease the learning rate
-    model_de.alpha -= 0.002  # decrease the learning rate
+    model_en.alpha -= 0.001  # decrease the learning rate
+    model_de.alpha -= 0.001  # decrease the learning rate
 print 'Running time %ss' % (timeit.default_timer() - start)
 
+# combine
+print 'Combining models'
+for w in model_en.vocab:
+    if w in model:
+        model.syn0[model.vocab[w].index] = model_en.syn0[model_en.vocab[w].index]
+for w in model_de.vocab:
+    if w in model:
+        model.syn0[model.vocab[w].index] = model_de.syn0[model_de.vocab[w].index]
+model.syn0norm = (model.syn0 / sqrt((model.syn0 ** 2).sum(-1))[..., newaxis]).astype(REAL)
 
-# combine?
+inspect_words(model)
+
+
