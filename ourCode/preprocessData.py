@@ -61,7 +61,8 @@ def encodeText(fromFile):
     return documentEmbedding
 
 def walkLanguages(inDir,outDir):
-    lans = ['en','it','de','es','fr','nl','pb','pl','ro']
+    lans = ['en','it','de']
+#    lans = ['en','it','de','es','fr','nl','pb','pl','ro']
     # English/ pivot language:
     walkDataDir(os.path.join(inDir,lans[0]+'-'+lans[1]),os.path.join(outDir,lans[0]))
     # Other languages:
@@ -76,11 +77,14 @@ def initializeEmbeddings(fromFile):
     with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split(' : ')
-             emb = array([float(val) for val in parts[1].split()])
-	     if len(emb)>0:
-                embeddings[parts[0].strip()] = emb
+	     if len(parts) < 2:
+                print line
 	     else:
-		print 'no embedding for:',parts[0].strip() 
+                emb = array([float(val) for val in parts[1].split()])
+	        if len(emb)>0:
+                   embeddings[parts[0].strip()] = emb
+	        else:
+	    	   print 'no embedding for:',parts[0].strip() 
     print 'done.'
 
 def initializeIDFS(fromFile):

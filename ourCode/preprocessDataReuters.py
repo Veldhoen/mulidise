@@ -46,7 +46,6 @@ def encodeText(fromFile,tag):
              for token in line.split():
                  token = token.lower()+tag
                  #DELETE THE NEXT LINE!
-#                 token = ''.join(token.split('_')[:-1])
                  if token in embeddings:
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
