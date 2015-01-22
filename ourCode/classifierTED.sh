@@ -19,7 +19,7 @@ mkdir -p $experiment/results/TED
 
 
 tedDocs=$sara/ted-cldc
-tedIDFs=$sara/idfsTED
+tedIDFs=$sara/idfsTED/concatenated.idf
 classifiers=$benno/document-representations/bin
 preprocess=$benno/mulidise/ourCode/preprocessData.py
 
@@ -76,10 +76,10 @@ wait
 date
 FILES=$experiment/results/TED/*
 OUT=$experiment/results/allResultsTED.txt
-echo -e "src\ttar\ttopic\taccuracy\tprecision\trecall\tF1">$OUT
+echo -e "train\ttest\ttopic\taccuracy\tprecision\trecall\tF1">$OUT
 for f in $FILES
 do
   echo -n $f | sed 's/.*\///' | sed 's/\./\t/g'| sed 's/-/\t/' | sed 's/result//' >> $OUT
-  numbers=`cat $f | grep -Po '\d+.\d+'`
+  numbers=`cat $f | grep -Po '\d+\.\d+'`
   echo $numbers | sed 's/ /\t/' >> $OUT
 done
