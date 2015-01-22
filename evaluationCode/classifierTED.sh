@@ -21,7 +21,7 @@ mkdir -p $experiment/results/TED
 tedDocs=$sara/ted-cldc
 tedIDFs=$sara/idfsTED/concatenated.idf
 classifiers=$benno/document-representations/bin
-preprocess=$benno/mulidise/ourCode/preprocessData.py
+preprocess=$benno/mulidise/evaluationCode/preprocess/preprocessDataTED.py
 
 date
 echo preprocess data...

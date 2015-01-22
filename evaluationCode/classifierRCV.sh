@@ -15,7 +15,7 @@ mkdir -p $experiment/results/RCV
 RCVDocs=$benno/document-representations/data/rcv-from-binod
 RCVIDFs=$benno/document-representations/data/idfs/concatenated.idf
 classifiers=$benno/document-representations/bin
-preprocess=$benno/mulidise/ourCode/preprocessDataReuters.py
+preprocess=$benno/mulidise/evaluationCode/preprocess/preprocessDataRCV.py
 
 date
 echo preprocess data...
