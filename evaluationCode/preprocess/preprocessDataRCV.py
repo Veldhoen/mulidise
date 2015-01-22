@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from preprocessTools import *
 import sys, getopt, os
 import shutil
 import numpy
@@ -24,15 +25,13 @@ def walkDataDir(inDir, outDir):
              print folder
              for i in range(len(labels)):
                 labelDir = os.path.join(kindDir,folder,labels[i])
-	 	try:
-                 for fileName in os.listdir(labelDir):
+                for fileName in os.listdir(labelDir):
                     emb = encodeText(os.path.join(labelDir,fileName), embeddings, idfs)
                     if len(emb)<1:
                        print 'watsgeburt', fileName
                        sys.exit()
                     outFile = os.path.join(outDir,kind+'.'+ folder+'.emb')
                     outputEmbeddings(emb, i+1,outFile)
-		except: print 'Could not obtain files for', fileName
     print 'Done.'
 def main(argv):
 
@@ -61,14 +60,12 @@ def main(argv):
         print errorMessage
         sys.exit()
 
-    initializeEmbeddings(embeddingsFile)
+    global embeddings
+    embeddings= initializeEmbeddings(embeddingsFile)
 
 
-    global idf
-    idf = dict()
-    try: initializeIDFS(idfFile)
-    except: idf
-
+    global idfs
+    idfs = initializeIDFS(idfFile)
     walkDataDir(dataDir,outDir)
 
 if __name__ == "__main__":

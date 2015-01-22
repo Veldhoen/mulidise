@@ -12,7 +12,7 @@ mkdir -p $experiment/models/RCV
 mkdir -p $experiment/results/RCV
 
 
-RCVDocs=$benno/document-representations/data/rcv-from-binod
+RCVDocs=$benno/document-representations/data/rcv-from-binodNoValid
 RCVIDFs=$benno/document-representations/data/idfs/concatenated.idf
 classifiers=$benno/document-representations/bin
 preprocess=$benno/mulidise/evaluationCode/preprocess/preprocessDataRCV.py

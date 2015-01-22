@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-#import sys, getopt, os
-#import shutil
+import sys, getopt, os
+import shutil
 import numpy
 from numpy import array
 
