@@ -6,53 +6,43 @@ import numpy
 from numpy import array
 
 def walkDataDir(inDir, outDir):
-    try: shutil.rmtree(outDir, ignore_errors=True)
-    except: print 'problem removing tree'
-
     print 'walking',inDir,'...'
     kinds = ['train','test']
-    labels = ['C', 'E', 'G', 'M']
+    labels = ['positive', 'negative']
+
+    try: shutil.rmtree(outDir, ignore_errors=True)
+    except: print 'problem removing tree'
 
     for kind in kinds:
         print kind
         kindDir = os.path.join(inDir,kind)
-        dataSets = os.listdir(kindDir)
-        for folder in dataSets:
-	    tag = '_'+folder[:2].lower()
-	    folderDir = os.path.join(kindDir,folder)
-	    if os.path.isdir(folderDir): 
-             print folder
-             for i in range(len(labels)):
-                labelDir = os.path.join(kindDir,folder,labels[i])
-	 	try:
-                 for fileName in os.listdir(labelDir):
-                    emb = encodeText(os.path.join(labelDir,fileName),tag)
+        topics = os.listdir(kindDir)
+        for topic in topics:
+            print topic
+            for i in range(len(labels)):
+                labelDir = os.path.join(kindDir,topic,labels[i])
+                for fileName in os.listdir(labelDir):
+                    emb = encodeText(os.path.join(labelDir,fileName))
                     if len(emb)<1:
                        print 'watsgeburt', fileName
                        sys.exit()
-                    outFile = os.path.join(outDir,kind+'.'+ folder+'.emb')
+                    outFile = os.path.join(outDir,kind+'.'+topic+'.emb')
                     outputEmbeddings(emb, i+1,outFile)
-		except: print 'Could not obtain files for', fileName
     print 'Done.'
 
 
 
-def encodeText(fromFile,tag):
-#    print 'encoding', fromFile, 'language:', tag
+def encodeText(fromFile):
     summedEmbeddings = numpy.zeros(len(embeddings.values()[1]))
-#    if tag == '_de':
-#       return summedEmbeddings
     norm = 0
-    tokensInDic = 0
-    tokensNotInDic = 0
 
     with open(fromFile, 'r') as f:
          for line in f:
              for token in line.split():
-                 token = token.lower()+tag
+                 token = token.lower()
+                 #DELETE THE NEXT LINE!
+#                 token = ''.join(token.split('_')[:-1])
                  if token in embeddings:
-                     tokensInDic +=1
-#		     print 'entry for', token
                      weight = idf.setdefault(token, 1)
                      # if there is no idf value, use 1
 		     try:
@@ -64,15 +54,20 @@ def encodeText(fromFile,tag):
 			sys.exit()
 			
                  else:
-                     tokensNotInDic+=1
 #                     print 'no entry for', token
+                     break
     if norm == 0: norm = 1.0
     documentEmbedding = summedEmbeddings/norm
-#    print 'Nr of tokens in dict:', tokensInDic, 'out of', tokensInDic+tokensNotInDic
-#    print summedEmbeddings
     return documentEmbedding
 
-
+def walkLanguages(inDir,outDir):
+    lans = ['en','it','de']
+#    lans = ['en','it','de','es','fr','nl','pb','pl','ro']
+    # English/ pivot language:
+    walkDataDir(os.path.join(inDir,lans[0]+'-'+lans[1]),os.path.join(outDir,lans[0]))
+    # Other languages:
+    for lan in lans[1:]:
+        walkDataDir(os.path.join(inDir,lan+'-'+lans[0]),os.path.join(outDir,lan))
 
 
 def initializeEmbeddings(fromFile):
@@ -82,15 +77,14 @@ def initializeEmbeddings(fromFile):
     with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split(' : ')
-	     if len(parts) < 2: 
-		print line
+	     if len(parts) < 2:
+                print line
 	     else:
-              emb = array([float(val) for val in parts[1].split()])
-	      if len(emb)>0:
-                embeddings[parts[0].strip()] = emb
-	      else:
-		print 'no embedding for:',parts[0].strip() 
-    print 'obtained',len(embeddings),'embeddings.'
+                emb = array([float(val) for val in parts[1].split()])
+	        if len(emb)>0:
+                   embeddings[parts[0].strip()] = emb
+	        else:
+	    	   print 'no embedding for:',parts[0].strip() 
     print 'done.'
 
 def initializeIDFS(fromFile):
@@ -101,7 +95,6 @@ def initializeIDFS(fromFile):
          for line in f:
              parts = line.strip().split()
              idf[parts[0]]=float(parts[2])
-	     print 'obtained idfvalue for',  parts[0], ':',parts[2]
     print 'done.'
 
 def outputEmbeddings(emb, label, outputFile):
@@ -151,7 +144,7 @@ def main(argv):
     try: initializeIDFS(idfFile)
     except: idf
 
-    walkDataDir(dataDir,outDir)
+    walkLanguages(dataDir,outDir)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

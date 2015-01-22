@@ -2,29 +2,15 @@ benno=/home/bkruit/mulidise
 sara=/home/sveldhoen/mulidise
 
 experiment=$1
-embeddings=$2
-#embeddings=$benno/document-representations/data/embeddings/original-de-en.en
+docEmbeddings=$2
 
 languages=(en de)
 
-mkdir -p $experiment/docEmbeddingsRCV
 mkdir -p $experiment/models/RCV
 mkdir -p $experiment/results/RCV
 
 
-RCVDocs=$benno/document-representations/data/rcv-from-binod
-RCVIDFs=$benno/document-representations/data/idfs/concatenated.idf
 classifiers=$benno/document-representations/bin
-preprocess=$benno/mulidise/ourCode/preprocessDataReuters.py
-
-date
-echo preprocess data...
-python -u $preprocess\
-       -d $RCVDocs \
-       -e $embeddings \
-       -o $experiment/docEmbeddingsRCV \
-       -i $RCVIDFs
-echo done.
 
 wait
 date
@@ -32,15 +18,17 @@ echo training models...
 
 sizes=(100 200 500 1000 5000 10000)
 for lan in ${languages[@]}; do
-  for size in ${sizes[@]}; do
-    lanUP=$(echo $lan | tr '[:lower:]' '[:upper:]')
-    echo -e '\t' $lan-$size
-    # train, i.e. create model:
-    java  -ea -Xmx2000m -cp \
-      $classifiers ApLearn  \
-      --train-set  $experiment/docEmbeddingsRCV/train.$lanUP$size.emb \
-      --model-name $experiment/models/RCV/$lan.$size.model \
-      --epoch-num 10 &
+  for lan2 in ${languages[@]};do
+    for size in ${sizes[@]}; do
+      lanUP=$(echo $lan | tr '[:lower:]' '[:upper:]')
+      echo -e '\t' $lan-$size
+      # train, i.e. create model:
+      java  -ea -Xmx2000m -cp \
+        $classifiers ApLearn  \
+        --train-set  $docEmbeddings/train.$lan2-$lanUP$size.$lan \
+        --model-name $experiment/models/RCV/$lan.$size.model \
+        --epoch-num 10 &
+    done
   done
 done
 echo done.
@@ -56,12 +44,12 @@ for lan1 in ${languages[@]}; do
   lanUP=$(echo $lan1 | tr '[:lower:]' '[:upper:]')
 
   for lan2 in ${languages[@]}; do
-  for size in ${sizes[@]}; do
+    for size in ${sizes[@]}; do
       echo -e '\t' $lan1-$lan2: $size
       #test classifier of lan1 on lan2
       java  -ea -Xmx2000m -cp \
         $classifiers ApClassify \
-        --test-set $experiment/docEmbeddingsRCV/test.$lan2.emb \
+        --test-set $docEmbeddings/test.$lan1-$lan2.$lan1 \
         --model-name $experiment/models/RCV/$lan1.$size.model \
         > $experiment/results/RCV/$lan1-$lan2.$size.result &
     done
