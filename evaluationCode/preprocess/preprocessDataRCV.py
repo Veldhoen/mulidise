@@ -27,7 +27,6 @@ def walkDataDir(inDir, outDir):
                 labelDir = os.path.join(kindDir,folder,labels[i])
                 for fileName in os.listdir(labelDir):
                     emb = encodeText(os.path.join(labelDir,fileName), embeddings, idfs,tag)
-                    print fileName, 'Document embedding:',emb
                     if len(emb)<1:
                        print 'watsgeburt', fileName
                        sys.exit()
