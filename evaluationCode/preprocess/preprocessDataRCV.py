@@ -26,46 +26,22 @@ def walkDataDir(inDir, outDir):
              for i in range(len(labels)):
                 labelDir = os.path.join(kindDir,folder,labels[i])
                 for fileName in os.listdir(labelDir):
-                    emb = encodeText(os.path.join(labelDir,fileName), embeddings, idfs)
+                    emb = encodeText(os.path.join(labelDir,fileName), embeddings, idfs,tag)
+                    print fileName, 'Document embedding:',emb
                     if len(emb)<1:
                        print 'watsgeburt', fileName
                        sys.exit()
                     outFile = os.path.join(outDir,kind+'.'+ folder+'.emb')
                     outputEmbeddings(emb, i+1,outFile)
     print 'Done.'
+
 def main(argv):
-
-    errorMessage="preprocessData.py -d [data directory] -e [word embeddings] -o [output directory] -i [idfs]"
-
-    try:
-      opts, args = getopt.getopt(argv,"hd:e:o:i",["dataDir=","embeddings=""outDir=","idfs="])
-
-    except getopt.GetoptError:
-      print errorMessage
-      sys.exit(2)
-    for opt, arg in opts:
-      if opt == '-h':
-         print errorMessage
-         sys.exit()
-      elif opt in ("-d", "--dataDir"):
-         dataDir = arg
-      elif opt in ("-e", "--embeddings"):
-         embeddingsFile = arg
-      elif opt in ("-o", "--outDir"):
-         outDir = arg
-      elif opt in ("-i", "--idfs"):
-         idfFile = arg
-    try: dataDir, embeddingsFile, outDir
-    except:
-        print errorMessage
-        sys.exit()
-
     global embeddings
     embeddings= initializeEmbeddings(embeddingsFile)
 
-
     global idfs
     idfs = initializeIDFS(idfFile)
+
     walkDataDir(dataDir,outDir)
 
 if __name__ == "__main__":

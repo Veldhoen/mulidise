@@ -5,14 +5,14 @@ import shutil
 import numpy
 from numpy import array
 
-def encodeText(fromFile, embeddings, idfs):
+def encodeText(fromFile, embeddings, idfs, tag=""):
     summedEmbeddings = numpy.zeros(len(embeddings.values()[1]))
     norm = 0
 
     with open(fromFile, 'r') as f:
          for line in f:
              for token in line.split():
-                 token = token.lower()
+                 token = token.lower()+tag
                  if token in embeddings:
                      weight = idfs.setdefault(token, 1) # if there is no idf value, use 1
                      summedEmbeddings+=weight*embeddings[token]
@@ -42,15 +42,18 @@ def initializeEmbeddings(fromFile):
     print 'done. Retrieved', len(embeddings), 'embeddings.'
     return embeddings
 
-def initializeIDFS(fromFile=None):
+def initializeIDFS(fromFile):
     idfs = dict()
-    if fromFile:
+    if fromFile == "":
+       print 'no idf values are used.'
+    else:
        print 'initializing idf values...'
        with open(fromFile, 'r') as f:
          for line in f:
              parts = line.strip().split()
              idfs[parts[0]]=float(parts[2])
        print 'done.'
+
     return idfs
 
 def outputEmbeddings(emb, label, outputFile):
@@ -62,3 +65,30 @@ def outputEmbeddings(emb, label, outputFile):
          for i in range(len(emb)):
              f.write(' '+str(i+1)+':'+str(emb[i]))
          f.write('\n')
+         
+def readArgs(argv):
+    errorMessage="preprocessData.py -d [data directory] -e [word embeddings] -o [output directory] -i [idfs]"
+    try:
+      opts, args = getopt.getopt(argv,"hd:e:o:i",["dataDir=","embeddings=""outDir=","idfs="])
+    except getopt.GetoptError:
+      print errorMessage
+      sys.exit(2)
+
+    idfFile = ""
+    for opt, arg in opts:
+      if opt == '-h':
+         print errorMessage
+         sys.exit()
+      elif opt in ("-d", "--dataDir"):
+         dataDir = arg
+      elif opt in ("-e", "--embeddings"):
+         embeddingsFile = arg
+      elif opt in ("-o", "--outDir"):
+         outDir = arg
+      elif opt in ("-i", "--idfs"):
+         idfFile = arg
+    try: dataDir, embeddingsFile, outDir
+    except:
+        print errorMessage
+        sys.exit()
+    return dataDir,embeddingsFile,outDir,idfFile

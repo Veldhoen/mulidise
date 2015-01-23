@@ -41,37 +41,14 @@ def walkLanguages(inDir,outDir):
         walkDataDir(os.path.join(inDir,lan+'-'+lans[0]),os.path.join(outDir,lan))
 
 def main(argv):
-
-    errorMessage="preprocessData.py -d [data directory] -e [word embeddings] -o [output directory] -i [idfs]"
-
-    try:
-      opts, args = getopt.getopt(argv,"hd:e:o:i",["dataDir=","embeddings=""outDir=","idfs="])
-
-    except getopt.GetoptError:
-      print errorMessage
-      sys.exit(2)
-    for opt, arg in opts:
-      if opt == '-h':
-         print errorMessage
-         sys.exit()
-      elif opt in ("-d", "--dataDir"):
-         dataDir = arg
-      elif opt in ("-e", "--embeddings"):
-         embeddingsFile = arg
-      elif opt in ("-o", "--outDir"):
-         outDir = arg
-      elif opt in ("-i", "--idfs"):
-         idfFile = arg
-    try: dataDir, embeddingsFile, outDir
-    except:
-        print errorMessage
-        sys.exit()
+    dataDir,embeddingsFile,outDir,idfFile = readArgs(argv)
 
     global embeddings
     embeddings = initializeEmbeddings(embeddingsFile)
 
     global idfs
     idfs = initializeIDFS(idfFile)
+    
     walkLanguages(dataDir,outDir)
 
 if __name__ == "__main__":
