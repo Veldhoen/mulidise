@@ -47,6 +47,7 @@ def main(argv):
     embeddings = initializeEmbeddings(embeddingsFile)
 
     global idfs
+    print 'call function initializeIDFS'
     idfs = initializeIDFS(idfFile)
     
     walkLanguages(dataDir,outDir)

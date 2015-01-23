@@ -34,12 +34,13 @@ def walkDataDir(inDir, outDir):
                     outFile = os.path.join(outDir,kind+'.'+ folder+'.emb')
                     outputEmbeddings(emb, i+1,outFile)
     print 'Done.'
-
+    
 def main(argv):
     global embeddings
     embeddings= initializeEmbeddings(embeddingsFile)
 
     global idfs
+    print 'call function initializeIDFS'
     idfs = initializeIDFS(idfFile)
 
     walkDataDir(dataDir,outDir)
