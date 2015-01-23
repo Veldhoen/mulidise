@@ -87,7 +87,8 @@ def readArgs(argv):
          outDir = arg
       elif opt in ("-i", "--idfs"):
          idfFile = arg
-    try: dataDir, embeddingsFile, outDir
+         print 'idfFile=', idfFile
+    try: dataDir, embeddingsFile, outDir, idfFile
     except:
         print errorMessage
         sys.exit()
