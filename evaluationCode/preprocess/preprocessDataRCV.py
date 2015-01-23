@@ -35,6 +35,7 @@ def walkDataDir(inDir, outDir):
     print 'Done.'
     
 def main(argv):
+    dataDir,embeddingsFile,outDir,idfFile = readArgs(argv)
     global embeddings
     embeddings= initializeEmbeddings(embeddingsFile)
 
