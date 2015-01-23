@@ -32,8 +32,8 @@ def walkDataDir(inDir, outDir):
     print 'Done.'
 
 def walkLanguages(inDir,outDir):
-    lans = ['en','it','de']
-#    lans = ['en','it','de','es','fr','nl','pb','pl','ro']
+#    lans = ['en','it','de']
+    lans = ['en','it','de','es','fr','nl','pb','pl','ro']
     # English/ pivot language:
     walkDataDir(os.path.join(inDir,lans[0]+'-'+lans[1]),os.path.join(outDir,lans[0]))
     # Other languages:

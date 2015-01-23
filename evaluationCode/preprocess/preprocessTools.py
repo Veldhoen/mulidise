@@ -69,13 +69,12 @@ def outputEmbeddings(emb, label, outputFile):
 def readArgs(argv):
     errorMessage="preprocessData.py -d [data directory] -e [word embeddings] -o [output directory] -i [idfs]"
     try:
-      opts, args = getopt.getopt(argv,"hd:e:o:i",["dataDir=","embeddings=""outDir=","idfs="])
+      opts, args = getopt.getopt(argv,"hd:e:o:i:",["dataDir=","embeddings="",outDir=","idfs="])
     except getopt.GetoptError:
       print errorMessage
       sys.exit(2)
 
     idfFile = ""
-    print opts
 
     for opt, arg in opts:
       if opt == '-h':
@@ -89,7 +88,6 @@ def readArgs(argv):
          outDir = arg
       elif opt in ("-i", "--idfs"):
          idfFile = arg
-         print 'idfFile=', idfFile, '(',arg,')'
     try: dataDir, embeddingsFile, outDir, idfFile
     except:
         print errorMessage

@@ -39,7 +39,7 @@ for lan in ${languages[@]}; do
     # train, i.e. create model:
     java  -ea -Xmx2000m -cp \
       $classifiers ApLearn  \
-      --train-set  $experiment/docEmbeddingsTED/$lan/train.$topic.emb \
+      --train-set  $experiment/docEmbeddings/TED/$lan/train.$topic.emb \
       --model-name $experiment/models/TED/$lan.$topic.model \
       --epoch-num 10 &
   done
@@ -60,7 +60,7 @@ for lan1 in ${languages[@]}; do
       #test classifier of lan1 on lan2
       java  -ea -Xmx2000m -cp \
         $classifiers ApClassifyF1 \
-        --test-set $experiment/docEmbeddingsTED/$lan2/test.$topic.emb \
+        --test-set $experiment/docEmbeddings/TED/$lan2/test.$topic.emb \
         --model-name $experiment/models/TED/$lan.$topic.model \
         > $experiment/results/TED/$lan1-$lan2.$topic.result &
     done

@@ -21,8 +21,10 @@ python -u $preprocess \
        -d $benno/document-representations/data/rcv-from-binodNoValid \
        -e $embeddings \
        -o $experiment/docEmbeddings/RCV \
-       -i "$benno/document-representations/data/idfs/concatenated.idf"
+       -i $benno/document-representations/data/idfs/concatenated.idf
 echo done.
+
+
 
 wait
 date
@@ -36,7 +38,7 @@ for lan in ${languages[@]}; do
     # train, i.e. create model:
     java  -ea -Xmx2000m -cp \
       $classifiers ApLearn  \
-      --train-set  $experiment/docEmbeddingsRCV/train.$lanUP$size.emb \
+      --train-set  $experiment/docEmbeddings/RCV/train.$lanUP$size.emb \
       --model-name $experiment/models/RCV/$lan.$size.model \
       --epoch-num 10 &
   done
@@ -59,7 +61,7 @@ for lan1 in ${languages[@]}; do
       #test classifier of lan1 on lan2
       java  -ea -Xmx2000m -cp \
         $classifiers ApClassify \
-        --test-set $experiment/docEmbeddingsRCV/test.$lan2.emb \
+        --test-set $experiment/docEmbeddings/RCV/test.$lan2.emb \
         --model-name $experiment/models/RCV/$lan1.$size.model \
         > $experiment/results/RCV/$lan1-$lan2.$size.result &
     done
