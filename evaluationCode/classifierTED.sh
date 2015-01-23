@@ -13,23 +13,20 @@ topics=(art arts biology business creativity culture design economics education 
 
 
 
-mkdir -p $experiment/docEmbeddingsTED
+mkdir -p $experiment/docEmbeddings/TED
 mkdir -p $experiment/models/TED
 mkdir -p $experiment/results/TED
 
-
-tedDocs=$sara/ted-cldc
-tedIDFs=$sara/idfsTED/concatenated.idf
 classifiers=$benno/document-representations/bin
 preprocess=$benno/mulidise/evaluationCode/preprocess/preprocessDataTED.py
 
 date
 echo preprocess data...
 python -u $preprocess\
-       -d $tedDocs \
+       -d $sara/ted-cldc \
        -e $embeddings \
-       -o $experiment/docEmbeddingsTED \
-       -i $tedIDFs
+       -o $experiment/docEmbeddings/TED \
+       -i $sara/idfsTED/concatenated.idf
 echo done.
 
 

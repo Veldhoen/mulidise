@@ -7,23 +7,21 @@ embeddings=$2
 
 languages=(en de)
 
-mkdir -p $experiment/docEmbeddingsRCV
+mkdir -p $experiment/docEmbeddings/RCV
 mkdir -p $experiment/models/RCV
 mkdir -p $experiment/results/RCV
 
 
-RCVDocs=$benno/document-representations/data/rcv-from-binodNoValid
-RCVIDFs=$benno/document-representations/data/idfs/concatenated.idf
 classifiers=$benno/document-representations/bin
 preprocess=$benno/mulidise/evaluationCode/preprocess/preprocessDataRCV.py
 
 date
 echo preprocess data...
-python -u $preprocess\
-       -d $RCVDocs \
+python -u $preprocess \
+       -d $benno/document-representations/data/rcv-from-binodNoValid \
        -e $embeddings \
-       -o $experiment/docEmbeddingsRCV \
-       -i $RCVIDFs
+       -o $experiment/docEmbeddings/RCV \
+       -i $benno/document-representations/data/idfs/concatenated.idf
 echo done.
 
 wait
@@ -77,7 +75,7 @@ OUT=$experiment/results/allResultsRCV.txt
 echo -e "train\ttest\ttrainSize\taccuracy">$OUT
 for f in $FILES
 do
-  echo -n $f | sed 's/.*\/\///' | sed 's/\./\t/g'| sed 's/-/\t/' | sed 's/result//g' >> $OUT
+  echo -n $f | sed 's/.*\///' | sed 's/\./\t/g'| sed 's/-/\t/' | sed 's/result//g' >> $OUT
   numbers=`cat $f | grep -Po '\d+\.\d+'`
   echo $numbers | sed 's/ /\t/g' >> $OUT
 done
