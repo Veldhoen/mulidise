@@ -75,6 +75,8 @@ def readArgs(argv):
       sys.exit(2)
 
     idfFile = ""
+    print opts
+
     for opt, arg in opts:
       if opt == '-h':
          print errorMessage
@@ -87,7 +89,7 @@ def readArgs(argv):
          outDir = arg
       elif opt in ("-i", "--idfs"):
          idfFile = arg
-         print 'idfFile=', idfFile
+         print 'idfFile=', idfFile, '(',arg,')'
     try: dataDir, embeddingsFile, outDir, idfFile
     except:
         print errorMessage
