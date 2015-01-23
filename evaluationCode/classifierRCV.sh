@@ -21,7 +21,7 @@ python -u $preprocess \
        -d $benno/document-representations/data/rcv-from-binodNoValid \
        -e $embeddings \
        -o $experiment/docEmbeddings/RCV \
-       -i $benno/document-representations/data/idfs/concatenated.idf
+       -i "$benno/document-representations/data/idfs/concatenated.idf"
 echo done.
 
 wait
