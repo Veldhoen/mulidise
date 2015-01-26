@@ -1,3 +1,10 @@
 %Reproducing existing work with more languages
 %New approach: based on par2vec (2 flavors)
 
+Using the paragraph2vec dbow setting, we obtain sentence embeddings for parallel sentences. 
+
+In one experimental setting, we take the document representation to simply be the average of its sentence embeddings. In this way, we test the quality of the multilingual sentence embeddings.
+
+In another set-up, we use the sentence embeddings to obtain word embeddings. A word representation is the average of the embeddings of all sentences it occurs in. 
+
+We used the latter word representations to initialize the multilingual DM setting.
