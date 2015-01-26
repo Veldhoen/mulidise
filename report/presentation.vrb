@@ -1,8 +1,9 @@
 \frametitle{\insertsection \ifx \insertsubsection \empty \else \,~-~\insertsubsection \fi } 
+TED data:
 \begin{itemize}
-\item Use sentence embeddings to obtain word vector:
-\begin{equation*}
-w=\frac{1}{freq(w,D)}\sum_{s\in D}\sum_{w'\in s} s
-\end{equation*}
+\item Many languages
+\item Binary classification: each class (topic) has positive and negative examples
+\item Performance measure: F1 score
+\item Baseline: ??
 \end{itemize}
 \beamerclosesubstitutedenvironement {dia}

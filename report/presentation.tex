@@ -102,6 +102,25 @@
 
 \section{Introduction - related work}
 \section{Our first idea (and why it wouldn't work)}
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex]
+\node[embedding](Sx) {Sentence$_x$};
+\node[embedding](We1) [right =0.2cm of Sx] {$w^{e_x}_{t-2}$};
+\node[embedding](We2) [right =0.2cm of We1] {$w^{e_x}_{t-1}$};
+\node[embedding](We4) [right =0.2cm of We2] {$w^{e_x}_{t+1}$};
+\node[embedding](We5) [right =0.2cm of We4] {$w^{e_x}_{t+2}$};
+\node[hidden] (h1) [above =of We2] {} edge[<-] (Sx)edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
+\node[index] (We3) [above =of h1] {$w^{e_x}_{t}$} edge [<-] (h1);
+\end{tikzpicture}
+\caption{Bilingual distributed memory. The same architecture is trained with English context and word prediction replaced by the other language(s).}
+\label{f:bilingual_dm}
+\end{figure}
+\end{dia}
+
+
+
 \section{Our new idea}
 
 \begin{dia}
@@ -131,15 +150,93 @@
 
 \begin{dia}
 \begin{itemize}
-\item Use sentence embeddings to obtain word vector: 
+\item Use the sentence embeddings to obtain word vector: 
 \begin{equation*}
-w=\frac{1}{freq(w,D)}\sum_{s\in D}\sum_{w'\in s} s
+emb(w)=\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) emb(s)
 \end{equation*}
+\item Quite good performance (as we will see later)
+\end{itemize}
+\end{dia}
+
+\begin{dia}
+\begin{itemize}
+\item Recall the model by Hermann and Blunsom: 
+\includegraphics[width=.7\linewidth]{figures/hermannBlunsom}
+\end{itemize}
+\end{dia}
+
+\begin{dia}
+\begin{itemize}
+\item We could have a similar training procedure
+\item Only: we are not training the sentences, but assume fixed `gold standard' sentence embeddings
+\includegraphics[width=.7\linewidth]{figures/hermannBlunsomHalf}
+\item So, we could plug in any compositional model 
 \end{itemize}
 \end{dia}
 
 
+
+
 \section{Evaluation and results}
+\begin{dia}
+\begin{itemize}
+\item Training word embeddings: on Europarl data (50k or 500k sentences)
+\item Monolingual (English) evaluation: analogy task
+\item Crosslingual evaluation: document classification
+\end{itemize}
+\end{dia}
+
+
+
+
+\begin{dia}
+Crosslingual Doccument classification:
+\begin{itemize}
+\item Given word embeddings, obtain document representation for train and test documents in all languages
+\begin{equation*}
+emb(doc)=\sum_{w\in doc} idf(w)*emb(w)
+\end{equation*}
+\item Train a classifier (averaged perceptron) on the training document representations for one language
+\item Test classifier performance on the test document representations for another language
+\end{itemize}
+\end{dia}
+
+
+%\begin{dia}
+%\begin{tabular}{p{.2\textwidth}|p{.35\textwidth} p{.35\textwidth}}
+%&RCV & TED\\\hline\hline
+%Language &English-German & Many  \\\hline
+%Classification& Multiclass:& Binary:\\
+% &one topic per document & postive and negative examples for topic \\\hline
+%Performance &Accuracy & F1\\\hline
+%Baseline &Majority class & ??
+%\end{tabular}
+%\end{dia}
+
+\begin{dia}
+RCV (Reuters) data:
+\begin{itemize}
+\item English-German
+\item Multiclass classification: \\
+each document is assigned a single class (topic)
+\item Performance measure: accuracy
+\item Baseline: majority class
+\end{itemize}
+\end{dia}
+
+
+\begin{dia}
+TED data:
+\begin{itemize}
+\item Many languages
+\item Binary classification: each class (topic) has positive and negative examples
+\item Performance measure: F1 score
+\item Baseline: ??
+\end{itemize}
+\end{dia}
+
+
+
 \section{Graphics and concluding words}
 
 
