@@ -1,0 +1,8 @@
+\frametitle{\insertsection \ifx \insertsubsection \empty \else \,~-~\insertsubsection \fi } 
+\begin{itemize}
+\item Use sentence embeddings to obtain word vector:
+\begin{equation*}
+w=\frac{1}{freq(w,D)}\sum_{s\in D}\sum_{w'\in s} s
+\end{equation*}
+\end{itemize}
+\beamerclosesubstitutedenvironement {dia}
