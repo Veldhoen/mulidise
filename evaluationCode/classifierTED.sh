@@ -6,7 +6,7 @@ embeddings=$2
 #embeddings=$benno/document-representations/data/embeddings/original-de-en.en
 
 
-languages=(en de es fr it nl pb pl ro)
+languages=(en de es fr it nl pb)
 #languages=(en de)
 topics=(art arts biology business creativity culture design economics education entertainment global health politics science technology)
 
