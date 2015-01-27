@@ -1,9 +1,8 @@
 \frametitle{\insertsection \ifx \insertsubsection \empty \else \,~-~\insertsubsection \fi } 
-TED data:
 \begin{itemize}
-\item Many languages
-\item Binary classification: each class (topic) has positive and negative examples
-\item Performance measure: F1 score
-\item Baseline: ??
+\item Word vectors as average of the dbow-trained sentences they occur in.
+\item Sentences trained on 50k Europarl data in all languages.
+\item multilingual evaluation on TED data (F1 scores):
 \end{itemize}
+\includegraphics[width=\textwidth]{figures/multilingdbow}
 \beamerclosesubstitutedenvironement {dia}
