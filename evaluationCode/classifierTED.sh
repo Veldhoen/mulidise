@@ -52,8 +52,6 @@ date
 echo testing models...
 
 for lan1 in ${languages[@]}; do
-#  otherLans=`echo ${languages[@]}| sed "s/\b$lan\b//g"`
-# for lan2 in ${otherLans[@]}; do
   for lan2 in ${languages[@]}; do
     for topic in ${topics[@]}; do
       echo -e '\t' $lan1-$lan2: $topic
@@ -61,7 +59,7 @@ for lan1 in ${languages[@]}; do
       java  -ea -Xmx2000m -cp \
         $classifiers ApClassifyF1 \
         --test-set $experiment/docEmbeddings/TED/$lan2/test.$topic.emb \
-        --model-name $experiment/models/TED/$lan.$topic.model \
+        --model-name $experiment/models/TED/$lan1.$topic.model \
         > $experiment/results/TED/$lan1-$lan2.$topic.result &
     done
   done

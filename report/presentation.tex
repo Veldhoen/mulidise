@@ -235,7 +235,51 @@ TED data:
 \end{itemize}
 \end{dia}
 
+\begin{dia}
+Monolingual evaluation on English:
+\begin{table}
+\begin{tabular}{l l r r}
+ 			&		&RCV (1000)		&TED		\\
+Setting		&Length	&accuracy		&F1		\\\hline
+Baseline		&		&.468			&.118	 	\\
+I-Matrix		&40		&.861			&.154		\\
+Paragraph mono	&256		&			&		\\
+Paragraph bi 	&256		&			&		\\
+Paraword mono	&256		&			&		\\
+Paraword bi 		&256		&.898			&.216		\\
+Paraword multi 	&256		&.903			&.245		\\	
+Google News		&300		&.951			&.486		\\
+\end{tabular}
+\end{table}
+\end{dia}
 
+
+\begin{dia}
+\begin{itemize}
+\item Word vectors as average of the dbow-trained sentences they occur in.
+\item Sentences trained on 50k Europarl data in specified languages.
+\item Mono- and bilingual evaluation on TED data (F1 scores):
+\end{itemize}
+\begin{table}
+\begin{tabular}{c |r r r r }
+Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
+trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
+EN			&			\\
+DE			&			\\
+DE-EN			&.216		&.189		&.201		&.220		\\
+multi 			&.404		&.368		&.387		&.339		\\
+\end{tabular}
+\end{table}
+\end{dia}
+
+\begin{dia}
+\begin{itemize}
+\item Word vectors as average of the dbow-trained sentences they occur in.
+\item Sentences trained on 50k Europarl data in all languages.
+\item multilingual evaluation on TED data (F1 scores):
+\end{itemize}
+\includegraphics[width=\textwidth]{figures/multilingdbow}
+\end{dia}
 
 \section{Graphics and concluding words}
 
