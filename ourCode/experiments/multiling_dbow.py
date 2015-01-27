@@ -5,6 +5,7 @@ import sys, os, glob
 import timeit
 from inspection import preprocess, inspect_words, inspect_sentences
 from contextlib import nested
+from numpy import sqrt, newaxis, float32 as REAL
 
 def mappend(iter, ap):
     for i in iter:
@@ -28,12 +29,13 @@ class MultiText(object):
 files =  glob.glob(os.path.expanduser(sys.argv[1]))
 print 'Using files:', '\n\t'.join(['']+files)
 
-n=50000
-sentences = MultiText(files, n)
+print 'Saving vectors to', sys.argv[2]
+
+sentences = MultiText(files, None)
 
 model = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=256)
 model.build_vocab(sentences)
-print '%s words in vocab' % (len(model.vocab) - n)
+print '%s words & sents in vocab' % len(model.vocab)
 
 print 'epochs'
 for epoch in range(10):
@@ -41,6 +43,22 @@ for epoch in range(10):
     print epoch
     model.alpha -= 0.002  # decrease the learning rate
 stop = timeit.default_timer()
-print 'Running time %ss' % (stop - start)
 
 inspect_sentences(model)
+
+for ls in MultiText(files, n):
+    # set sentence vector
+    pen = ls.labels[0]
+    if pen in model:
+        # set words
+        for w in ls.words:
+            if w in model:
+                model.syn0[model.vocab[w].index] += model[pen]
+for w in model.vocab:
+    model.syn0[model.vocab[w].index] /= (model.vocab[w].count+1.0)
+model.syn0norm = (model.syn0 / sqrt((model.syn0 ** 2).sum(-1))[..., newaxis]).astype(REAL)
+
+with open(sys.argv[2], 'a') as out:
+    for w in model.vocab:
+        if '_' in w:
+            out.write('%s : %s\n'%(w, ' '.join((str(d) for d in model[w]))))
