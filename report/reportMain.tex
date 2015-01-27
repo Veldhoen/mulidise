@@ -13,12 +13,23 @@
 \usepackage{enumerate}
 \usepackage{hyperref}
 
+
+\usepackage{tikz}
+\tikzset{
+    embedding/.style={rectangle,draw=black,text centered},
+    index/.style={circle,draw=black,text centered, text width=0.45cm},
+    hidden/.style={rectangle split,rectangle split horizontal=true,rectangle split parts=7,draw=black},
+}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning,backgrounds}
+
 \title{Fancy Title}
 \author{Benno Kruit\\10576223\\benno.kruit@student.uva.nl\And
 Sara Veldhoen\\10545298\\sara.veldhoen@student.uva.nl}
 \date{\today}
 \begin{document}
 \maketitle
+
 
 \input{abstract}
 \section{Introduction}\label{s:introduction}
