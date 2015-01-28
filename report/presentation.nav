@@ -44,17 +44,18 @@
 \headcommand {\beamer@framepages {14}{14}}
 \headcommand {\slideentry {5}{0}{15}{15/15}{}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\slideentry {5}{0}{16}{16/16}{}{0}}
+\headcommand {\sectionentry {6}{Graphics and concluding words}{16}{Graphics and concluding words}{0}}
+\headcommand {\beamer@sectionpages {13}{15}}
+\headcommand {\beamer@subsectionpages {13}{15}}
+\headcommand {\slideentry {6}{0}{16}{16/16}{}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\sectionentry {6}{Graphics and concluding words}{17}{Graphics and concluding words}{0}}
-\headcommand {\beamer@sectionpages {13}{16}}
-\headcommand {\beamer@subsectionpages {13}{16}}
-\headcommand {\sectionentry {7}{F1 baseline}{17}{F1 baseline}{0}}
-\headcommand {\beamer@sectionpages {17}{16}}
-\headcommand {\beamer@subsectionpages {17}{16}}
-\headcommand {\slideentry {7}{0}{17}{17/17}{}{0}}
+\headcommand {\sectionentry {7}{Discussion}{17}{Discussion}{0}}
+\headcommand {\beamer@sectionpages {16}{16}}
+\headcommand {\beamer@subsectionpages {16}{16}}
+\headcommand {\beamer@subsectionentry {0}{7}{1}{17}{F1 baseline}}\headcommand {\beamer@subsectionpages {17}{16}}
+\headcommand {\slideentry {7}{1}{1}{17/17}{F1 baseline}{0}}
 \headcommand {\beamer@framepages {17}{17}}
-\headcommand {\slideentry {7}{0}{18}{18/18}{}{0}}
+\headcommand {\slideentry {7}{1}{2}{18/18}{F1 baseline}{0}}
 \headcommand {\beamer@framepages {18}{18}}
 \headcommand {\beamer@partpages {1}{18}}
 \headcommand {\beamer@subsectionpages {17}{18}}
