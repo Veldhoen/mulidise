@@ -14,9 +14,39 @@
 \small
 \tikzset{
     embedding/.style={rectangle,draw=black,text centered},
-    index/.style={circle,draw=black,text centered, text width=0.5cm},
+    index/.style={circle,draw=black,text centered,minimum width=.5cm},
     hidden/.style={rectangle split,rectangle split horizontal=true,rectangle split parts=7,draw=black},
 }
+
+\begin{figure}
+
+\center
+\begin{tikzpicture}[>=latex] 
+\node[embedding] (Wt) {$w_t$};
+\node[hidden] (h1)[above=of Wt]{} edge [<-] (Wt);
+\node[index] (W-2) [above left =of h1] {$w_{t-2}$} edge [<-] (h1);
+\node[index] (W-1) [right =of W-2] {$w_{t-1}$}edge [<-] (h1);
+\node[index] (W+1) [right =of W-1] {$w_{t+1}$}edge [<-] (h1) ;
+\node[index] (W+2) [right =of W+1] {$w_{t+2}$}edge [<-] (h1) ;
+\end{tikzpicture}
+\caption{word2vec Skipgram}
+\end{figure}
+
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex]
+\node[embedding](We1) {$w_{t-2}$};
+\node[embedding](We2) [right =0.2cm of We1] {$w_{t-1}$};
+\node(ghost)[right=0.2cm of We2] {};
+\node[embedding](We4) [right =0.2cm of ghost] {$w_{t+1}$};
+\node[embedding](We5) [right =0.2cm of We4] {$w_{t+2}$};
+\node[hidden] (h1) [above =of ghost] {} edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
+\node[index] (We3) [above =of h1] {$w_{t}$} edge [<-] (h1);
+\end{tikzpicture}
+\caption{word2vec dbow}
+\end{figure}
+
+
 \begin{figure}
 
 \center
