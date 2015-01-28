@@ -112,7 +112,7 @@
 \node[index] (W+1) [right =of W-1] {$w_{t+1}$}edge [<-] (h1) ;
 \node[index] (W+2) [right =of W+1] {$w_{t+2}$}edge [<-] (h1) ;
 \end{tikzpicture}
-\caption{word2vec Skipgram}
+\caption{word2vec Skipgram (Le \& Mikolov)}
 \end{figure}
 \end{dia}
 
@@ -128,9 +128,60 @@
 \node[hidden] (h1) [above =of ghost] {} edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
 \node[index] (We3) [above =of h1] {$w_{t}$} edge [<-] (h1);
 \end{tikzpicture}
-\caption{word2vec dbow}
+\caption{word2vec dbow (Le \& Mikolov)}
 \end{figure}
 \end{dia}
+
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex]
+\node[embedding](Sx) {Sentence$_x$};
+\node[embedding](We1) [right =0.2cm of Sx] {$w^{x}_{t-2}$};
+\node[embedding](We2) [right =0.2cm of We1] {$w^{x}_{t-1}$};
+\node[embedding](We4) [right =0.2cm of We2] {$w^{x}_{t+1}$};
+\node[embedding](We5) [right =0.2cm of We4] {$w^{x}_{t+2}$};
+\node[hidden] (h1) [above =of We2] {} edge[<-] (Sx)edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
+\node[index] (We3) [above =of h1] {$w^{e_x}_{t}$} edge [<-] (h1);
+\end{tikzpicture}
+\caption{paragraph2vec distributed memory (Le \& Mikolov)}
+\label{f:bilingual_dm}
+\end{figure}
+\end{dia}
+
+
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex] 
+\node[embedding] (Sx) {Sentence$_x$};
+\node[hidden] (h1)[above=of Sx]{} edge [<-] (Sx);
+\node(ghost1)[above=of h1] {};
+\node[index] (Wf0) [left=.4cm of ghost1] {$w^{x}_{0}$} edge [<-] (h1);
+\node[index] (Wfm) [right=.4cm of ghost1] {$w^{x}_{m}$} edge [<-] (h1) edge [ dotted] (Wf0);
+\end{tikzpicture}
+\caption{paragraph2vec distributed bag-of-words (Le \& Mikolov)}
+\label{f:bilingual_dbow}
+\end{figure}
+\end{dia}
+
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex]
+\node[embedding](We0) {$w^{e_x}_0$};
+\node(ghost)[right=0.4cm of We0] {};
+\node[embedding](Wen) [right =0.4cm of ghost] {$w^{e_x}_n$} edge[dotted](We0);
+\node[hidden] (h1) [above =of ghost] {} edge[<-] (We0)edge[<-] (Wen);
+\node(ghost1)[above=of h1] {};
+\node[index] (Wf0) [left=.4cm of ghost1] {$w^{f_x}_{0}$} edge [<-] (h1);
+\node[index] (Wfm) [right=.4cm of ghost1] {$w^{f_x}_{m}$} edge [<-] (h1) edge [ dotted] (Wf0);
+\end{tikzpicture}
+\caption{Auto-encoder (Chandar, Lauly \& al.)}
+\end{figure}
+\end{dia}
+
+
 
 
 \section{Multilingual DM}
@@ -151,6 +202,9 @@
 \end{figure}
 \end{dia}
 
+
+
+%%% SARA %%%
 
 
 \section{Multilingual Dbow}
@@ -337,6 +391,13 @@ multi 			&		&.404		&.368		&.387		&.339		\\
 \end{itemize}
 \includegraphics[width=\textwidth]{figures/multilingdbow}
 \end{dia}
+
+
+
+
+%%% BENNO %%%
+
+
 
 \section{Graphics and concluding words}
 % all parawords multi
