@@ -143,6 +143,7 @@
 \item Training a single embedding for parallel sentences
 \item Word embeddings are not trained
 \item Can be extended to more than two languages
+\item Results in `good' sentence embeddings (without a compositional model)
 \end{itemize}
 \end{dia}
 
@@ -347,6 +348,7 @@ F1=&\frac{2*TP}{2*TP+FN+FP}\\
 =&\frac{2*P^2}{2*P^2+(1-P)*P+(1-P)*P}\\
 =&\frac{2*P}{2*P+(1-P)+(1-P)}=\frac{2P}{2}=P\\
 \end{align*}
+Is $P$ a reasonable F1 baseline?
 \end{dia}
 
 \end{document}
