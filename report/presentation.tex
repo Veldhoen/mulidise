@@ -101,7 +101,7 @@
 \end{frame}
 
 \section{Introduction - related work}
-\section{Our first idea (and why it wouldn't work)}
+\section{Multilingual DM}
 \begin{dia}
 \begin{figure}
 \center
@@ -121,7 +121,7 @@
 
 
 
-\section{Our new idea}
+\section{Multilingual Dbow}
 
 \begin{dia}
 \begin{figure}
@@ -177,7 +177,7 @@ emb(w)=\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) emb(s)
 
 
 
-\section{Evaluation and results}
+\section{Evaluation}
 \begin{dia}
 \begin{itemize}
 \item Training word embeddings: on Europarl data (50k or 500k sentences)
@@ -235,6 +235,7 @@ TED data:
 \end{itemize}
 \end{dia}
 
+\section{Results}
 \begin{dia}
 Monolingual evaluation on English:
 \begin{table}
@@ -264,13 +265,36 @@ Google News		&300		&.951			&.486		\\
 \begin{tabular}{c |r r r r }
 Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
 trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
-EN			&			\\
-DE			&			\\
+EN			&.186		&.134		&.084		&.153		\\
+DE			&.132		&.091		&.076		&.132	\\
 DE-EN			&.216		&.189		&.201		&.220		\\
 multi 			&.404		&.368		&.387		&.339		\\
 \end{tabular}
 \end{table}
 \end{dia}
+
+\begin{dia}
+\begin{itemize}
+\item Word vectors as average of the dbow-trained sentences they occur in.
+\item Sentences trained on 50k Europarl data in specified languages.
+\item Mono- and bilingual evaluation on RCV data with 10000 training examples (accuracy):
+\end{itemize}
+\begin{table}
+\begin{tabular}{c |r r r r }
+Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
+trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
+EN			&.866		&.456		&.398		&.661		\\
+DE			&.850		&.449		&.389		&.704		\\
+DE-EN			&.898		&.467		&.415		&.708		\\
+multi 			&.903		&.473		&.431		&.705		\\
+\end{tabular}
+\end{table}
+\end{dia}
+
+
+
+
+
 
 \begin{dia}
 \begin{itemize}
@@ -285,5 +309,31 @@ multi 			&.404		&.368		&.387		&.339		\\
 
 
 
+\section*{F1 baseline}
+
+\begin{dia}
+\begin{align*}
+Prec=&\frac{TP}{TP+FP}, \\
+Rec=&\frac{TP}{TP+FN}, \\
+Acc=&\frac{TP+TN}{TP+FP+TN+FN}\\
+\text{Majority class:}\\
+ neg>pos\rightarrow& \begin{cases}Acc=\frac{TP+TN}{TP+FP+TN+FN}=\frac{TN}{TN+FN}=\frac{neg}{total}\\Prec=\frac{TP}{TP+FP}=0\rightarrow F1=0\end{cases}
+\end{align*}
+\end{dia}
+\begin{dia}
+Now assume a stochastic classifier: \\
+$P=P(pos)=\frac{pos}{total}$, $P(neg)=1-P$\\
+
+$pos=P*|X|, neg=(1-P)*|X|$
+\begin{align*}
+TP=&P*pos=P^2*|X|\\
+FP=&P*neg=P*(1-P)*|X|\\
+FN=&(1-P)*pos=(1-P)*P*|X|\\
+F1=&\frac{2*TP}{2*TP+FN+FP}\\
+=&\frac{2*P2*|X|}{2*P*P*|X|+(1-P)*P*|X|+(1-P)*P*|X|}\\
+=&\frac{2*P^2}{2*P^2+(1-P)*P+(1-P)*P}\\
+=&\frac{2*P}{2*P+(1-P)+(1-P)}=\frac{2P}{2}=P\\
+\end{align*}
+\end{dia}
 
 \end{document}
