@@ -1,4 +1,4 @@
-\beamer@endinputifotherversion {3.26pt}
+\beamer@endinputifotherversion {3.27pt}
 \headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
 \headcommand {\beamer@framepages {1}{1}}
 \headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
@@ -49,15 +49,21 @@
 \headcommand {\sectionentry {6}{Graphics and concluding words}{17}{Graphics and concluding words}{0}}
 \headcommand {\beamer@sectionpages {13}{16}}
 \headcommand {\beamer@subsectionpages {13}{16}}
-\headcommand {\sectionentry {7}{F1 baseline}{17}{F1 baseline}{0}}
-\headcommand {\beamer@sectionpages {17}{16}}
-\headcommand {\beamer@subsectionpages {17}{16}}
-\headcommand {\slideentry {7}{0}{17}{17/17}{}{0}}
+\headcommand {\slideentry {6}{0}{17}{17/17}{}{0}}
 \headcommand {\beamer@framepages {17}{17}}
-\headcommand {\slideentry {7}{0}{18}{18/18}{}{0}}
+\headcommand {\slideentry {6}{0}{18}{18/18}{}{0}}
 \headcommand {\beamer@framepages {18}{18}}
-\headcommand {\beamer@partpages {1}{18}}
-\headcommand {\beamer@subsectionpages {17}{18}}
-\headcommand {\beamer@sectionpages {17}{18}}
-\headcommand {\beamer@documentpages {18}}
-\headcommand {\def \inserttotalframenumber {18}}
+\headcommand {\slideentry {6}{0}{19}{19/19}{}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\sectionentry {7}{F1 baseline}{20}{F1 baseline}{0}}
+\headcommand {\beamer@sectionpages {17}{19}}
+\headcommand {\beamer@subsectionpages {17}{19}}
+\headcommand {\slideentry {7}{0}{20}{20/20}{}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {7}{0}{21}{21/21}{}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\beamer@partpages {1}{21}}
+\headcommand {\beamer@subsectionpages {20}{21}}
+\headcommand {\beamer@sectionpages {20}{21}}
+\headcommand {\beamer@documentpages {21}}
+\headcommand {\def \inserttotalframenumber {21}}
