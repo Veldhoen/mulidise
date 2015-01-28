@@ -238,13 +238,13 @@ TED data:
 Monolingual evaluation on English:
 \begin{table}
 \begin{tabular}{l l r r}
- 			&		&RCV (1000)		&TED		\\
-Setting		&Length	&accuracy		&F1		\\\hline
+ 			&vector	&RCV (1000)		&TED		\\
+Setting		&length	&accuracy		&F1		\\\hline
 Baseline		&		&.468			&.118	 	\\
 I-Matrix		&40		&.861			&.154		\\
-Paragraph mono	&256		&			&		\\
-Paragraph bi 	&256		&			&		\\
-Paraword mono	&256		&			&		\\
+Paragraph mono	&256		&-			&.399		\\
+Paragraph bi 	&256		&-			&.438		\\
+Paraword mono	&256		&.866			&.186		\\
 Paraword bi 		&256		&.898			&.216		\\
 Paraword multi 	&256		&.903			&.245		\\	
 Google News		&300		&.951			&.486		\\
@@ -260,34 +260,34 @@ Google News		&300		&.951			&.486		\\
 \item Mono- and bilingual evaluation on TED data (F1 scores):
 \end{itemize}
 \begin{table}
-\begin{tabular}{c |r r r r }
-Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
-trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
-EN			&.186		&.134		&.084		&.153		\\
-DE			&.132		&.091		&.076		&.132	\\
-DE-EN			&.216		&.189		&.201		&.220		\\
-multi 			&.404		&.368		&.387		&.339		\\
+\begin{tabular}{c | r|r r r r }
+Sentences 		&sentence	&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
+trained on: 		&quality	&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
+EN			&.399		&.186		&.134		&.084		&.153		\\
+DE			&.381		&.132		&.091		&.076		&.132	\\
+DE-EN			&.622		&.216		&.189		&.201		&.220		\\
+multi 			&		&.404		&.368		&.387		&.339		\\
 \end{tabular}
 \end{table}
 \end{dia}
 
-\begin{dia}
-\begin{itemize}
-\item Word vectors as average of the dbow-trained sentences they occur in.
-\item Sentences trained on 50k Europarl data in specified languages.
-\item Mono- and bilingual evaluation on RCV data with 10000 training examples (accuracy):
-\end{itemize}
-\begin{table}
-\begin{tabular}{c |r r r r }
-Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
-trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
-EN			&.866		&.456		&.398		&.661		\\
-DE			&.850		&.449		&.389		&.704		\\
-DE-EN			&.898		&.467		&.415		&.708		\\
-multi 			&.903		&.473		&.431		&.705		\\
-\end{tabular}
-\end{table}
-\end{dia}
+%\begin{dia}
+%\begin{itemize}
+%\item Word vectors as average of the dbow-trained sentences they occur in.
+%\item Sentences trained on 50k Europarl data in specified languages.
+%\item Mono- and bilingual evaluation on RCV data with 10000 training examples (accuracy):
+%\end{itemize}
+%\begin{table}
+%\begin{tabular}{c |r r r r }
+%Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
+%trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
+%EN			&.866		&.456		&.398		&.661		\\
+%DE			&.850		&.449		&.389		&.704		\\
+%DE-EN			&.898		&.467		&.415		&.708		\\
+%multi 			&.903		&.473		&.431		&.705		\\
+%\end{tabular}
+%\end{table}
+%\end{dia}
 
 
 
@@ -321,7 +321,8 @@ Words from \emph{English transfer} dbow paragraphs (7 languages)
 \includegraphics[width=1\linewidth]{figures/transfer_en25freq7}
 \end{dia}
 
-\section*{F1 baseline}
+\section{Discussion}
+\subsection*{F1 baseline}
 
 \begin{dia}
 \begin{align*}
