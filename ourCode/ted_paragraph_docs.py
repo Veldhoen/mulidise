@@ -3,13 +3,12 @@ from gensim.models.doc2vec import Doc2Vec, LabeledLineSentence, LabeledSentence
 from itertools import izip, chain, islice
 import os
 import numpy as np
-from inspection import preprocess
 
 def ted_file_filter(root):
-	for (dirpath, dirnames, filenames) in os.walk(root):
-		for name in filenames:
-			if name.endswith('.ted'):
-				yield name, os.path.join(dirpath, name)
+    for (dirpath, dirnames, filenames) in os.walk(root):
+        for name in filenames:
+            if name.endswith('.ted'):
+                yield name, os.path.join(dirpath, name)
 
 
 def save_ted_docs(model, ted_dir, out_dir):
@@ -46,4 +45,26 @@ class TedLabeledLineSentence(object):
             with open(doc) as lines:
                 for l in lines:
                     # ted corpus has lang suffixes
-                    yield LabeledSentence(words=preprocess(l).split(), labels=[l])
+                    yield LabeledSentence(words=l.split(), labels=[l])
+
+class BiTedLabeledLineSentence(object):
+    def __init__(self, ted_dir):
+        path_parts = ted_dir.rstrip('/').split('/')
+        print path_parts
+        l1,l2 = path_parts[-1].split('-')
+        ted_dir2 = os.path.join('/'.join(path_parts[:-1]), '%s-%s'%(l2,l1))
+        print ted_dir2
+        # make two dicts of unique documents
+        self.ted_l1 = {}
+        self.ted_l2 = {}
+        for name, f in ted_file_filter(ted_dir):
+            self.ted_l1[name] = f
+            self.ted_l2[name] = os.path.join(ted_dir2, f.replace(ted_dir, ''))
+ 
+    def __iter__(self):
+        for name in self.ted_l1:
+            with open(self.ted_l1[name]) as l1s, open(self.ted_l2[name]) as l2s:
+                for l1, l2 in izip(l1s, l2s):
+                    # ted corpus has lang suffixes
+                    ws = l1.split() + l2.split()
+                    yield LabeledSentence(words=ws, labels=[l1])
