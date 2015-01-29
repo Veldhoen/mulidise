@@ -40,5 +40,5 @@ class TedLabeledLineSentence(object):
         for doc in self.ted_docs.values():
             with open(doc) as lines:
                 for l in lines:
-                    l = preprocess(l) # ted corpus has lang suffixes
-                    yield LabeledSentence(words=l.split(), labels=[l])
+                    # ted corpus has lang suffixes
+                    yield LabeledSentence(words=preprocess(l).split(), labels=[l])
