@@ -14,10 +14,10 @@ from itertools import chain
 	train sentences on ted
 	export ted documents 
 """
-corpus_root, langs, ted_dir, export_dir = sys.argv[1:]
+corpus_root, langs, ted_dir, export_dir, corpus_size = sys.argv[1:]
 langs = langs.split(',')
 
-corpus_size = 50000
+corpus_size = int(corpus_size)
 size=256
 model = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=size)
 corpus = ParallelMergedLabeledLineSentence(corpus_root, langs, corpus_size)

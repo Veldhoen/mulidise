@@ -15,10 +15,10 @@ from parawords import parawords
 	export parawords (m langs)
 """
 
-corpus_root, n_langs, m_langs, export_file = sys.argv[1:]
+corpus_root, n_langs, m_langs, export_file, corpus_size = sys.argv[1:]
 n_langs, m_langs = n_langs.split(','), m_langs.split(',')
 
-corpus_size = 50000
+corpus_size = int(corpus_size)
 size=256
 model_n = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=size)
 corpus_n = ParallelMergedLabeledLineSentence(corpus_root, n_langs, corpus_size)
