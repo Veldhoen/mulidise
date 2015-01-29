@@ -43,7 +43,7 @@ for lan1 in ${languages[@]}; do
       java  -ea -Xmx2000m -cp \
         $classifiers ApClassifyF1 \
         --test-set $experiment/docEmbeddings/$lan2/test/$topic \
-        --model-name $experiment/models/$lan.$topic.model \
+        --model-name $experiment/models/$lan1.$topic.model \
         > $experiment/results/$lan1-$lan2.$topic.result &
     done
   done
