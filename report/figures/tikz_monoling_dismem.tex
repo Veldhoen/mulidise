@@ -1,0 +1,9 @@
+\begin{tikzpicture}[>=latex]
+\node[embedding](Sx) {Sentence$_x$};
+\node[embedding](W1) [right =0.2cm of Sx] {$w^{x}_{t-2}$};
+\node[embedding](W2) [right =0.2cm of W1] {$w^{x}_{t-1}$};
+\node[embedding](W4) [right =0.2cm of W2] {$w^{x}_{t+1}$};
+\node[embedding](W5) [right =0.2cm of W4] {$w^{x}_{t+2}$};
+\node[hidden] (h1) [above =of W2] {} edge[<-] (Sx)edge[<-] (W1)edge[<-] (W2)edge[<-] (W4)edge[<-] (W5);
+\node[index] (W3) [above =of h1] {$w^{x}_{t}$} edge [<-] (h1);
+\end{tikzpicture}

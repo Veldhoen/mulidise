@@ -1,0 +1,7 @@
+\begin{tikzpicture}[>=latex] 
+\node[embedding] (Sx) {Sentence$_x$};
+\node[hidden] (h1)[above=of Sx]{} edge [<-] (Sx);
+\node (ghost1) [above=of h1] {};
+\node[index] (W1) [left =.2 cm of ghost1] {$w^{x}_1$} edge [<-] (h1);
+\node[index] (Wn) [right =.2cm of ghost1] {$w^{x}_n$}edge [<-] (h1) edge [ dotted ] (W1);
+\end{tikzpicture}

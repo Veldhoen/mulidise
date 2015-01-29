@@ -1,22 +1,34 @@
-
-One model to induce word embeddings from (monolingual) text is called \texttt{word2vec}  and was introduced in %REF
-
-
+Like most of the afore-mentioned approaches, we aim to induce multilingual word embeddings from parallel data. In order to make sure the semantic spaces for all languages are aligned, we rely solely upon the fact that sentences are aligned without using word alignments.
+We introduce the \texttt{paragraph2vec} from \cite{Le2014} that we extend for this purpose, and explain how we use it to obtain word embeddings.
 
 
+\subsection{\texttt{paragraph2vec}}
+An efficient model to induce word embeddings from (monolingual) text is called \texttt{word2vec}  and was introduced in \cite{mikolov2013efficient}. It was extended to a version that can induce the same kind of embeddings for paragraphs: \texttt{paragraph2vec} \cite{Le2014}. A paragraph in this case can be any sequence of words, e.g. a sentence, paragraph or entire document. There are two different models to induce them, called PV-DM (dsitributed memorey) and PV-DBOW (distributed bag of words). The authors combine paragraphs obtained from both models in their experiments.
 
-
-
-
-Le and Mikolov \cite{Le2014} have extended their monolingual \texttt{word2vec} model to create representations of word sequences (sentences, paragraphs or documents).
-It uses a \emph{paragraph vector} as a part of the context of each word in the sequence (Figure~\ref{fig:p2v}). 
+In the DM model, a \emph{paragraph vector} is used as a part of the context of each word in the sequence (figure~\ref{fig:p2v-DM}).
+The hidden layer is formed by taking the average (or sum) of the sentence vector and word vectors of the context. The network tries to predict the index of the word that was left out of the context.  
 This way, the paragraph vector influences the learned representations of those words in the same way that their context words do.
 
-\begin{figure}[here]\center
-\includegraphics[width=0.7\linewidth]{figures/le.png}
-\caption{\texttt{word2vec} for paragraphs}
-\label{fig:p2v}
+\begin{figure}\center
+\input{figures/tikz_monoling_dismem}
+\caption{\texttt{paragraph2vec} with distributed memory (PV-DM)}
+\label{fig:p2v-DM}
 \end{figure}
+
+In the DBOW model, no word embeddings are trained. Rather, the sentence embedding is trained by trying to predict the indexes of all words that occur in the sentence (see figure~\ref{fig:p2v-DBOW}).
+
+\begin{figure}\center
+\input{figures/tikz_monoling_dbow}
+\caption{\texttt{paragraph2vec} with distributed bad of words (PV-DBOW)}
+\label{fig:p2v-DBOW}
+\end{figure}
+
+
+
+
+\subsection{Embeddings for parallel sentences}
+
+
 This paragraph representation could also be used for encouraging similarity between two bitext sentences.
 In our novel approach, we will run the algorithm from \cite{Le2014}, but using the same paragraph vector when training word vectors from parallel sentences.
 % is dat genoeg? of moet er iets bij over waarom we denken dat de alignments dan niet nodig zijn?
@@ -37,3 +49,33 @@ We will explore at least two training methods:
 	These sentence vectors will influence the learning of word embeddings in the other languages.
 	The error gradient for the sentence vector can either be distributed over the words or be discarded.
 \end{itemize}
+
+
+
+The model is depicted in figure~\ref{f:bilingual_dbow}
+From the embedding of a single parallel sentence representation, the network tries to predict all words that occur in the sentence either language. Note that no word embeddings are trained, only word indexes are predicted from the sentence embedding. The error is propagated back to train the sentence embeddings.
+
+
+\begin{figure}
+
+\center
+\input{figures/tikz_biling_dbow}
+\caption{Bilingual PV-DBOW}
+\label{f:bilingual_dbow}
+\end{figure}
+
+
+
+
+%Dit niet hier rapporteren?:
+Another training procedure relies on the previous experiments. It is based on the distributed memory training from paragraph2vec and  is illustrated in figure~\ref{f:bilingual-dm}. 
+The sentence embeddings that resulted from the dbow training were used and kept fixed. The word word embeddings from the previous experiment to initialize the multilingual DM setting. The idea is to further refine the word embeddings using a smaller context. However, the training occurs independently for both languages and the commonality of the semantic space relies solely on the sentence embeddings.
+
+\begin{figure}
+
+\center
+\input{figures/tikz_biling_dismem}
+\caption{Bilingual PV-DM}
+\label{f:bilingual-dm}
+\end{figure}
+

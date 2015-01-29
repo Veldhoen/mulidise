@@ -1,0 +1,8 @@
+\begin{tikzpicture}[>=latex] 
+\node[embedding] (Wt) {$w_t$};
+\node[hidden] (h1)[above=of Wt]{} edge [<-] (Wt);
+\node[index] (W-2) [above left =of h1] {$w_{t-2}$} edge [<-] (h1);
+\node[index] (W-1) [right =of W-2] {$w_{t-1}$}edge [<-] (h1);
+\node[index] (W+1) [right =of W-1] {$w_{t+1}$}edge [<-] (h1) ;
+\node[index] (W+2) [right =of W+1] {$w_{t+2}$}edge [<-] (h1) ;
+\end{tikzpicture}
