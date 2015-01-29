@@ -3,6 +3,10 @@
 
 We conducted several experiments using the multilingual \texttt{paragraph2vec} models described in~\ref{s:newApproach}. In this section, the training data and experimental set-up are explained. The evaluation procedure is introduced in section~\ref{:evaluation}, followed by emperical results in section~\ref{s:results}.
 
+
+A distribution of word embeddings in four language pairs (German-English, Czech-English, French-English, and Spanish-English) \url{http://klementiev.org/data/distrib/}
+
+
 \subsection{Data}
 For training the sentence and word embeddings, we use 50 000 sentences of Europarl data that are aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese, unless stated otherwise. The cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
 All documents were tokenized and lowercased. No other preprocessing, such as stemming, was applied.
