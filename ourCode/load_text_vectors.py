@@ -1,6 +1,7 @@
 from gensim.models.word2vec import Word2Vec, Vocab
 from numpy import zeros, float32 as REAL
 import sys
+import logging
 
 def load_eval_format(fname, fvocab=None, suffix_filter=None):
     """ Adapted from Word2Vec.load_word2vec_format """
@@ -26,7 +27,7 @@ def load_eval_format(fname, fvocab=None, suffix_filter=None):
         for line_no, line in enumerate(fin):
             parts = unicode(line.decode('utf-8')).split()
             if len(parts) != layer1_size + 2:
-                raise ValueError("invalid vector on line %s (is this really the text format?)" % (line_no))
+                raise ValueError("invalid vector on line %s (is this really the text format?): \n%s" % (line_no, line))
             word, weights = parts[0], map(REAL, parts[2:])
             if suffix_filter:
                 word = word[:-len(suffix_filter)]
@@ -48,3 +49,8 @@ def load_eval_format(fname, fvocab=None, suffix_filter=None):
 
 suf = sys.argv[2] if len(sys.argv)>1 else None
 model = load_eval_format(sys.argv[1], suffix_filter=suf)
+
+# logging.basicConfig(format='%(asctime)s : %(threadName)s : %(levelname)s : %(message)s', level=logging.INFO)
+# fh = logging.FileHandler(sys.argv[1]+'.analogy')
+# logging.getLogger("gensim.models.word2vec").addHandler(fh)
+# model.accuracy('/Users/benno/Documents/wordvecproj/questions-words.txt')
