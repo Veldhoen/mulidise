@@ -21,7 +21,8 @@ In order to evaluate a set of word embeddings:
 
 The script classifierRCVgivenDocs.sh was created
 in order to test readymade document representations.
-It was used for the evaluation of dbow sentences.
+The same goes for classifierPars.sh, but for TED evaluation:
+it was used for the evaluation of dbow sentences.
 
 
 NB: The evaluation scripts rely on:
