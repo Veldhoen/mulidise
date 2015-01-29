@@ -3,30 +3,38 @@
 
 
 It is not trivial to measure the quality of the multilingual word embeddings. The semantic space should be reliable for each language in isolation, and consistent across languages. 
-Even the former is not easy to assess. In \cite{mikolov2013efficient}, an analogy task is introduced to this aim.
+Even the former is not easy to assess. In \cite{mikolov2013efficient}, an analogy task is introduced to this aim, which we apply to our English word embeddings as wel.
 
-The latter is evaluated on a real-world task of cross-lingual document classification. The former is evaluated
-
-
+The latter is evaluated on a real-world task of cross-lingual document classification. The models we use rely on bag-of-word representations of sentences, as explained in section~\ref{s:wordEmbeddings}. Therefore, we do not expect a fine-grained semantic analysis of sentences and words but rather capture something like `topicality'. It thus make sense to apply a document classification task, following the evaluation strategy of  \cite{klementiev2012inducing, hermann2013multilingual,hermann2014multilingual}.
 
 
-\subsection{Document classification}
-In \cite{klementiev2012inducing}, a real-world task is introduced to this end: cross-lingual document classification. The task, that is also used in \cite{hermann2013multilingual}, is based on Reuters corpora, which has topic-annotated documents. The evaluation data is available for English and German documents that belong to a single topic, and thus the gold standard can be represented by a one-hot vector.
-
-Each document is represented by the average of the representations of its tokens (in \cite{klementiev2012inducing}, the average is weighted by $idf$ score), or sentences (in \cite{hermann2013multilingual}).
-An averaged version of the perceptron algorithm is trained for document classification in one language, and tested on data in another resulting in a classification accuracy score. If the semantic space is coherent between languages, performance should not be much worse than monolingual document classification.
-
-%As a baseline, we compute chance accuracy for the majority class estimate. Alternatively, \cite{klementiev2012inducing} compares to wordcount features. Translations are done via glossing or machine translation. It is also common to compare to a MT baseline. 
+\subsection{Word analogy task}
 
 
+\subsection{Document classification - RCV}
+In \cite{klementiev2012inducing} a cross-lingual document classification task is introduced. The task, that is also used in \cite{hermann2013multilingual}, is based on Reuters corpora, which has topic-annotated documents. The evaluation data is available for English and German documents that belong to a single topic, and thus the gold standard can be represented by a one-hot vector.
 
+A vector representation is obtained for each document in the dataset. In \cite{klementiev2012inducing}, the document vector is the average of the representations of its \emph{tokens}, weighted by $idf$ score. In \cite{hermann2013multilingual}, the document vector is the average of the representations of its \emph{sentences}. We use both approaches, depending on the experimental settings.
 
+As a classifier, we use the implementation of an averaged perceptron algorithm from \cite{klementiev2012inducing}. It is trained to predict classes (topics) from document representations. In the cross-lingual setting, the perceptron is trained for document classification in one language, and tested on data in another resulting in a classification accuracy score. If the semantic space is coherent between languages, performance should not diverge much between monolingual and cross-lingual document classification. 
+%Alternatively, \cite{klementiev2012inducing} compares to wordcount features. Translations are done via glossing or machine translation. It is also common to compare to a MT baseline. 
 
-%Alternative:
-The WIT TED corpus \cite{cettolo2012} contains short documents with transcriptions and translations of TED talks, with topic annotations. The original distribution was aimed at machine translation, but \cite{hermann2014multilingual} propose it for a multilingual document classification task. The major advantage of this task is the availability of documents in many languages. It has documents in English paired in both directions with other languages, seven of which are also in the Europarl corpus: Spanish, French, German, Italian, Dutch, Portuguese, Polish, and Romanian.
+The topics in the RCV evaluation sets belong to four topics: Corporate/Industrial, Economics, Government/Social, and Markets.
+For both languages, the documents are split into train sets with 100, 200, 500, 1000, 5000 and 100000 documents, and a test set of around 5000 documents.
+As a baseline, we compute chance accuracy for the majority class estimate. For both languages, the majority class was Markets, with around 46.8\% of the documents.
 
-The classification labels in this set are technology, culture, science, global issues, design, business, entertainment, arts, politics, education, art, health, creativity, economics, and biology. Note that contrary to the previous task, a document can have more than one topic annotation. A binary classifier is thus trained for each topic, using the same system as before. Performance is reported both as classification accuracy and F1 score. As the chance accuracy for majority class is quite high, since there are only few positive examples per class, F1 is more informative for comparing performance.
+\subsection{TED document classification}
+The WIT TED corpus \cite{cettolo2012} contains short documents with transcriptions and translations of TED talks, with topic annotations. The original distribution was aimed at machine translation, but \cite{hermann2014multilingual} propose it for a multilingual document classification task. The major advantage of this task over the previous one, is the availability of documents in many languages. It has documents in English sentence-aligned with other languages, six of which are also in the Europarl data we use for obtaining our data: Spanish, French, German, Italian, Dutch, and Portuguese.
 
+The classification labels in this set are technology, culture, science, global issues, design, business, entertainment, arts, politics, education, art, health, creativity, economics, and biology. Note that contrary to the previous task, a document can have more than one topic annotation. A binary classifier is thus trained for each topic, using the same system as before. Performance is reported both as classification accuracy and F1 score. As the chance accuracy for majority class is quite high, since there are only few positive examples per class, F1 is more informative for comparing performance. 
+
+The majority class estimate is not usable as a baseline for F1 performance: as the majority of the documents are labeled negative, precision would be zero and thus F1 too (or, actually, undefined). As an alternative baseline, we compare to a stochastic classifier that predicts `true' with probability $P=pos/total$. The expected number of True Positives is thus $P*pos=P^2*|X|$, the expected False Positives and False Negatives are both $P*(1-P)*|X|$. We can now compute expected F1:
+
+\begin{align*}
+F1	&=\frac{2*TP}{2*TP+FN+FP}\\
+			&=\frac{2*P^2*|X|}{2*P^2*|X|+2((1-P)*P*|X|)}\\
+			&=P
+\end{align*} Therefore, we use the ratio of positive examples as a baseline for the performance on TED data.
 
 
 

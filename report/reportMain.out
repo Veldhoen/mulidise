@@ -9,10 +9,13 @@
 \BOOKMARK [2][-]{subsection.3.2}{Embeddings for parallel sentences}{section.3}% 9
 \BOOKMARK [1][-]{section.4}{Obtaining multilingual word embeddings}{}% 10
 \BOOKMARK [1][-]{section.5}{Evaluation}{}% 11
-\BOOKMARK [2][-]{subsection.5.1}{Document classification}{section.5}% 12
-\BOOKMARK [1][-]{section.6}{Experiments and results}{}% 13
-\BOOKMARK [2][-]{subsection.6.1}{Data}{section.6}% 14
-\BOOKMARK [2][-]{subsection.6.2}{Sentence embeddings from multilingual dbow}{section.6}% 15
-\BOOKMARK [2][-]{subsection.6.3}{Word embeddings from sentence embeddings}{section.6}% 16
-\BOOKMARK [1][-]{section.7}{Discussion and future work}{}% 17
-\BOOKMARK [1][-]{section.8}{Conclusion}{}% 18
+\BOOKMARK [2][-]{subsection.5.1}{Word analogy task}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.2}{Document classification - RCV}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.3}{TED document classification}{section.5}% 14
+\BOOKMARK [1][-]{section.6}{Experiments and results}{}% 15
+\BOOKMARK [2][-]{subsection.6.1}{Data}{section.6}% 16
+\BOOKMARK [2][-]{subsection.6.2}{Implementation}{section.6}% 17
+\BOOKMARK [2][-]{subsection.6.3}{Sentence embeddings from multilingual dbow}{section.6}% 18
+\BOOKMARK [2][-]{subsection.6.4}{Word embeddings from sentence embeddings}{section.6}% 19
+\BOOKMARK [1][-]{section.7}{Discussion and future work}{}% 20
+\BOOKMARK [1][-]{section.8}{Conclusion}{}% 21

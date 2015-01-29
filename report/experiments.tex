@@ -1,16 +1,14 @@
 %Reproducing existing work with more languages
 %New approach: based on par2vec (2 flavors)
 
-We conducted several experiments using the multilingual \texttt{paragraph2vec} models described in~\ref{s:newApproach}. In this section, the training data and experimental set-up are explained. The evaluation procedure is introduced in section~\ref{:evaluation}, followed by emperical results in section~\ref{s:results}.
+We conducted several experiments using the multilingual \texttt{paragraph2vec} models described in~\ref{s:sentenceEmbeddings}. In this section, the training data and implementations we use are explained. We report emperical results for different experimental set-ups.
 
-
-A distribution of word embeddings in four language pairs (German-English, Czech-English, French-English, and Spanish-English) \url{http://klementiev.org/data/distrib/}
 
 
 \subsection{Data}
-For training the sentence and word embeddings, we use 50 000 sentences of Europarl data that are aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese, unless stated otherwise. The cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
+For training the sentence and word embeddings, we use 50 000 sentences of Europarl data, unless stated otherwise.. 
+The documents are sentence-aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese. These cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
 All documents were tokenized and lowercased. No other preprocessing, such as stemming, was applied.
-
 
 In all experiments, words that occurred fewer than five times were excluded.
 The resulting vocabulary sizes in this dataset are presented  in table~\ref{t:vocabularies}.
@@ -31,18 +29,39 @@ Portuguese	&11101				\\
 \label{t:vocabularies}
 \end{table}
 
+\subsection{Implementation}
+%GENSIM tralala
+
 
 \subsection{Sentence embeddings from multilingual dbow}
+Using our multilingual version of the paragraph2vec dbow architecture, we obtain sentence embeddings for parallel sentences: DE-EN are German and English paired, multi are all 7 aligned languages, EN and DE are monolingually trained sentence embeddings trained with the original dbow model. In each case, the model is trained on Europarl data, for 10 epochs. We start with a learning rate ($\alpha$) of 0.025, which is decreased with 0.002 after each epoch.
 
-Using our multilingual version of the paragraph2vec dbow architecture, we obtain sentence embeddings for parallel sentences. 
+ In order to evaluate the quality of the sentence embeddings, we obtain sentence representations for the (parallel) TED corpus. We use the trained model, keeping the softmax weights fixed and training the TED sentence representations for 10 iterations.
 
+We apply the induced sentence embeddings to the document classification task. In this case, we take the document representation to simply be the average of its sentence embeddings. These representations are then used to train and test the two document classification tasks. The results on TED data are in the second column of table~\ref{t:dbow_mono_bi}.
 
+\begin{table*}[t]
+\center
+\begin{tabular}{c | r|r r r r }
+Sentences 		&sentence	&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
+trained on: 		&quality	&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
+EN			&.293		&.186		&.134		&.084		&.153		\\
+DE			&.305		&.132		&.091		&.076		&.132		\\
+DE-EN			&.378		&.194		&.127		&.100		&.136		\\
+multi 			&		&.297		&.196		&.206		&.226		\\
+\end{tabular}
+\caption{F1 scores on TED classification task for sentence representations and word representations.}
+\label{t:dbow_mono_bi}
+\end{table*}
 
-
-In order to test the quality of the multilingual sentence embeddings, we take the document representation to simply be the average of its sentence embeddings. These representations are then used to train and test the two document classification tasks.
 
 
 \subsection{Word embeddings from sentence embeddings}
+
+We compare to the multitask-learning approach by \cite{klementiev2012inducing} described in section~\ref{s:relatedWork}. A distribution of word embeddings in four language pairs (German-English, Czech-English, French-English, and Spanish-English) is available on \url{http://klementiev.org/data/distrib/}. The alignments used to populate the interaction matrix are obtained from the Europarl corpus. The word embeddings of the German-English part of the data are trained on the Reuters data that also make up the RCV evaluation set. Note that the amount an nature of training data is quite different from ours, as are the vectors lengths: 40.
+
+
+
 We explore how the resulting sentence embeddings can be used to induce word embeddings in two languages. The word embeddings are in the same space and anticipated to be aligned cross-lingually, because the sentence representations for bilingual sentences are equal.
 
 In one setting, we define the word representation as the average of the embeddings of all sentences it occurs in. We evaluate the word embeddings that result from this.
