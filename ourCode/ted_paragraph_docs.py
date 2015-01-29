@@ -18,18 +18,23 @@ def save_ted_docs(model, ted_dir, out_dir):
         `ted_dir` ends with `/<l1>-<l2>`
     """
     size = model.layer1_size
+    skipped_sentences = 0
     for name, f in ted_file_filter(ted_dir):
         dataset, topic, posneg = f.split('/')[-4:-1]
         with open(f) as lines:
             vec = np.zeros(size)
             for line in lines:
-                vec += model[line]
+                if line in model:
+                    vec += model[line]
+                else:
+                    skipped_sentences += 1
         out = os.path.join(out_dir, '%s/%s' % (dataset, topic))
         vecstr = ' '.join(['%s:%s' % (i, d) for i,d in enumerate(vec)])
         if not os.path.exists(os.path.dirname(out)):
             os.makedirs(os.path.dirname(out))
         with open(out, 'a') as o:
             o.write('%s %s\n' % (1+int(posneg=='negative'), vecstr))
+        print 'skipped %s sentences' % skipped_sentences
 
 class TedLabeledLineSentence(object):
     def __init__(self, ted_dir):
