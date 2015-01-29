@@ -9,19 +9,22 @@ In the DM model, a \emph{paragraph vector} is used as a part of the context of e
 The hidden layer is formed by taking the average (or sum) of the sentence vector and word vectors of the context. The network tries to predict the index of the word that was left out of the context.  
 This way, the paragraph vector influences the learned representations of those words in the same way that their context words do.
 
-\begin{figure}\center
+\begin{figure*}\center
+\begin{subfigure}{.45\textwidth}\center
 \input{figures/tikz_monoling_dismem}
-\caption{\texttt{paragraph2vec} with distributed memory (PV-DM)}
+\caption{PV-DM}
 \label{fig:p2v-DM}
-\end{figure}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}\center
+\input{figures/tikz_monoling_dbow}
+\caption{PV-DBOW}
+\label{fig:p2v-DBOW}
+\end{subfigure}
+\caption{\texttt{paragraph2vec} models}
+\end{figure*}
 
 In the DBOW model, no word embeddings are trained. Rather, the sentence embedding is trained by trying to predict the indexes of all words that occur in the sentence (see figure~\ref{fig:p2v-DBOW}).
 
-\begin{figure}\center
-\input{figures/tikz_monoling_dbow}
-\caption{\texttt{paragraph2vec} with distributed bad of words (PV-DBOW)}
-\label{fig:p2v-DBOW}
-\end{figure}
 
 
 
