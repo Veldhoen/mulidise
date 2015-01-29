@@ -71,11 +71,11 @@ From the embedding of a single parallel sentence representation, the network tri
 Another training procedure relies on the previous experiments. It is based on the distributed memory training from paragraph2vec and  is illustrated in figure~\ref{f:bilingual-dm}. 
 The sentence embeddings that resulted from the dbow training were used and kept fixed. The word word embeddings from the previous experiment to initialize the multilingual DM setting. The idea is to further refine the word embeddings using a smaller context. However, the training occurs independently for both languages and the commonality of the semantic space relies solely on the sentence embeddings.
 
-\begin{figure}
+\begin{figure*}
 
 \center
 \input{figures/tikz_biling_dismem}
 \caption{Bilingual PV-DM}
 \label{f:bilingual-dm}
-\end{figure}
+\end{figure*}
 
