@@ -19,7 +19,7 @@ langs = langs.split(',')
 
 corpus_size = 50000
 size=256
-model = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=256)
+model = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=size)
 corpus = ParallelMergedLabeledLineSentence(corpus_root, langs, corpus_size)
 ted = TedLabeledLineSentence(ted_dir)
 model.build_vocab(chain(ted, corpus))

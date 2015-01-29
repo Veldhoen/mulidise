@@ -20,7 +20,7 @@ n_langs, m_langs = n_langs.split(','), m_langs.split(',')
 
 corpus_size = 50000
 size=256
-model_n = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=256)
+model_n = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=size)
 corpus_n = ParallelMergedLabeledLineSentence(corpus_root, n_langs, corpus_size)
 model_n.build_vocab(corpus_n)
 print '%s words in vocab_n' % (len(model_n.vocab) - corpus_size)
@@ -33,7 +33,7 @@ for epoch in range(10):
     model_n.alpha -= 0.002  # decrease the learning rate
 print '(%ss)' % (timeit.default_timer() - start)
 
-model_m = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=256)
+model_m = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=size)
 corpus_m = ParallelMergedLabeledLineSentence(corpus_root, m_langs, corpus_size)
 model_m.build_vocab(corpus_m)
 print '%s words in vocab_m' % (len(model_m.vocab) - corpus_size)

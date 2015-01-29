@@ -17,6 +17,7 @@ def save_ted_docs(model, ted_dir, out_dir):
         `model` has sentences in `<l1>`
         `ted_dir` ends with `/<l1>-<l2>`
     """
+    size = model.layer1_size
     for name, f in ted_file_filter(ted_dir):
         dataset, topic, posneg = f.split('/')[-4:-1]
         with open(f) as lines:
