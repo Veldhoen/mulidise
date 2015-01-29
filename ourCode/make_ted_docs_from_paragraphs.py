@@ -3,7 +3,7 @@ from gensim.models.doc2vec import Doc2Vec, LabeledSentence
 import sys
 import timeit
 from parallel_bow import ParallelMergedLabeledLineSentence
-from ted_paragraph_docs import save_ted_docs, TedLabeledLineSentence
+from ted_paragraph_docs import *
 from itertools import chain
 
 """
