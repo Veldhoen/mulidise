@@ -7,7 +7,7 @@ from ted_paragraph_docs import save_ted_docs, TedLabeledLineSentence
 from itertools import chain
 
 """
-	usage: <corpus-root> <langs> <ted-dir> <export-dir>
+	usage: <corpus-root> <langs> <ted-dir> <export-dir> <corpus-size>
 
 	open corpus (1 or 2 langs) & ted, init vocab
 	train softmax & sentences on corpus
@@ -21,7 +21,10 @@ corpus_size = int(corpus_size)
 size=256
 model = Doc2Vec(dm=0, alpha=0.025, min_alpha=0.025, size=size)
 corpus = ParallelMergedLabeledLineSentence(corpus_root, langs, corpus_size)
-ted = TedLabeledLineSentence(ted_dir)
+if len(langs)==1:
+    ted = TedLabeledLineSentence(ted_dir)
+else:
+    ted = BiTedLabeledLineSentence(ted_dir)
 model.build_vocab(chain(ted, corpus))
 print '%s words & sents in vocab' % len(model.vocab)
 

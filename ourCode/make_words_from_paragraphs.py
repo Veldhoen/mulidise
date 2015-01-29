@@ -6,7 +6,7 @@ from parallel_bow import ParallelMergedLabeledLineSentence
 from parawords import parawords
 
 """
-	usage: <corpus-root> <n-langs> <m-langs> <export-file>
+	usage: <corpus-root> <n-langs> <m-langs> <export-file> <corpus-size>
 
 	open corpus (n langs), init vocab (n langs)
 	train softmax & sentences on corpus (n langs)
