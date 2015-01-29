@@ -20,13 +20,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{colortbl}
 
-\usepackage{proof} % proof.sty voor derivaties
 
 
 \usepackage{tikz}
 \tikzset{
     embedding/.style={rectangle,draw=black,text centered},
-    index/.style={circle,draw=black,text centered, text width=0.45cm},
+    index/.style={circle,draw=black,text centered, minimum width=0.45cm},
     hidden/.style={rectangle split,rectangle split horizontal=true,rectangle split parts=7,draw=black},
 }
 \usetikzlibrary{shapes}
@@ -52,7 +51,6 @@
 %\usetikzlibrary{shapes.multipart}
 %\usepackage{tikz-qtree}
 
-\usepackage{algorithm2e}
 \usepackage{algorithmic}
 \usepackage{float}
 \usepackage{graphicx}
@@ -101,7 +99,92 @@
 \end{frame}
 
 \section{Introduction - related work}
-\section{Our first idea (and why it wouldn't work)}
+
+\begin{dia}
+\begin{figure}
+
+\center
+\begin{tikzpicture}[>=latex] 
+\node[embedding] (Wt) {$w_t$};
+\node[hidden] (h1)[above=of Wt]{} edge [<-] (Wt);
+\node[index] (W-2) [above left =of h1] {$w_{t-2}$} edge [<-] (h1);
+\node[index] (W-1) [right =of W-2] {$w_{t-1}$}edge [<-] (h1);
+\node[index] (W+1) [right =of W-1] {$w_{t+1}$}edge [<-] (h1) ;
+\node[index] (W+2) [right =of W+1] {$w_{t+2}$}edge [<-] (h1) ;
+\end{tikzpicture}
+\caption{word2vec Skipgram (Le \& Mikolov)}
+\end{figure}
+\end{dia}
+
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex]
+\node[embedding](We1) {$w_{t-2}$};
+\node[embedding](We2) [right =0.2cm of We1] {$w_{t-1}$};
+\node(ghost)[right=0.2cm of We2] {};
+\node[embedding](We4) [right =0.2cm of ghost] {$w_{t+1}$};
+\node[embedding](We5) [right =0.2cm of We4] {$w_{t+2}$};
+\node[hidden] (h1) [above =of ghost] {} edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
+\node[index] (We3) [above =of h1] {$w_{t}$} edge [<-] (h1);
+\end{tikzpicture}
+\caption{word2vec dbow (Le \& Mikolov)}
+\end{figure}
+\end{dia}
+
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex]
+\node[embedding](Sx) {Sentence$_x$};
+\node[embedding](We1) [right =0.2cm of Sx] {$w^{x}_{t-2}$};
+\node[embedding](We2) [right =0.2cm of We1] {$w^{x}_{t-1}$};
+\node[embedding](We4) [right =0.2cm of We2] {$w^{x}_{t+1}$};
+\node[embedding](We5) [right =0.2cm of We4] {$w^{x}_{t+2}$};
+\node[hidden] (h1) [above =of We2] {} edge[<-] (Sx)edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
+\node[index] (We3) [above =of h1] {$w^{e_x}_{t}$} edge [<-] (h1);
+\end{tikzpicture}
+\caption{paragraph2vec distributed memory (Le \& Mikolov)}
+\label{f:bilingual_dm}
+\end{figure}
+\end{dia}
+
+
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex] 
+\node[embedding] (Sx) {Sentence$_x$};
+\node[hidden] (h1)[above=of Sx]{} edge [<-] (Sx);
+\node(ghost1)[above=of h1] {};
+\node[index] (Wf0) [left=.4cm of ghost1] {$w^{x}_{0}$} edge [<-] (h1);
+\node[index] (Wfm) [right=.4cm of ghost1] {$w^{x}_{m}$} edge [<-] (h1) edge [ dotted] (Wf0);
+\end{tikzpicture}
+\caption{paragraph2vec distributed bag-of-words (Le \& Mikolov)}
+\label{f:bilingual_dbow}
+\end{figure}
+\end{dia}
+
+\begin{dia}
+\begin{figure}
+\center
+\begin{tikzpicture}[>=latex]
+\node[embedding](We0) {$w^{e_x}_0$};
+\node(ghost)[right=0.4cm of We0] {};
+\node[embedding](Wen) [right =0.4cm of ghost] {$w^{e_x}_n$} edge[dotted](We0);
+\node[hidden] (h1) [above =of ghost] {} edge[<-] (We0)edge[<-] (Wen);
+\node(ghost1)[above=of h1] {};
+\node[index] (Wf0) [left=.4cm of ghost1] {$w^{f_x}_{0}$} edge [<-] (h1);
+\node[index] (Wfm) [right=.4cm of ghost1] {$w^{f_x}_{m}$} edge [<-] (h1) edge [ dotted] (Wf0);
+\end{tikzpicture}
+\caption{Auto-encoder (Chandar, Lauly \& al.)}
+\end{figure}
+\end{dia}
+
+
+
+
+\section{Multilingual DM}
 \begin{dia}
 \begin{figure}
 \center
@@ -121,7 +204,10 @@
 
 
 
-\section{Our new idea}
+%%% SARA %%%
+
+
+\section{Multilingual Dbow}
 
 \begin{dia}
 \begin{figure}
@@ -145,6 +231,7 @@
 \item Training a single embedding for parallel sentences
 \item Word embeddings are not trained
 \item Can be extended to more than two languages
+\item Results in `good' sentence embeddings (without a compositional model)
 \end{itemize}
 \end{dia}
 
@@ -177,7 +264,7 @@ emb(w)=\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) emb(s)
 
 
 
-\section{Evaluation and results}
+\section{Evaluation}
 \begin{dia}
 \begin{itemize}
 \item Training word embeddings: on Europarl data (50k or 500k sentences)
@@ -235,17 +322,18 @@ TED data:
 \end{itemize}
 \end{dia}
 
+\section{Results}
 \begin{dia}
 Monolingual evaluation on English:
 \begin{table}
 \begin{tabular}{l l r r}
- 			&		&RCV (1000)		&TED		\\
-Setting		&Length	&accuracy		&F1		\\\hline
+ 			&vector	&RCV (1000)		&TED		\\
+Setting		&length	&accuracy		&F1		\\\hline
 Baseline		&		&.468			&.118	 	\\
 I-Matrix		&40		&.861			&.154		\\
-Paragraph mono	&256		&			&		\\
-Paragraph bi 	&256		&			&		\\
-Paraword mono	&256		&			&		\\
+Paragraph mono	&256		&-			&.399		\\
+Paragraph bi 	&256		&-			&.438		\\
+Paraword mono	&256		&.866			&.186		\\
 Paraword bi 		&256		&.898			&.216		\\
 Paraword multi 	&256		&.903			&.245		\\	
 Google News		&300		&.951			&.486		\\
@@ -261,16 +349,39 @@ Google News		&300		&.951			&.486		\\
 \item Mono- and bilingual evaluation on TED data (F1 scores):
 \end{itemize}
 \begin{table}
-\begin{tabular}{c |r r r r }
-Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
-trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
-EN			&			\\
-DE			&			\\
-DE-EN			&.216		&.189		&.201		&.220		\\
-multi 			&.404		&.368		&.387		&.339		\\
+\begin{tabular}{c | r|r r r r }
+Sentences 		&sentence	&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
+trained on: 		&quality	&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
+EN			&.399		&.186		&.134		&.084		&.153		\\
+DE			&.381		&.132		&.091		&.076		&.132	\\
+DE-EN			&.622		&.216		&.189		&.201		&.220		\\
+multi 			&		&.404		&.368		&.387		&.339		\\
 \end{tabular}
 \end{table}
 \end{dia}
+
+%\begin{dia}
+%\begin{itemize}
+%\item Word vectors as average of the dbow-trained sentences they occur in.
+%\item Sentences trained on 50k Europarl data in specified languages.
+%\item Mono- and bilingual evaluation on RCV data with 10000 training examples (accuracy):
+%\end{itemize}
+%\begin{table}
+%\begin{tabular}{c |r r r r }
+%Sentences 		&	\multicolumn{4}{c}{Classification train-test}	\\
+%trained on: 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
+%EN			&.866		&.456		&.398		&.661		\\
+%DE			&.850		&.449		&.389		&.704		\\
+%DE-EN			&.898		&.467		&.415		&.708		\\
+%multi 			&.903		&.473		&.431		&.705		\\
+%\end{tabular}
+%\end{table}
+%\end{dia}
+
+
+
+
+
 
 \begin{dia}
 \begin{itemize}
@@ -281,9 +392,58 @@ multi 			&.404		&.368		&.387		&.339		\\
 \includegraphics[width=\textwidth]{figures/multilingdbow}
 \end{dia}
 
+
+
+
+%%% BENNO %%%
+
+
+
 \section{Graphics and concluding words}
+% all parawords multi
 
+\begin{dia}
+Words from \emph{multilingual} dbow paragraphs (7 languages)
+\includegraphics[width=1\linewidth]{figures/weekdays7}
+\end{dia}
 
+\begin{dia}
+Words from \emph{multilingual} dbow paragraphs (7 languages)
+\includegraphics[width=1\linewidth]{figures/en10freq7}
+\end{dia}
 
+\begin{dia}
+Words from \emph{English transfer} dbow paragraphs (7 languages)
+\includegraphics[width=1\linewidth]{figures/transfer_en10freq7}
+\end{dia}
+
+\section{Discussion}
+\subsection*{F1 baseline}
+
+\begin{dia}
+\begin{align*}
+Prec=&\frac{TP}{TP+FP}, \\
+Rec=&\frac{TP}{TP+FN}, \\
+Acc=&\frac{TP+TN}{TP+FP+TN+FN}\\
+\text{Majority class:}\\
+ neg>pos\rightarrow& \begin{cases}Acc=\frac{TP+TN}{TP+FP+TN+FN}=\frac{TN}{TN+FN}=\frac{neg}{total}\\Prec=\frac{TP}{TP+FP}=0\rightarrow F1=0\end{cases}
+\end{align*}
+\end{dia}
+\begin{dia}
+Now assume a stochastic classifier: \\
+$P=P(pos)=\frac{pos}{total}$, $P(neg)=1-P$\\
+
+$pos=P*|X|, neg=(1-P)*|X|$
+\begin{align*}
+TP=&P*pos=P^2*|X|\\
+FP=&P*neg=P*(1-P)*|X|\\
+FN=&(1-P)*pos=(1-P)*P*|X|\\
+F1=&\frac{2*TP}{2*TP+FN+FP}\\
+=&\frac{2*P2*|X|}{2*P*P*|X|+(1-P)*P*|X|+(1-P)*P*|X|}\\
+=&\frac{2*P^2}{2*P^2+(1-P)*P+(1-P)*P}\\
+=&\frac{2*P}{2*P+(1-P)+(1-P)}=\frac{2P}{2}=P\\
+\end{align*}
+Is $P$ a reasonable F1 baseline?
+\end{dia}
 
 \end{document}

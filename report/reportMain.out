@@ -3,9 +3,15 @@
 \BOOKMARK [2][-]{subsection.2.1}{Linear Mapping}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Multitask Learning}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Joint Learning from Sentence Embeddings}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{New approach}{}% 6
-\BOOKMARK [1][-]{section.4}{Experiments}{}% 7
-\BOOKMARK [1][-]{section.5}{Evaluation}{}% 8
-\BOOKMARK [2][-]{subsection.5.1}{Document classification}{section.5}% 9
-\BOOKMARK [1][-]{section.6}{Results and discussion}{}% 10
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 11
+\BOOKMARK [2][-]{subsection.2.4}{An Autoencoder approach}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Using sentence embeddings from parallel data}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{paragraph2vec}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Embeddings for parallel sentences}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Experiments}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Data}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Sentence embeddings from multilingual dbow}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Word embeddings from sentence embeddings}{section.4}% 13
+\BOOKMARK [1][-]{section.5}{Evaluation}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Document classification}{section.5}% 15
+\BOOKMARK [1][-]{section.6}{Results and discussion}{}% 16
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 17

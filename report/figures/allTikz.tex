@@ -1,0 +1,66 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{enumerate}
+\usepackage{alltt}
+\usepackage{relsize}
+\usepackage{lscape}
+\newcommand{\query}[1]{\Large\begin{alltt}#1\end{alltt}\normalsize}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning,backgrounds}
+
+\begin{document}
+\small
+\tikzset{
+    embedding/.style={rectangle,draw=black,text centered},
+    index/.style={circle,draw=black,text centered,minimum width=.45cm},
+    hidden/.style={rectangle split,rectangle split horizontal=true,rectangle split parts=7,draw=black},
+}
+
+\begin{figure}
+\center
+\input{tikz_word2vec_skipgram}
+\caption{word2vec Skipgram}
+\end{figure}
+
+\begin{figure}
+\center
+\input{tikz_word2vec_cbow}
+\caption{word2vec cbow}
+\end{figure}
+
+
+
+
+\begin{figure}
+\center
+\input{tikz_autoencoder}
+\caption{autoencoder}
+\end{figure}
+
+\begin{figure}
+\center
+\input{tikz_monoling_dbow}
+\caption{par2vec dbow}
+\end{figure}
+
+\begin{figure}
+\center
+\input{tikz_monoling_dismem}
+\caption{par2vec distributed memory}
+\end{figure}
+
+\begin{figure}
+\center
+\input{tikz_biling_dbow}
+\caption{Bilingual dbow}
+\end{figure}
+
+\begin{figure}
+\center
+\input{tikz_biling_dismem}
+\caption{Multilingual DM}
+\end{figure}
+
+\end{document}

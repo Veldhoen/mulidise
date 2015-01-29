@@ -1,0 +1,9 @@
+\begin{tikzpicture}[>=latex]
+\node[embedding](We0) {$w^{e_x}_0$};
+\node(ghost)[right=0.4cm of We0] {};
+\node[embedding](Wen) [right =0.4cm of ghost] {$w^{e_x}_n$} edge[dotted](We0);
+\node[hidden] (h1) [above =of ghost] {} edge[<-] (We0)edge[<-] (Wen);
+\node(ghost1)[above=of h1] {};
+\node[index] (Wf0) [left=.4cm of ghost1] {$w^{f_x}_{0}$} edge [<-] (h1);
+\node[index] (Wfm) [right=.4cm of ghost1] {$w^{f_x}_{m}$} edge [<-] (h1) edge [ dotted] (Wf0);
+\end{tikzpicture}

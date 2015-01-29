@@ -1,0 +1,8 @@
+\begin{tikzpicture}[>=latex] 
+\node[embedding] (Sx) {Sentence$_x$};
+\node[hidden] (h1)[above=of Sx]{} edge [<-] (Sx);
+\node[index] (We1) [above left =of h1] {$w^{e_x}_1$} edge [<-] (h1);
+\node[index] (Wen) [right =of We1] {$w^{e_x}_n$}edge [<-] (h1) edge [ dotted ] (We1);
+\node[index] (Wf1) [right =of Wen] {$w^{f_x}_1$}edge [<-] (h1) ;
+\node[index] (Wfm) [right =of Wf1] {$w^{f_x}_m$}edge [<-] (h1) edge [ dotted ] (Wf1);
+\end{tikzpicture}

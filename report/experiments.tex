@@ -1,47 +1,47 @@
 %Reproducing existing work with more languages
 %New approach: based on par2vec (2 flavors)
 
-Using the paragraph2vec dbow architecture, we obtain sentence embeddings for parallel sentences. The model is depicted in figure~\ref{f:bilingual_dbow}
-From the embedding of a single parallel sentence representation, the network tries to predict all words that occur in the sentence either language. Note that no word embeddings are trained, only word indexes are predicted from the sentence embedding. The error is propagated back to train the sentence embeddings.
+We conducted several experiments 
+
+\subsection{Data}
+For training the sentence and word embeddings, we use 50 000 sentences of Europarl data that are aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese, unless stated otherwise. The cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
+All documents were tokenized and lowercased. No other preprocessing, such as stemming, was applied.
 
 
-\begin{figure}
+In all experiments, words that occurred fewer than five times were excluded.
+The resulting vocabulary sizes in this dataset are presented  in table~\ref{t:vocabularies}.
 
+\begin{table}
 \center
-\begin{tikzpicture}[>=latex] 
-\node[embedding] (Sx) {Sentence$_x$};
-\node[hidden] (h1)[above=of Sx]{} edge [<-] (Sx);
-\node[index] (We1) [above left =of h1] {$w^{e_x}_1$} edge [<-] (h1);
-\node[index] (Wen) [right =of We1] {$w^{e_x}_n$}edge [<-] (h1) edge [ dotted ] (We1);
-\node[index] (Wf1) [right =of Wen] {$w^{f_x}_1$}edge [<-] (h1) ;
-\node[index] (Wfm) [right =of Wf1] {$w^{f_x}_m$}edge [<-] (h1) edge [ dotted ] (Wf1);
-\end{tikzpicture}
-\caption{Bilingual dbow}
-\label{f:bilingual_dbow}
-\end{figure}
+\begin{tabular}{l r r}
+		&Europarl 50k 	&Europarl 500k\\
+English	&8377			&24403	\\	
+German	&11578		&47071	\\
+Dutch		&10008				\\
+French	&11092				\\	
+Spanish	&10865				\\
+Italian		&11503				\\
+Portuguese	&11101				\\
+\end{tabular}
+\caption{Vocabulary size for Europarl data using a rare word cut-off of 5.}
+\label{t:vocabularies}
+\end{table}
+
+
+\subsection{Sentence embeddings from multilingual dbow}
+
+Using our multilingual version of the paragraph2vec dbow architecture, we obtain sentence embeddings for parallel sentences. 
+
+
 
 
 In order to test the quality of the multilingual sentence embeddings, we take the document representation to simply be the average of its sentence embeddings. These representations are then used to train and test the two document classification tasks.
 
+
+\subsection{Word embeddings from sentence embeddings}
 We explore how the resulting sentence embeddings can be used to induce word embeddings in two languages. The word embeddings are in the same space and anticipated to be aligned cross-lingually, because the sentence representations for bilingual sentences are equal.
 
 In one setting, we define the word representation as the average of the embeddings of all sentences it occurs in. We evaluate the word embeddings that result from this.
 
-Another training procedure relies on the previous experiments. It is based on the distributed memory training from paragraph2vec and  is illustrated in figure~\ref{f:bilingual_dm}. 
-The sentence embeddings that resulted from the dbow training were used and kept fixed. The word word embeddings from the previous experiment to initialize the multilingual DM setting. The idea is to further refine the word embeddings using a smaller context. However, the training occurs independently for both languages and the commonality of the semantic space relies solely on the sentence embeddings.
 
-\begin{figure}
-\center
-\begin{tikzpicture}[>=latex]
-\node[embedding](Sx) {Sentence$_x$};
-\node[embedding](We1) [right =0.2cm of Sx] {$w^{e_x}_{t-2}$};
-\node[embedding](We2) [right =0.2cm of We1] {$w^{e_x}_{t-1}$};
-\node[embedding](We4) [right =0.2cm of We2] {$w^{e_x}_{t+1}$};
-\node[embedding](We5) [right =0.2cm of We4] {$w^{e_x}_{t+2}$};
-\node[hidden] (h1) [above =of We2] {} edge[<-] (Sx)edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
-\node[index] (We3) [above =of h1] {$w^{e_x}_{t}$} edge [<-] (h1);
-\end{tikzpicture}
-\caption{Bilingual distributed memory. The same architecture is trained with English context and word prediction replaced by the other language(s).}
-\label{f:bilingual_dm}
-\end{figure}
 

@@ -1,0 +1,9 @@
+\begin{tikzpicture}[>=latex]
+\node[embedding](We1) {$w_{t-2}$};
+\node[embedding](We2) [right =0.2cm of We1] {$w_{t-1}$};
+\node(ghost)[right=0.2cm of We2] {};
+\node[embedding](We4) [right =0.2cm of ghost] {$w_{t+1}$};
+\node[embedding](We5) [right =0.2cm of We4] {$w_{t+2}$};
+\node[hidden] (h1) [above =of ghost] {} edge[<-] (We1)edge[<-] (We2)edge[<-] (We4)edge[<-] (We5);
+\node[index] (We3) [above =of h1] {$w_{t}$} edge [<-] (h1);
+\end{tikzpicture}

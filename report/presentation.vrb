@@ -1,8 +1,0 @@
-\frametitle{\insertsection \ifx \insertsubsection \empty \else \,~-~\insertsubsection \fi } 
-\begin{itemize}
-\item Word vectors as average of the dbow-trained sentences they occur in.
-\item Sentences trained on 50k Europarl data in all languages.
-\item multilingual evaluation on TED data (F1 scores):
-\end{itemize}
-\includegraphics[width=\textwidth]{figures/multilingdbow}
-\beamerclosesubstitutedenvironement {dia}

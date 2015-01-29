@@ -31,10 +31,22 @@ Alexandre Klementiev, Ivan Titov, and Binod Bhattarai.
 \newblock 2012.
 \newblock Inducing crosslingual distributed representations of words.
 
+\bibitem[\protect\citename{Le and Mikolov}2014]{Le2014}
+Quoc~V. Le and Tomas Mikolov.
+\newblock 2014.
+\newblock {Distributed Representations of Sentences and Documents}.
+
 \bibitem[\protect\citename{Mikolov \bgroup et al.\egroup
-  }2013]{mikolov2013exploiting}
+  }2013a]{mikolov2013efficient}
+Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean.
+\newblock 2013a.
+\newblock Efficient estimation of word representations in vector space.
+\newblock {\em arXiv preprint arXiv:1301.3781}.
+
+\bibitem[\protect\citename{Mikolov \bgroup et al.\egroup
+  }2013b]{mikolov2013exploiting}
 Tomas Mikolov, Quoc~V Le, and Ilya Sutskever.
-\newblock 2013.
+\newblock 2013b.
 \newblock Exploiting similarities among languages for machine translation.
 
 \end{thebibliography}
