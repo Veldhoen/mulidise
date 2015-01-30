@@ -8,19 +8,21 @@ We conducted several experiments using the multilingual \texttt{paragraph2vec} m
 \subsection{Data}
 % parallel 7x!! no pivot!!1! wow
 
-For training the sentence and word embeddings, we use 50 000 sentences of Europarl data, unless stated otherwise.
-The documents are sentence-aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese.
+For training the sentence and word embeddings, we use either of two subsets of the Europarl corpus.
+The default training set contains 500 000 lines of Europarl data.
+Another set has 50 000 lines that are sentence-aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese.
 These cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
-This means that every sentence is available in all 7 languages.
-All documents were tokenized and lowercased. No other preprocessing, such as stemming, was applied.
+This means that every sentence is available in all 7 languages. This dataset can therefore be used to train the multilingual dbow model in more than two languages, without making use of a pivot language.
 
+All documents were tokenized and lowercased. No other preprocessing, such as stemming, was applied.
+All words (and sentences) are represented by vectors of length 256.
 In all experiments, words that occurred fewer than five times were excluded.
-The resulting vocabulary sizes in this dataset are presented  in table~\ref{t:vocabularies}.
+The resulting vocabulary sizes in these datasets are presented  in table~\ref{t:vocabularies}.
 
 \begin{table}
 \center
-\begin{tabular}{l r r}
-		&Europarl 50k 	&Europarl 500k\\
+\begin{tabular}{l| r r}
+		&Europarl 50k 	&Europarl 500k\\\hline
 English	&8377			&24403	\\	
 German	&11578		&47071	\\
 Dutch		&10008				\\
@@ -33,9 +35,14 @@ Portuguese	&11101				\\
 \label{t:vocabularies}
 \end{table}
 
+
+As a baseline, we use the majority class estimate for the RCV data, and the F1 baseline $P$ explained in section~\ref{s:evaluation}. We also compare to the performance of vectors that results from the multitask-learning approach by \cite{klementiev2012inducing} described in section~\ref{s:relatedWork}. A distribution of their word embeddings in four language pairs (German-English, Czech-English, French-English, and Spanish-English) is available on \url{http://klementiev.org/data/distrib/}. The alignments used to populate the interaction matrix are obtained from the Europarl corpus. The word embeddings of the German-English part of the data are trained on the Reuters data that also make up the RCV evaluation set. Note that both the amount and nature of this training data differs from ours. Also the length of these vectors is much smaller: 40 (instead of 256).
+
+
+
 \subsection{Implementation}
 %GENSIM tralala
-
+{\color{red} HIER MOET NOG IETS}
 
 \subsection{Sentence embeddings from multilingual dbow}
 Using our multilingual version of the paragraph2vec dbow architecture, we obtain sentence embeddings for parallel sentences: DE-EN are German and English paired, multi are all 7 aligned languages, EN and DE are monolingually trained sentence embeddings trained with the original dbow model. In each case, the model is trained on Europarl data, for 10 epochs. We start with a learning rate ($\alpha$) of 0.025, which is decreased with 0.002 after each epoch.
@@ -49,10 +56,9 @@ We apply the induced sentence embeddings to the document classification task. In
 \begin{tabular}{c | r|r r r r }
 Sentences 		&sentence	&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
 trained on: 		&quality	&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
-EN			&.293		&.186		&.134		&.084		&.153		\\
-DE			&.305		&.132		&.091		&.076		&.132		\\
-DE-EN			&.378		&.194		&.127		&.100		&.136		\\
-multi 			&		&.297		&.196		&.206		&.226		\\
+EN			&.340		&.274		&.286		&.284		&.305\\
+DE			&.354		&.263		&.190		&.270		&.166\\
+DE-EN			&.363		&.319		&.304		&.323		&.264\\
 \end{tabular}
 \caption{F1 scores on TED classification task for sentence representations and word representations.}
 \label{t:dbow_mono_bi}
@@ -67,23 +73,40 @@ As explained in section~\ref{s:wordEmbeddings}, we obtain word embeddings from t
 It is interesting to see that %.....
 
 
-In table~\ref{t:dbow_bi_klemen}, we compare to the multitask-learning approach by \cite{klementiev2012inducing} described in section~\ref{s:relatedWork}. A distribution of their resulting word embeddings in four language pairs (German-English, Czech-English, French-English, and Spanish-English) is available on \url{http://klementiev.org/data/distrib/}. The alignments used to populate the interaction matrix are obtained from the Europarl corpus. The word embeddings of the German-English part of the data are trained on the Reuters data that also make up the RCV evaluation set. Note that the amount an nature of training data is quite different from ours, as are the vectors lengths: 40.
 
 
 
-\begin{table}
+\begin{table}\center
 \setlength\tabcolsep{2pt}
 \begin{tabular}{l | r r r r}
 		& \multicolumn{4}{c}{Classification [train]-[test]}	\\
 		&EN-EN	&DE-DE	&EN-DE	&DE-EN	\\\hline
 Majority	&.468		&.468		&.468		&.468		\\
-I-matrix	&.830		&.665		&.473		&.643		\\
-dbow d-e 	&.837		&.450		&.405		&.700		\\
+I-matrix	&.817		&.570		&.524		&.621		\\
+dbow d-e 	&.837		&.694		&.656		&.748		\\
 \end{tabular}
 \caption{Accuracy score on RCV evaluation task with 1000 training documents, for word representations from I-matrix training and our own models}
 \label{t:dbow_bi_klemen}
 \end{table}
 
+
+\begin{table}\center
+\setlength\tabcolsep{3pt}
+\begin{tabular}{l |rr r r}
+ 			&vector	&RCV 			&TED		&Analogy\\
+Setting		&length	&acc			&F1		&acc\\\hline
+Baseline		&		&.468			&.118	 	&		\\
+I-Matrix		&40		&.817			&.149		&.006\\
+Paragraph e		&256		&- 			&.340		&-\\
+Paragraph e-d 	&256		&- 			&.363		&-\\
+Paraword e		&256		&.836			&.274		&.025	\\
+Paraword e-d	&256		&.837			&.319		&.072\\
+%Paraword multi 	&256		&\\	
+Google News		&300		&.915			&.486		&.613\\
+\end{tabular}
+\caption{Monolingual (EN-EN) evaluation for various settings.
+RCV Accuracy: given 1000 training examples for classification.}
+\end{table}
 
 
 We explore how the resulting sentence embeddings can be used to induce word embeddings in two languages. The word embeddings are in the same space and anticipated to be aligned cross-lingually, because the sentence representations for bilingual sentences are equal.
