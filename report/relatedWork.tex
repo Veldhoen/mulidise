@@ -2,14 +2,15 @@ Some research has focused on the induction of multilingual word embeddings, usin
 
 
 \subsection{Linear Mapping}\label{s:lin}
+% Using a dictionary
 
 According to Mikolov et al. \cite{mikolov2013exploiting}, the vector space of word representations in different languages are geometrically similar, because words in languages are grounded in real world concepts.
 It is therefore possible to find a linear mapping 
 %(rotation and scaling) 
 between these vector spaces.
 
-The approach is to first train word embeddings on large monolingual data for both languages separately, using the \texttt{word2vec} implementation. In the reported experiments, the so-called CBOW architecture is used, that predicts a word given its context in both directions. 
-Notably, the authors also propose a way to include some phrases: multi-word expressions. This may prove useful for translation, as one multiple words can together express a concept that has a single word in another language.
+The approach is to first train word embeddings on large monolingual data for both languages separately, using the \texttt{word2vec} implementation. In the reported experiments, the so-called CBOW architecture is used, that predicts a word given its context in both directions.
+% Notably, the authors also propose a way to include some phrases: multi-word expressions. This may prove useful for translation, as one multiple words can together express a concept that has a single word in another language.
 
 Using a relatively small set of gold standard word translations, in this case obtained from Google Translate, a transformation matrix $W$ is searched. The training objective is to minimize the distance between words that are translations of one another.
 
@@ -20,7 +21,9 @@ The evaluation is performed on a test set of gold-standard word translations, ag
 % Maybe the assumption of linear translation is too strong. The interrelation of some concepts may be evident for strong real-world concepts such as cat and dog, but some concepts may be more culturally determined: friendship, politics. Also, Asian cultures have a very different understanding of time. What about nonlinear mappings: e.g. stretching some bit of the space, and shrinking another bit?
 
 \subsection{Multitask Learning}
-Distributed representations for a pair of languages are induced jointly by Klementiev and Titov \cite{klementiev2012inducing}. Words in both languages are represented in a single vector space.
+% Using alignments
+
+Klementiev and Titov \cite{klementiev2012inducing} induce distributed representations for a pair of languages jointly. By doing so, words in both languages are represented in a single vector space.
 
 The induction is treated as a multitask learning problem where each task corresponds to a single word. The training influences other tasks depending on the task-relatedness. The latter is derived from co-occurrence statistics in bilingual parallel data: the number of alignment links between  that word and its (supposed) translations. 
 
@@ -32,9 +35,11 @@ The method is evaluated on a real-world task: crosslingual document classificati
 
 
 \subsection{Joint Learning from Sentence Embeddings}
+% No alignment, but compositionality
+
 Unlike the previous approaches, Hermann and Blunsum \cite{hermann2013multilingual} start from sentence alignments, which share the same semantics.
 The assumption is that some function can describe the composition of word embeddings into a sentence embedding.
-For the sake of argument, the authors use a simple bag-of-words additive interpretation of composition. 
+For the sake of their argument, the authors use a simple bag-of-words additive interpretation of composition. 
 The word embeddings are induced jointly for both languages from these sentence-embeddings, by minimizing the distance between both sums of word embeddings.
 % However, the sentence embeddings are not present a priori, nor is the training aimed at obtaining these.
 % ? the sentence embeddings are not learned? 
@@ -42,9 +47,23 @@ The word embeddings are induced jointly for both languages from these sentence-e
 In order to make sure the weights won't be reduced to zero, similarity between unaligned sentence embeddings is penalized.
 %This method is implemented in a software package named \texttt{bicvm}.
 
-The same evaluation as in \cite{klementiev2012inducing} is applied, i.e. the document classification task. Furthermore, the authors present a graphical qualitative analysis. In \cite{Hermann2014}, this approach is expanded by evaluating on a larger number of language pairs.
+The same evaluation as in \cite{klementiev2012inducing} is applied, i.e. the document classification task. Furthermore, the authors present a graphical qualitative analysis. 
+In \cite{Hermann2014}, this approach is expanded by evaluating on a larger number of language pairs.
 
-\subsection{An Autoencoder approach}
+\subsection{An Autoencoder Approach}
+% No alignment, no compositionality
+
+Recent work that is highly relevant constructs word embeddings using a sentence autoencoder \cite{SarathChandar2014autoencoder}.
+The autoencoder predicts which words are in a sentence given the (transformed) sum of their embeddings.
+Building on this, the authors learn joint bilingual word embeddings by using two decoders: one to predict which words are in the original sentence, and one to predict which words are in the parallel sentence.
+The error signal from both decoders is propagated to the words in both languages, and is therefore distributed over the words in the parallel sentences in the same manner.
+Additionally, the authors ensure that the word representations of both languges are correlated by adding a correlation term to the objective function.
+
+As with the previous model, this model assumes a bag-of-words additive interpretation of composition.
+The model takes no complex composition into account on either the encoder or decoder side.
+As with \cite{hermann2013multilingual}, it is not based on word alignments, and is also evaluated in the same manner as \cite{klementiev2012inducing}.
+
+
 % The method works surprisingly well, given the poor composition they assume.
 % The authors claim it is possible to extend this approach to document-aligned or even unaligned data, but I doubt that
 

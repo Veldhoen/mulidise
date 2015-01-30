@@ -6,8 +6,12 @@ We conducted several experiments using the multilingual \texttt{paragraph2vec} m
 
 
 \subsection{Data}
-For training the sentence and word embeddings, we use 50 000 sentences of Europarl data, unless stated otherwise.. 
-The documents are sentence-aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese. These cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
+% parallel 7x!! no pivot!!1! wow
+
+For training the sentence and word embeddings, we use 50 000 sentences of Europarl data, unless stated otherwise.
+The documents are sentence-aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese.
+These cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
+This means that every sentence is available in all 7 languages.
 All documents were tokenized and lowercased. No other preprocessing, such as stemming, was applied.
 
 In all experiments, words that occurred fewer than five times were excluded.

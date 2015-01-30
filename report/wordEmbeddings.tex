@@ -1,0 +1,52 @@
+
+% DM doesn't work
+% 
+% 
+
+\subsection{Words from PV-DM}
+Our first approach to obtaining joint multilingual word embeddings was based on using the word embeddings from the multilingual \texttt{PV-DM}.
+However, the error signal that is used to train the word representations does not lend itself for learning a joint multilingual word vector space.
+By predicting either words in one language or words in the other language, but never both, the model is trained to distinguish between the languages.
+Both languages are explicitly prevented from having similar embeddings, because that encourages the model to make prediction errors, namely predicting the word index from one language instead of the other.
+
+
+% % List of different models within this approach as discussed with Philip
+% We will explore at least two training methods:
+% \begin{itemize}
+% \item 
+% 	Sequentially training all sentence pairs. As a paragraph id, we use a single identifier for every sentence pair in the bitext.
+% 	This is equivalent to concatenating the parallel sentences and training from the context windows that do not bridge the sentence boundary.
+% \item 
+% 	A two-step process:
+% 	First creating paragraph representations for each sentence pair from a fully trained monolingual model. The information from the words in the first language will create a representation for the sentence.
+% 	Then, we fix the sentence representations and train the word spaces in each language using these vectors.
+% 	These sentence vectors will influence the learning of word embeddings in the other languages.
+% 	The error gradient for the sentence vector can either be distributed over the words or be discarded.
+% \end{itemize}
+
+% Another training procedure relies on the previous experiments.
+% It is based on the Distributed Memory training from paragraph2vec. % and  is illustrated in figure~\ref{f:bilingual-dm}. 
+The second approach was to use two classifiers and strong initialization of the paragraph vectors.
+The sentence embeddings that resulted from the dbow training were used and kept fixed.
+The word word embeddings from the previous experiment to initialize the multilingual DM setting with two separate classifiers.
+The idea is to further refine the word embeddings using a smaller context.
+However, the training occurs independently for both languages and the commonality of the semantic space relies solely on the sentence embeddings.
+
+
+% DBOW does work
+% 
+% 
+
+\subsection{Words as sentence averages}
+
+Inspired by the bag-of-words additive interpretation of composition, we flip the model upside down.
+Instead of assuming that a sentence representation is the average of its word embeddings, we assume a word embedding is the average of the sentences it occurs in.
+This way, a word embedding is as close as possible to the representations of all sentences in which it is used.
+Word embeddings are thus computed with the following equation:
+
+\begin{equation*}
+[\![ w ]\!] =\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) [\![ s ]\!]
+\end{equation*}
+
+This means the word embeddings are not trained on any information about their direct context.
+As with \cite{hermann2013multilingual} and \cite{SarathChandar2014autoencoder}, we assume a bag-of-words sentence representation and train word embeddings from their sentence co-occurrence.
