@@ -12,7 +12,7 @@ For training the sentence and word embeddings, we use either of two subsets of t
 The default training set contains 500 000 lines of Europarl data.
 Another set has 50 000 lines that are sentence-aligned across English, German, Dutch, French, Spanish, Italian, and Portuguese.
 These cross-lingual sentence alignments were created by matching the English side of all pairwise aligned corpora.
-This means that every sentence is available in all 7 languages. This dataset can therefore be used to train the multilingual dbow model in more than two languages, without making use of a pivot language.
+We use this dataset to train the multilingual dbow model in more than two languages, without making use of a pivot language.
 
 All documents were tokenized and lowercased. No other preprocessing, such as stemming, was applied.
 All words (and sentences) are represented by vectors of length 256.

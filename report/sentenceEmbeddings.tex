@@ -1,5 +1,5 @@
 Like most of the aforementioned approaches, we aim to induce multilingual word embeddings from parallel data. In order to make sure the semantic spaces for all languages are aligned, we rely solely upon the fact that sentences are aligned without using word alignments.
-We introduce the \texttt{paragraph2vec} from \cite{Le2014} that we extend for this purpose, and explain how we use it to obtain word embeddings.
+We introduce the \texttt{paragraph2vec} from \cite{Le2014}. Next, we show how these models can be used in a multilingual context.
 
 \begin{figure*}\center
 \begin{subfigure}{.45\textwidth}\center
@@ -48,14 +48,14 @@ The error signal from that prediction determines the value of the sentence vecto
 
 
 
-The second approach is using \texttt{PV-DBOW} from \cite{Le2014} on the parellel sentences.
-From the embedding of a single parallel sentence representation, the network tries to predict all words that occur in the sentence either language.
+The second approach is using \texttt{PV-DBOW} from \cite{Le2014} on the parallel sentences.
+From the embedding of a single parallel sentence representation, the network tries to predict all words that occur in the sentence in either language.
 Note that no word embeddings are trained, only word indexes are predicted from the sentence embedding.
 The error is propagated back to train the sentence embeddings.
-This model is depicted in figure~\ref{f:bilingual_dbow}.
+This model is depicted in figure~\ref{f:bilingual_dbow}. This extension is not restricted to bilingual training: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
 
 
-Both of these methods construct high-quality multilingual sentence embeddings.
+Both of these methods construct high-quality multilingual sentence embeddings. %high-quaility? Dat is wat boud..
 The multilingual \texttt{PV-DBOW} has the added benefit of being faster, because no word embeddings are trained.
 
 
