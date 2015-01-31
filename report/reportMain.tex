@@ -12,8 +12,8 @@
 \usepackage{subcaption,graphicx}
 \usepackage{enumerate}
 \usepackage{hyperref}
-
-
+\usepackage{color,colortbl}
+\usepackage{calc}
 \usepackage{tikz}
 \tikzset{
     embedding/.style={rectangle,draw=black,text centered},
@@ -21,7 +21,13 @@
     hidden/.style={rectangle split,rectangle split horizontal=true,rectangle split parts=7,draw=black},
 }
 \usetikzlibrary{shapes}
+
+
 \usetikzlibrary{positioning,backgrounds}
+
+\newcommand{\cca}[2]{\cellcolor{black!#2}{#1}}%\ifnum #1>5\color{white}\fi{#1}}
+%\def\cca#1{\cellcolor{gray!{#1}}{#1}}
+
 
 \title{Multilingual Word Embeddings from Sentence Representations}
 \author{Benno Kruit\\10576223\\benno.kruit@student.uva.nl\And
