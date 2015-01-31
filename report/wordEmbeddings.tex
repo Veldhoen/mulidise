@@ -6,10 +6,19 @@
 \subsection{Words from PV-DM}
 Our first approach to obtaining joint multilingual word embeddings was based on using the word embeddings from the multilingual \texttt{PV-DM}.
 However, the error signal that is used to train the word representations does not lend itself for learning a joint multilingual word vector space.
-By predicting either words in one language or words in the other language, but never both, the model is trained to distinguish between the languages.
-Both languages are explicitly prevented from having similar embeddings, because that encourages the model to make prediction errors, namely predicting the word index from one language instead of the other.
-%NB de woordrepresentaties per taal lijken wel goed te zijn
+The model is predicting either words in one language or words in the other language, but never both.
+This way, the model the model is inadvertently trained to distinguish between the languages.
+If both languages had similar embeddings, the model would make prediction errors by predicting the word index for the translation of the target as well.
+Therefore, the error signal makes the model distinguish between both languages.
 
+%NB de woordrepresentaties per taal lijken wel goed te zijn
+The model does learn sensible word embeddings in both languages independently.
+The word embeddings are located near related words in their own language, and far away from embeddings from the other language.
+
+Additionally, if the languages used the features in the same way, subtracting a word from its literal translation could result in a `translation vector'.
+This vector could then be added to words in one language to find their counterpart in the other.
+However, it seems to be impossible to construct such a vector with this model. 
+In this approach the vector dimensions therefore encode different information for both languages and also the sentences.
 
 
 % % List of different models within this approach as discussed with Philip
@@ -28,19 +37,26 @@ Both languages are explicitly prevented from having similar embeddings, because 
 
 % Another training procedure relies on the previous experiments.
 % It is based on the Distributed Memory training from paragraph2vec. % and  is illustrated in figure~\ref{f:bilingual-dm}. 
-The second approach was to use two classifiers and strong initialization of the paragraph vectors.
-The sentence embeddings that resulted from the dbow training were used and kept fixed.
-The word word embeddings from the previous experiment to initialize the multilingual DM setting with two separate classifiers.
-The idea is to further refine the word embeddings using a smaller context.
+The second approach was to use two separate \texttt{PV-DM} models and strong initialization of the paragraph vectors.
+Both models shared the parallel sentence representations, but they independently predicted words from contexts in either language.
+
+For initialization, the sentence embeddings that resulted from the dbow training were used and kept fixed.
+The word vectors were initialized to be as near as possible to the embeddings of the sentences that those words appear in.
+We therefore initialized every word vector as the average of all sentence embeddings that it occurs in.
+% We used the word embeddings from the previous experiment to initialize the multilingual DM setting with two separate models.
+The idea was to then further refine the word embeddings using a smaller context in the two \texttt{PV-DM} models.
 However, the training occurs independently for both languages and the commonality of the semantic space relies solely on the sentence embeddings.
+It was not possible to construct a joint bilingual vector space in this way.
 
 
 % DBOW does work
 % 
-% 
+
+
 
 \subsection{Words as sentence averages}
 
+However, the word initialization discussed above is interesting in its own right.
 Inspired by the bag-of-words additive interpretation of composition, we flip the model upside down.
 Instead of assuming that a sentence representation is the average of its word embeddings, we assume a word embedding is the average of the sentences it occurs in.
 This way, a word embedding is as close as possible to the representations of all sentences in which it is used.
@@ -52,3 +68,13 @@ Word embeddings are thus computed with the following equation:
 
 This means the word embeddings are not trained on any information about their direct context.
 As with \cite{hermann2013multilingual} and \cite{SarathChandar2014autoencoder}, we assume a bag-of-words sentence representation and train word embeddings from their sentence co-occurrence.
+
+We were unable to convert these word embeddings from sentence co-occurrence into word embeddings from local co-occurrence using the multilingual \texttt{PV-DM} model.
+This shows that there is a fundamental difference between the two types of word embeddings.
+Word embeddings from sentence co-occurrence reflect the topic of the sentence they occur in, while the local co-occurrence word embeddings reflect more information about word usage within sentences.
+Without word alignments, there are no parallel word contexts.
+Therefore, there must be notion of word alignment in a model that aims to find word embeddings from local co-occurrence.
+
+The two types of word embeddings should also be evaluated differently and used for different tasks.
+Word embeddings from sentences are useful for information retrieval, but tasks that involve a finer-grained sense of word meaning benefit more from word embeddings based on local co-occurrence.
+Those tasks include Machine Translation and Semantic Parsing.
