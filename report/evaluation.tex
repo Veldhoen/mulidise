@@ -9,7 +9,19 @@ The latter is evaluated on a real-world task of cross-lingual document classific
 
 
 \subsection{Word analogy task}
-{\color{red} HIER MOET NOG IETS}
+To evaluate word embeddings monolingually, we use the word analogy task described in \cite{mikolov2013efficient}.
+The task is based on the intuition that a word like \emph{big} is similar to \emph{biggest} in the same sense that \emph{small} is to \emph{smallest}.
+The goal of the task is to answer questions that complete such a relationship, such as ``What word is to \emph{small} what \emph{biggest} is to \emph{big}?''
+The answer can be found by adding the difference of $[\![\mathit{biggest}]\!]$ and $[\![\mathit{big}]\!]$ to $[\![\mathit{small}]\!]$, and searching the vocabulary to find the nearest embedding.
+In practice, this is done by computing $X = [\![\mathit{biggest}]\!] - [\![\mathit{big}]\!]+ [\![\mathit{small}]\!]$ and comparing all word embeddings by cosine distance.
+This finds the embedding that is nearest to \emph{biggest} and \emph{small}, but furthest from \emph{big} \cite{Levy2014}.
+
+We use only the English vocabulary for this task, again trained on the sentence embeddings of the first half million lines of the Europarl corpus.
+The accuracy scores are also reported for the vectors from \cite{klementiev2012inducing} and a set of vectors trained on a large Google News corpus \cite{mikolov2013efficient}.
+The vocabulary of the Google News embeddings was restricted to contain only words that also occur in our set of Europarl-trained embeddings, which makes the number of answered questions comparable.
+This vocabulary thus contains the words that occur 5 or more times in the first half million lines of the Europarl corpus.
+It covers about half of the questions in the task, while the vocabulary from \cite{klementiev2012inducing}, trained on part of the Reuters corpus, only covers 1\% of the questions. 
+
 
 \subsection{Document classification - RCV}
 In \cite{klementiev2012inducing} a cross-lingual document classification task is introduced. The task, that is also used in \cite{hermann2013multilingual}, is based on Reuters corpora, which has topic-annotated documents. The evaluation data is available for English and German documents that belong to a single topic, and thus the gold standard can be represented by a one-hot vector.
