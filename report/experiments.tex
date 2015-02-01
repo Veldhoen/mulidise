@@ -42,7 +42,15 @@ As a baseline, we use the majority class estimate for the RCV data, and the F1 b
 
 \subsection{Implementation}
 %GENSIM tralala
-{\color{red} HIER MOET NOG IETS}
+
+All our experiments were run using the \texttt{gensim}\footnote{\url{https://github.com/piskvorky/gensim}} library. 
+The evalution was done with the setup from \cite{klementiev2012inducing}.
+The code for experiments and evaluation is available online\footnote{\url{https://github.com/Veldhoen/mulidise}}.
+
+{\color{red} HIER MOET NOG IETS?}
+
+
+
 
 \subsection{Sentence embeddings from multilingual dbow}
 \begin{table*}[htb]
@@ -140,7 +148,7 @@ pb&	\cca{.403}{40}&	\cca{.333}{33}&	\cca{.369}{37}&	\cca{.354}{35}&	\cca{.374}{3
 \end{table}
 
 
-We investigated how language relatedness could influence these results. We train the dbow system on either German, English and Dutch (`GERM') or French, Spanish and Italian (`LATIN'). 
+We investigated how language relatedness could influence these results. We train the dbow system on either the Germanic langugages German, English and Dutch (`G') or the Romance languages French, Spanish and Italian (`R'). 
 
 We report the average over all evaluation settings with training/ testing on Germanic and Latin languages in table~\ref{t:dbow_families}. There is no apparent correlation between the language families of dbow training and evaluation.
 
@@ -148,15 +156,26 @@ We report the average over all evaluation settings with training/ testing on Ger
 \center
 \setlength\tabcolsep{2pt}
 \begin{tabular}{l | r r r r}
-		& \multicolumn{4}{c}{Classification [train]-[test]}	\\
-		&GERM-	&LATIN-	&LATIN-	&GERM-	\\
-		&GERM	&LATIN	&GERM	&LATIN	\\\hline
-GERM		&.338		&.374		&.383		&.349		\\
-LATIN		&.348		&.371		&.364		&.347		\\
+		&G-G	&R-R	&R-G	&G-R	\\\hline
+Germanic		&.338		&.374		&.383		&.349		\\
+Romance		&.348		&.371		&.364		&.347		\\
 \end{tabular}
-\caption{}
+\caption{F1 scores for classification on TED ([train]-[test])}
 \label{t:dbow_families}
 \end{table}
 
 
 
+\subsection{Visualization}
+
+As an illustration of the multilingual vector space, we present a visualization in figure~\ref{f:weekdays}.
+We ran the word embeddings for the days of the week through the t-SNE optimization-based dimensionality reduction algorithm \cite{van2008visualizing}.
+It is interesting to note that Saturday and Sunday are easily separable from the other days.
+The fact that Portugese (in pink) uses words with multiple senses is also clearly visible.
+
+\begin{figure}
+\center
+\includegraphics[width=1\linewidth]{figures/weekdays7}
+\caption{Days of the week for 7 languages (if the words are present in the vocabulary)}
+\label{f:weekdays}
+\end{figure}
