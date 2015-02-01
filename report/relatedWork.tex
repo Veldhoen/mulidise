@@ -28,7 +28,7 @@ Klementiev and Titov \cite{klementiev2012inducing} induce distributed representa
 The induction is treated as a multitask learning problem where each task corresponds to a single word. The training influences other tasks depending on the task-relatedness. The latter is derived from co-occurrence statistics in bilingual parallel data: the number of alignment links between  that word and its (supposed) translations. 
 
 The word representations are induced in a neural language model architecture. 
-The $n$ preceding words form the context, their representations are concatenated to form a context vector. The probability of the next word occuring is predicted from this vector. The training procedure aims to find the word representations that minimize the data (log) likelihood: 
+The $n$ preceding words form the context, their representations are concatenated to form a context vector. The probability of the next word occuring is predicted from this vector. The training procedure aims to find the word representations that maximize the data (log) likelihood: 
 $L(\theta) = \sum_{t=1}^T \log \hat{P}_\theta (w_t|w_{t-n+1:t-1})$. 
 
 The method is evaluated on a real-world task: crosslingual document classification. Topic annotations are available for documents in one of the languages, and the system predicts the topics of documents in the other language. The jointly induced word representation outperform two other approaches to the problem: glossing (where every word in the document is translated separately, based on word alignments) and Machine Translation.

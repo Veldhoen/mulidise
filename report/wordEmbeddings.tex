@@ -60,8 +60,11 @@ Word embeddings are thus computed with the following equation:
 \begin{equation*}
 [\![ w ]\!] =\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) [\![ s ]\!]
 \end{equation*}
+These word representations could also be computed as a running average, to avoid having to store an embedding for every sentence.
+That approach bears many similaries to the auto-encoder approach described above.
+Due to the implementation we used, we computed the average after fully training all sentence embeddings.
 
-These embeddings appear quite usesful for the document classification task we evaluate them on, as we will show in section~\ref{s:experiments}.
+These embeddings appear quite useful for the document classification task we evaluate them on, as we will show in section~\ref{s:experiments}.
 
 In this setting, word embeddings are not trained on any information about their direct context. 
 As with \cite{hermann2013multilingual} and \cite{SarathChandar2014autoencoder}, we assume a bag-of-words sentence representation and train word embeddings just from their sentence co-occurrence.
