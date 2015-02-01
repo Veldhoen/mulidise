@@ -19,7 +19,7 @@ All words (and sentences) are represented by vectors of length 256.
 In all experiments, words that occurred fewer than five times were excluded.
 The resulting vocabulary sizes in these datasets are presented  in table~\ref{t:vocabularies}.
 
-\begin{table}
+\begin{table}[ht]
 \center
 \begin{tabular}{l| r r}
 		&Europarl 50k 	&Europarl 500k\\\hline
@@ -36,7 +36,7 @@ Portuguese	&11101				\\
 \end{table}
 
 
-As a baseline, we use the majority class estimate for the RCV data, and the F1 baseline $P$ explained in section~\ref{s:evaluation}. We also compare to the performance of vectors that results from the multitask-learning approach by \cite{klementiev2012inducing} described in section~\ref{s:relatedWork}. A distribution of their word embeddings in four language pairs (German-English, Czech-English, French-English, and Spanish-English) is available on \url{http://klementiev.org/data/distrib/}. The alignments used to populate the interaction matrix are obtained from the Europarl corpus. The word embeddings of the German-English part of the data are trained on the Reuters data that also make up the RCV evaluation set. Note that both the amount and nature of this training data differs from ours. Also the length of these vectors is much smaller: 40 (instead of 256).
+As a baseline, we use the majority class estimate for the RCV data, and the F1 baseline $P$ explained in section~\ref{s:evaluation}. We also compare to the performance of vectors that results from the multitask-learning approach by \cite{klementiev2012inducing} described in section~\ref{s:relatedWork}. A distribution of their word embeddings in four language pairs (German-English, Czech-English, French-English, and Spanish-English) is available on \url{http://klementiev.org/data/distrib/}. The alignments used to populate the interaction matrix are obtained from the Europarl corpus. The word embeddings of the German-English part of the data are trained on the Reuters data that also make up the RCV evaluation set. Note that both the amount and nature of this training data differs from ours. Because of this, also the vocabularies differ. Their vocabulary size for English and German are 43612 and 50108, respectively. Since he I-Matrix vectors that we use are induced from RCV data, they fit better with that evaluation set. Also the length of these vectors is much smaller: 40 (instead of 256).
 
 
 
@@ -45,13 +45,7 @@ As a baseline, we use the majority class estimate for the RCV data, and the F1 b
 {\color{red} HIER MOET NOG IETS}
 
 \subsection{Sentence embeddings from multilingual dbow}
-Using our multilingual version of the paragraph2vec dbow architecture, we obtain sentence embeddings for parallel sentences: DE-EN are German and English paired. EN and DE are monolingually trained sentence embeddings trained with the original dbow model. In each case, the model is trained on Europarl data, for 10 epochs. We start with a learning rate ($\alpha$) of 0.025, which is decreased with 0.002 after each epoch.
-
- In order to evaluate the quality of the sentence embeddings, we obtain sentence representations for the (parallel) TED corpus. We use the trained model, keeping the softmax weights fixed and training the TED sentence representations for 10 iterations.
-
-We apply the induced sentence embeddings to the TED document classification task. In this case, we take the document representation to simply be the average of its sentence embeddings. These representations are then used to train and test the two document classification tasks. The results are in the second column of table~\ref{t:dbow_mono_bi}. 
-
-\begin{table*}[t]
+\begin{table*}[htb]
 \center
 \begin{tabular}{c | r|r r r r }
 Sentences 		&		&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
@@ -63,6 +57,13 @@ DE-EN			&.363		&.319		&.304		&.264		&.323		\\
 \caption{F1 scores on TED classification task for sentence representations (paragraphs) and word representations (parawords).}
 \label{t:dbow_mono_bi}
 \end{table*}
+
+Using our multilingual version of the paragraph2vec dbow architecture, we obtain sentence embeddings for parallel sentences: DE-EN are German and English paired. EN and DE are monolingually trained sentence embeddings trained with the original dbow model. In each case, the model is trained on Europarl data, for 10 epochs. We start with a learning rate ($\alpha$) of 0.025, which is decreased with 0.002 after each epoch.
+
+ In order to evaluate the quality of the sentence embeddings, we obtain sentence representations for the (parallel) TED corpus. We use the trained model, keeping the softmax weights fixed and training the TED sentence representations for 10 iterations.
+
+We apply the induced sentence embeddings to the TED document classification task. In this case, we take the document representation to simply be the average of its sentence embeddings. These representations are then used to train and test the two document classification tasks. The results are in the second column of table~\ref{t:dbow_mono_bi}. 
+
 
 
 
@@ -80,7 +81,8 @@ We can also infer from these numbers that, apparently, monolingual classificatio
 
 
 
-\begin{table}\center
+\begin{table}[ht]
+\center
 \setlength\tabcolsep{2pt}
 \begin{tabular}{l | r r r r}
 		& \multicolumn{4}{c}{Classification [train]-[test]}	\\
@@ -89,12 +91,15 @@ Majority	&.468		&.468		&.468		&.468		\\
 I-matrix	&.817		&.570		&.524		&.621		\\
 Paraword  	&.837		&.694		&.656		&.748		\\
 \end{tabular}
-\caption{Accuracy score on RCV evaluation task with 1000 training documents, for word representations from I-matrix training and our own models}
+\caption{Accuracy score on RCV evaluation task with 1000 training documents, for word representations from I-matrix training and our own model trained on English-German parallel data.}
 \label{t:dbow_bi_klemen}
 \end{table}
 
+In table~\ref{t:monoEval}, we report performance of the discussed experimental settings on monolingual (EN-EN) classification, to get an idea of how fit the different approaches are for the evaluation tasks. We report performance on the RCV task, again given 1000 training examples, TED, and the analogy task. The Google News vectors are provided in %???
+They are English embeddings of length 300 and trained on a huge corpus (Google News). We reckon their performance therefore establishes an upper limit.
 
-\begin{table}\center
+\begin{table}[ht]
+\center
 \setlength\tabcolsep{3pt}
 \begin{tabular}{l |rr r r}
  			&vector	&RCV 			&TED		&Analogy\\
@@ -110,13 +115,15 @@ Google News		&300		&.915			&.486		&.613\\
 \end{tabular}
 \caption{Monolingual (EN-EN) evaluation for various settings.
 RCV Accuracy: given 1000 training examples for classification.}
+\label{t:monoEval}
 \end{table}
 
 \subsection{Adding more languages}
 As mentioned before, the multilingual dbow model can be trained for a larger number of languages at the same time. The precondition however, is to have sentence-aligned text for all those languages at the same time. We train on such data in seven languages, and create the word embeddings for each language in the same manner as before. We run the evaluation in all combinations of train and test data (TED). The results are shown in table~\ref{t:dbow_multi}. 
 %We can see very clearly that 
 
-\begin{table}\center
+\begin{table}[ht]
+\center
 \setlength\tabcolsep{3pt}
 \begin{tabular}{l rrrrrrr}
 &	de&	en&	nl&	es&	fr&	it&	pb\\
@@ -137,7 +144,8 @@ We investigated how language relatedness could influence these results. We train
 
 We report the average over all evaluation settings with training/ testing on Germanic and Latin languages in table~\ref{t:dbow_families}. There is no apparent correlation between the language families of dbow training and evaluation.
 
-\begin{table}\center
+\begin{table}[ht]
+\center
 \setlength\tabcolsep{2pt}
 \begin{tabular}{l | r r r r}
 		& \multicolumn{4}{c}{Classification [train]-[test]}	\\

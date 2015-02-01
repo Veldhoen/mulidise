@@ -41,8 +41,8 @@ In the DBOW model, no word embeddings are trained. Rather, the sentence embeddin
 % We hope this will create a word vector space that is trainable on both monolingual and parallel data, allowing for the mitigation of sparsity in all languages.
 
 Our first approach consisted of running \texttt{PV-DM} from \cite{Le2014}, 
-but using the same paragraph vector when training word vectors from parallel sentences.
-This means the sentences embedding is used (together with the surrounding words) to predict every word that occurs in that sentence for both languages.
+but using the same paragraph vector when training word vectors from parallel sentences. 
+This means the sentences embedding is used (together with the surrounding words) to predict every word that occurs in that sentence for both languages. Note that the softmax output ranges over the vocabularies of both languages.
 The error signal from that prediction determines the value of the sentence vector.
 % This model is depicted in figure~\ref{f:bilingual_dm}
 

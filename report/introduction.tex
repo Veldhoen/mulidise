@@ -9,3 +9,12 @@
 %% Usefulness of joint multilingual embeddings and evaluation %% 
 
 % Given only sentence alignments, 
+
+
+
+Distributional semantics is a fast developing field that concerns the establishment of a high-dimensional semantic space were words get a geometrical interpretation. We investigate how data in more than one language can be used to create a single semantic space where words in more languages get positioned. Such a semantic space may have a theoretical interest on its own right, but can also be used for tasks related to translation, such as cross-lingual information retrieval and machine translation. 
+
+We come up with an approach to induce such cross-lingual embeddings based on sentence-aligned data, based on sentence correlation. We show how this is fundamentally different from approaches that focus on local correlation in an n-gram context. Without word alignments, local correlation cannot be used in cross-lingual induction of word embeddings. Global (sentence-based) correlation yields word embeddings that are less informative of the function of a word in a sentence, but can be quite useful in IR-related tasks. We use such a task to evaluate the quality of our embeddings, namely cross-lingual document classification.
+
+This document is structured as follows. In section~\ref{relatedWork}, we discuss several  approaches to multilingual distributional semantics. We introduce two existing monolingual models to obtain sentence embeddings in section~\ref{s:sentenceEmbeddings}, and extend them for the multilingual case. We explain how word embeddings can be obtained in section~\ref{s:wordEmbeddings}. The tasks we use for evaluation of the resulting embeddings are described in section~\ref{s:evaluation}, followed by the experiments we conducted and emperical results in section~\ref{s:experiments}. In section~\ref{s:discussion}, we set forth some considerations and ideas for future investigation of this topic. We conclude with some final remarks in section~\ref{s:conclusion}.
+
