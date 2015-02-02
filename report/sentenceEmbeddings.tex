@@ -1,30 +1,30 @@
-Like most of the aforementioned approaches, we aim to induce multilingual word embeddings from parallel data. In order to make sure the semantic spaces for all languages are aligned, we rely solely upon the fact that sentences are aligned without using word alignments.
-We introduce the \texttt{paragraph2vec} from \cite{Le2014}. Next, we show how these models can be used in a multilingual context.
+Like most of the aforementioned approaches, we aim to induce multilingual word embeddings from parallel data. In order to make sure the semantic spaces for all languages are aligned, we rely solely upon the fact that sentences are aligned, without using word alignments.
+We introduce the \texttt{paragraph2vec} models from \cite{Le2014}. Next, we show how these models can be used in a multilingual context.
 
 \begin{figure*}\center
 \begin{subfigure}{.45\textwidth}\center
 \input{figures/tikz_monoling_dismem}
-\caption{PV-DM}
+\caption{{\tt PV-DM}}
 \label{fig:p2v-DM}
 \end{subfigure}
 \begin{subfigure}{.45\textwidth}\center
 \input{figures/tikz_monoling_dbow}
-\caption{PV-DBOW}
+\caption{{\tt PV-DBOW}}
 \label{fig:p2v-DBOW}
 \end{subfigure}
 \caption{\texttt{paragraph2vec} models}
 \end{figure*}
 
 \subsection{\texttt{paragraph2vec}}
-An efficient model to induce word embeddings from (monolingual) text is called \texttt{word2vec}  and was introduced in \cite{mikolov2013efficient}. It was extended to a version that can induce the same kind of embeddings for paragraphs: \texttt{paragraph2vec} \cite{Le2014}. A paragraph in this case can be any sequence of words, e.g. a sentence, paragraph or entire document. There are two different models to induce them, called PV-DM (dsitributed memorey) and PV-DBOW (distributed bag of words). The authors combine paragraphs obtained from both models in their experiments.
+An efficient model to induce word embeddings from (monolingual) text is called \texttt{word2vec}  and was introduced in \cite{mikolov2013efficient}. It was extended to a version that can induce the same kind of embeddings for paragraphs: \texttt{paragraph2vec} \cite{Le2014}. A paragraph in this case can be any sequence of words, e.g. a sentence, paragraph or entire document. There are two different models to induce them, called {\tt PV-DM} (distributed memory) and {\tt PV-DBOW} (distributed bag of words). The authors combine paragraphs obtained from both models in their experiments.
 
-In the DM model, a \emph{paragraph vector} is used as a part of the context of each word in the sequence (figure~\ref{fig:p2v-DM}).
+In the {\tt PV-DM} model, a \emph{paragraph vector} is used as a part of the context of each word in the sequence (figure~\ref{fig:p2v-DM}).
 The hidden layer is formed by taking the average (or sum) of the sentence vector and word vectors of the context. The network tries to predict the index of the word that was left out of the context.  
 This way, the paragraph vector influences the learned representations of those words in the same way that their context words do.
 
 
 
-In the DBOW model, no word embeddings are trained. Rather, the sentence embedding is trained by trying to predict the indexes of all words that occur in the sentence (see figure~\ref{fig:p2v-DBOW}).
+In the {\tt PV-DBOW} model, no word embeddings are trained. Rather, the sentence embedding is trained by trying to predict the indexes of all words that occur in the sentence (see figure~\ref{fig:p2v-DBOW}).
 
 
 
@@ -63,7 +63,7 @@ The multilingual \texttt{PV-DBOW} has the added benefit of being faster, because
 
 \center
 \input{figures/tikz_biling_dbow}
-\caption{Bilingual PV-DBOW}
+\caption{Bilingual {\tt PV-DBOW}}
 \label{f:bilingual_dbow}
 \end{figure}
 

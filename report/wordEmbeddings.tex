@@ -2,22 +2,26 @@
 % DM doesn't work
 % 
 % 
+We use both multilingual versions of {\tt paragraph2vec} to obtain shared word embeddings. We explain why the {\tt PV-DM} model does not result in a shared space without using word alignments. Subsequently, we show how we can still induce word embeddings using sentence representations.
+
+
 
 \subsection{Words from PV-DM}
 Our first approach to obtaining joint multilingual word embeddings was to train the multilingual \texttt{PV-DM}.
 However, the error signal that is used to train the word representations does not lend itself for learning a joint multilingual word vector space.
-The model is predicting either words in one language or words in the other language, but never both.
-If both languages had similar embeddings, the model would make prediction errors by predicting the word index for the translation of the target as well.
+According to the model, there is one proper word prediction, in one language, in each case.
+Now if both languages would have similar embeddings, the model would actually make prediction errors by predicting the word index for the translation of the target.
 This way, the model the model is inadvertently trained to distinguish between the languages.%Therefore, the error signal makes the model distinguish between both languages.
 
 %NB de woordrepresentaties per taal lijken wel goed te zijn
 The model does learn sensible word embeddings in both languages independently.
 The word embeddings are located near related words in their own language, and far away from embeddings from the other language.
 
-Additionally, if the languages used the features in the same way, subtracting a word from its literal translation could result in a `translation vector'.
-This vector could then be added to words in one language to find their counterpart in the other.
-However, it seems to be impossible to construct such a vector with this model. 
-In this approach the vector dimensions therefore encode different information for both languages and also the sentences.
+Additionally, if the languages would use the features in the same way, subtracting a word from its literal translation could result in a `translation vector'. This vector could then be added to words in one language to find their counterpart in the other.
+Our attempts to do so did not reveal such structure, so apparently the vector dimensions encode different information for both languages.
+
+%However, it seems to be impossible to construct such a vector with this model. 
+%In this approach the vector dimensions therefore encode different information for both languages and also the sentences.
 
 
 % % List of different models within this approach as discussed with Philip
@@ -36,10 +40,11 @@ In this approach the vector dimensions therefore encode different information fo
 
 % Another training procedure relies on the previous experiments.
 % It is based on the Distributed Memory training from paragraph2vec. % and  is illustrated in figure~\ref{f:bilingual-dm}. 
-The second approach was to use two separate monolingual \texttt{PV-DM} that models  independently predict words from contexts in either language. To enforce alignment between the languages, we used strong initialization of the paragraph vector. Namely, the sentence embeddings that resulted from dbow training were used and kept fixed.
+The second approach was to use two separate monolingual \texttt{PV-DM} models that  independently predict words from contexts in either language, but sharing the paragraph embedding of aligned sentences. To enforce alignment between the languages, we used strong initialization of the paragraph vector. Namely, the sentence embeddings that resulted from {\tt PV-DBOW} training were used and kept fixed.
 The word vectors were initialized to be as near as possible to the embeddings of the sentences that those words appear in.
 We therefore initialized every word vector as the average of all sentence embeddings that it occurs in.
 % We used the word embeddings from the previous experiment to initialize the multilingual DM setting with two separate models.
+
 The idea was to then further refine the word embeddings using a smaller context in the two \texttt{PV-DM} models.
 However, the training occurs independently for both languages and the commonality of the semantic space relies solely on the sentence embeddings. The impact of this signal was not strong enough to construct a joint bilingual vector space in this way. Again, a coherent semantic space emerged for both languages individually, but was not shared between them. 
 
@@ -76,5 +81,5 @@ Without word alignments however, there is no way to determine parallel word cont
 Therefore, there must be a notion of word alignment in a model that aims to find multilingual word embeddings from local co-occurrence.
 
 We imagine that the two types of word embeddings should also be evaluated differently and used for different tasks.
-Word embeddings from sentences are useful for information retrieval, but tasks that involve a finer-grained sense of word meaning benefit more from word embeddings based on local co-occurrence.
+Word embeddings from sentences are useful for IR, but tasks that involve a finer-grained sense of word meaning benefit more from word embeddings based on local co-occurrence.
 Those tasks include Machine Translation and Semantic Parsing.

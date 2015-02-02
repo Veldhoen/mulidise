@@ -5,8 +5,7 @@ Mauro Cettolo, Christian Girardi, and Marcello Federico.
 \newblock 2012.
 \newblock Wit$^3$: Web inventory of transcribed and translated talks.
 \newblock In {\em Proceedings of the 16$^{th}$ Conference of the European
-  Association for Machine Translation (EAMT)}, pages 261--268, Trento, Italy,
-  May.
+  Association for Machine Translation (EAMT)}, pages 261--268, May.
 
 \bibitem[\protect\citename{Hermann and Blunsom}2013]{hermann2013multilingual}
 Karl~Moritz Hermann and Phil Blunsom.
@@ -19,12 +18,6 @@ Karl~Moritz Hermann and Phil Blunsom.
 \newblock {Multilingual Models for Compositional Distributional Semantics}.
 \newblock In {\em Proceedings of ACL}.
 
-\bibitem[\protect\citename{Hermann}2014]{Hermann2014}
-Karl~Moritz Hermann.
-\newblock 2014.
-\newblock {\em {Distributed Representations for Compositional Semantics}}.
-\newblock {Ph.D.} thesis.
-
 \bibitem[\protect\citename{Klementiev \bgroup et al.\egroup
   }2012]{klementiev2012inducing}
 Alexandre Klementiev, Ivan Titov, and Binod Bhattarai.
@@ -35,6 +28,14 @@ Alexandre Klementiev, Ivan Titov, and Binod Bhattarai.
 Quoc~V. Le and Tomas Mikolov.
 \newblock 2014.
 \newblock {Distributed Representations of Sentences and Documents}.
+
+\bibitem[\protect\citename{Levy and Goldberg}2014]{Levy2014}
+Omer Levy and Yoav Goldberg.
+\newblock 2014.
+\newblock {Linguistic Regularities in Sparse and Explicit Word
+  Representations}.
+\newblock {\em Proceedings of the 18th Conference on Computational Natural
+  Language Learning (CoNLL 2014)}.
 
 \bibitem[\protect\citename{Mikolov \bgroup et al.\egroup
   }2013a]{mikolov2013efficient}
@@ -48,5 +49,19 @@ Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean.
 Tomas Mikolov, Quoc~V Le, and Ilya Sutskever.
 \newblock 2013b.
 \newblock Exploiting similarities among languages for machine translation.
+
+\bibitem[\protect\citename{Sarath~Chandar \bgroup et al.\egroup
+  }2014]{SarathChandar2014autoencoder}
+A~P Sarath~Chandar, Stanislas Lauly, Hugo Larochelle, Mitesh~M. Khapra,
+  Balaraman Ravindran, Vikas Raykar, and Amrita Saha.
+\newblock 2014.
+\newblock {An Autoencoder Approach to Learning Bilingual Word Representations}.
+\newblock page~10.
+
+\bibitem[\protect\citename{Van~der Maaten and Hinton}2008]{van2008visualizing}
+Laurens Van~der Maaten and Geoffrey Hinton.
+\newblock 2008.
+\newblock Visualizing data using t-sne.
+\newblock {\em Journal of Machine Learning Research}, 9:85.
 
 \end{thebibliography}

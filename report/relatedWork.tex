@@ -4,12 +4,12 @@ Some research has focused on the induction of multilingual word embeddings, usin
 \subsection{Linear Mapping}\label{s:lin}
 % Using a dictionary
 
-According to Mikolov et al. \cite{mikolov2013exploiting}, the vector space of word representations in different languages are geometrically similar, because words in languages are grounded in real world concepts.
+According to Mikolov et al. \cite{mikolov2013exploiting}, the vector spaces of word representations in different languages are geometrically similar, because words in languages are grounded in real world concepts.
 It is therefore possible to find a linear mapping 
 %(rotation and scaling) 
 between these vector spaces.
 
-The approach is to first train word embeddings on large monolingual data for both languages separately, using the \texttt{word2vec} implementation. In the reported experiments, the so-called CBOW architecture is used, that predicts a word given its context in both directions.
+The approach is to first train word embeddings on large monolingual data for both languages separately, using the \texttt{word2vec} implementation. In the reported experiments, the so-called {\tt CBOW} architecture is used, that predicts a word given its context in both directions.
 % Notably, the authors also propose a way to include some phrases: multi-word expressions. This may prove useful for translation, as one multiple words can together express a concept that has a single word in another language.
 
 Using a relatively small set of gold standard word translations, in this case obtained from Google Translate, a transformation matrix $W$ is searched. The training objective is to minimize the distance between words that are translations of one another.
@@ -25,7 +25,7 @@ The evaluation is performed on a test set of gold-standard word translations, ag
 
 Klementiev and Titov \cite{klementiev2012inducing} induce distributed representations for a pair of languages jointly. By doing so, words in both languages are represented in a single vector space.
 
-The induction is treated as a multitask learning problem where each task corresponds to a single word. The training influences other tasks depending on the task-relatedness. The latter is derived from co-occurrence statistics in bilingual parallel data: the number of alignment links between  that word and its (supposed) translations. 
+The induction is treated as a multitask learning problem where each task corresponds to a single word. The training influences other tasks depending on the task-relatedness, represented in an Interaction Matrix (I-matrix). The latter is derived from co-occurrence statistics in bilingual parallel data: the number of alignment links between  that word and its (supposed) translations. 
 
 The word representations are induced in a neural language model architecture. 
 The $n$ preceding words form the context, their representations are concatenated to form a context vector. The probability of the next word occuring is predicted from this vector. The training procedure aims to find the word representations that maximize the data (log) likelihood: 
@@ -37,18 +37,18 @@ The method is evaluated on a real-world task: crosslingual document classificati
 \subsection{Joint Learning from Sentence Embeddings}
 % No alignment, but compositionality
 
-Unlike the previous approaches, Hermann and Blunsum \cite{hermann2013multilingual} start from sentence alignments, which share the same semantics.
+Unlike the previous approaches, \cite{hermann2013multilingual} start from sentence alignments: parallel sentences which share the same semantics.
 The assumption is that some function can describe the composition of word embeddings into a sentence embedding.
 For the sake of their argument, the authors use a simple bag-of-words additive interpretation of composition. 
-The word embeddings are induced jointly for both languages from these sentence-embeddings, by minimizing the distance between both sums of word embeddings.
+The word embeddings are induced jointly for both languages from these sentence-embeddings, by minimizing the distance between representations of aligned sentences.
 % However, the sentence embeddings are not present a priori, nor is the training aimed at obtaining these.
 % ? the sentence embeddings are not learned? 
 % Nope, just the fact that two sentences should have the same semantics is used.
 In order to make sure the weights won't be reduced to zero, similarity between unaligned sentence embeddings is penalized.
 %This method is implemented in a software package named \texttt{bicvm}.
 
-The same evaluation as in \cite{klementiev2012inducing} is applied, i.e. the document classification task. Furthermore, the authors present a graphical qualitative analysis. 
-In \cite{Hermann2014}, this approach is expanded by evaluating on a larger number of language pairs.
+The same evaluation as in \cite{klementiev2012inducing} is applied, i.e. the document classification task. 
+In \cite{hermann2014multilingual}, this approach is expanded by evaluating on a larger number of language pairs. Furthermore, the authors present a graphical qualitative analysis. 
 
 \subsection{An Autoencoder Approach}
 % No alignment, no compositionality
