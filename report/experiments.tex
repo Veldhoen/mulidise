@@ -50,7 +50,7 @@ DE-EN			&.363		&.319		&.304		&.264		&.323		\\
 
 As a baseline, we use the majority class estimate for the RCV data, and the F1 baseline $P$ explained in section~\ref{s:evaluation}. 
 
-We also compare to the performance of vectors that results from the multitask-learning approach by \cite{klementiev2012inducing} described in section~\ref{s:relatedWork}. A distribution of their word embeddings is available on \url{http://klementiev.org/data/distrib/}. The alignments used to populate the interaction matrix are obtained from the Europarl corpus. The word embeddings themselves are trained on the Reuters data that also make up the RCV evaluation set. Note that both the amount and nature of this training data differs from ours. Because of this, also the vocabularies differ. Their vocabulary size for English and German are 43612 and 50108, respectively. Since the I-Matrix vectors are induced from RCV data, they fit better with that evaluation set. Please also note that the length of these vectors is much smaller: 40 (instead of 256). The results we obtained with this set of embeddings are not as good as those reported in \cite{klementiev2012inducing}, for no apparent reason.
+We also compare to the performance of vectors that results from the multitask-learning approach by \cite{klementiev2012inducing} described in section~\ref{s:relatedWork}. A distribution of their word embeddings is available online\footnote{\url{http://klementiev.org/data/distrib/}}. The alignments used to populate the interaction matrix are obtained from the Europarl corpus. The word embeddings themselves are trained on the Reuters data that also make up the RCV evaluation set. Note that both the amount and nature of this training data differs from ours. Because of this, also the vocabularies differ. Their vocabulary size for English and German are 43612 and 50108, respectively. Since the I-Matrix vectors are induced from RCV data, they fit better with that evaluation set. Please also note that the length of these vectors is much smaller: 40 (instead of 256). The results we obtained with this set of embeddings are not as good as those reported in \cite{klementiev2012inducing}, for no apparent reason.
 
 Lastly, we compare to Google News vectors that are provided in \cite{mikolov2013efficient}
 They are English embeddings of length 300 and trained on a huge corpus (Google News). We reckon their performance therefore establishes an upper limit, for evaluation scenarios that only rely on English embeddings.
@@ -150,10 +150,20 @@ pb&	\cca{.403}{40}&	\cca{.333}{33}&	\cca{.369}{37}&	\cca{.354}{35}&	\cca{.374}{3
 \caption{}
 \label{t:dbow_multi}
 \end{table}
+\begin{figure}[htb]
+\center
+\includegraphics[width=1\linewidth]{figures/weekdays7}
+\caption{Days of the week for 7 languages (if the words are present in the vocabulary)}
+\label{f:weekdays}
+\end{figure}
+As an illustration of the multilingual vector space, we present a visualization in figure~\ref{f:weekdays}.
+We ran the word embeddings for the days of the week through the t-SNE optimization-based dimensionality reduction algorithm \cite{van2008visualizing}.
+It is interesting to note that Saturday and Sunday are easily separable from the other days.
+The fact that Portugese (in pink) uses words with multiple senses is also clearly visible.
+
 
 
 We investigated how language relatedness could influence these results. We train the dbow system on either the Germanic langugages German, English and Dutch (`G') or the Romance languages French, Spanish and Italian (`R'). 
-
 We report the average over all evaluation settings with training/ testing on Germanic and Latin languages in table~\ref{t:dbow_families}. There is no apparent correlation between the language families of dbow training and evaluation.
 \begin{table}[ht]
 \center
@@ -170,16 +180,6 @@ Romance		&.348		&.371		&.364		&.347		\\
 
 
 
-\subsection{Visualization}
 
-As an illustration of the multilingual vector space, we present a visualization in figure~\ref{f:weekdays}.
-We ran the word embeddings for the days of the week through the t-SNE optimization-based dimensionality reduction algorithm \cite{van2008visualizing}.
-It is interesting to note that Saturday and Sunday are easily separable from the other days.
-The fact that Portugese (in pink) uses words with multiple senses is also clearly visible.
 
-\begin{figure}[ht]
-\center
-\includegraphics[width=1\linewidth]{figures/weekdays7}
-\caption{Days of the week for 7 languages (if the words are present in the vocabulary)}
-\label{f:weekdays}
-\end{figure}
+

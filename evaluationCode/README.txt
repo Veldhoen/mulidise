@@ -1,7 +1,7 @@
 In order to evaluate a set of word embeddings:
 
 1. Make sure the word embeddings are in a single file <emb>
-   in the followingformat:
+   in the followingf ormat:
    <word>_<languagetag> : <v0> <v1> ... <vn>
    Note that the language tag for Poruguese must be '_pb'
 2. Create a directory <eval> for the evaluation
@@ -9,7 +9,8 @@ In order to evaluate a set of word embeddings:
    first and <emb> as a second argument, e.g.:
    bash classifierTED.sh evaluation/bilingual_dbow/ ourEmbeddins/bilingual_dbow_vecs.txt
 
-   The classifier runs:
+   (or run evaluateThis.sh instead of steps 2 and 3)
+   Either classifier runs:
    1. preprocessing
       obtain document embeddings given the word embeddings.
    2. train classifiers on training data

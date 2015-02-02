@@ -42,7 +42,6 @@ Omer Levy and Yoav Goldberg.
 Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean.
 \newblock 2013a.
 \newblock Efficient estimation of word representations in vector space.
-\newblock {\em arXiv preprint arXiv:1301.3781}.
 
 \bibitem[\protect\citename{Mikolov \bgroup et al.\egroup
   }2013b]{mikolov2013exploiting}
