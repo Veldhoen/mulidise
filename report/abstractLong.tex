@@ -35,9 +35,15 @@
 
 \section*{Motivation}
 
-Practical: multilingual IR
-Theoretical: multilinguality (arguably) results in better conceptual space
+% Practical: multilingual IR
+% Theoretical: multilinguality (arguably) results in better conceptual space
+Distributional semantics is a fast developing field that concerns the establishment of a semantic vector space were words have a geometrical interpretation. We investigated how to use data in multiple languages to create a single multilingual semantic space. The word representations in this vector space may have a theoretical interest on their own right, but can also be used for tasks related to translation, such as cross-lingual information retrieval and machine translation. 
 
+% lots of languages together is cool
+In particular, we induce word embeddings for seven languages in a shared space.  This allows for linguistic inquiry into semantic differences between vocabularies. It is also useful for tasks in which relevant resources might exist in many languages, such as question answering, sentiment analysis and information retrieval, or tasks in which we would like to compare resources across languages, e.g. to compare international differences in attitude.
+
+% multilingual training is also good for monolingual semantics
+The multi-lingual training signal can also improve performance on monolingual tasks. Incorporating information across languages leads to a richer semantic space, that might be less prone to language-specific capriciousness. While this smoothness is most useful in a complex model that also accounts for word senses and composition, we show that this smoothness is already useful in a simple model.
 
 %Why do we care about the problem and the results? If the problem isn't obviously "interesting" it might be better to put motivation first; but if your work is incremental progress on a problem that is widely recognized as important, then it is probably better to put the problem statement first to indicate which piece of the larger problem you are breaking off to work on. This section should include the importance of your work, the difficulty of the area, and the impact it might have if successful.
 
