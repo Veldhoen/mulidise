@@ -77,8 +77,7 @@ However, we aim to fulfill the task without using word alignments, just from par
 %Global co-occurrence information does not provide information about the syntactic and semantic role a word plays in a sentence, but moreover expresses topicality. We thus expect the resulting word-embeddings to be useful for IR-related tasks rather than structured predictions.
 
 \cite{hermann2014multilingual} approach the task without using word alignments as well. They rely on a model of composition, can range from a simple bag-of-words additive model to a syntactically motivated model. From the word embeddings and the compositional model, a representation of a sentence can be determined. The learning objective is to minimize the distance between the representations of parallel sentences, by backpropagating the error to the word embeddings.
-
-The work of \cite{SarathChandar2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder, and learns word representations by reconstructing which words occur in both aligned sentences. 
+The work of \cite{sarath2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder. Word representations are learned by reconstructing which words occur in both aligned sentences. 
 
 
 % waar zou dit stuk moeten?
@@ -90,14 +89,15 @@ The work of \cite{SarathChandar2014autoencoder} treats the multilingual sentence
 %How did you go about solving or making progress on the problem? Did you use simulation, analytic models, prototype construction, or analysis of field data for an actual product? What was the extent of your work (did you look at one application program or a hundred programs in twenty different programming languages?) What important variables did you control, ignore, or measure?
 
 
-Our approach is similar in the above mentioned work in that we extract word embeddings from a distributional representation of the sentence. However, we rely on a very simple and efficient model of sentence representations without requiring an explicit compositional model. Instead of backpropagating an error to word embeddings in a network, we use a simple definition of word embeddings. 
+We also extract word embeddings from a distributional representation of the sentence. However, we rely on a very simple and efficient model of sentence representations without requiring an explicit compositional model. 
+%Instead of backpropagating an error to word embeddings in a network, we use a simple definition of word embeddings. 
 %We do not backpropagate an error to word embeddings, but simply define words as the average of the sentences they occur in.
 
 %Extended Paragraph2vec \cite{Le2014} for multilingual case
 
-\cite{Le2014} introduce {\tt paragraph2vec}, a model to obtain embeddings for paragraphs, i.e. sequences of words that may range from phrases  to entire documents. The {\tt PV-DBOW} version of the model predicts the indexes of all words that occur in a sentence with a hierarchical softmax layer, thus viewing the paragraph as a bag-of-words. 
+\cite{le2014distributed} introduce {\tt paragraph2vec}, a model to obtain embeddings for paragraphs, i.e. sequences of words that may range from phrases  to entire documents. The {\tt PV-DBOW} version of the model predicts the indexes of all words that occur in a sentence with a hierarchical softmax layer, thus viewing the paragraph as a bag-of-words. 
 
-We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}, where $w_n^{l_x}$ is the $n$th word in the sentence~$x$ in language~$l$. A single sentence representation is instantiated for parallel sentences, from which the network predicts words that occur in the sentence in either language. This extension is not restricted to the bilingual case: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
+We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}, where $w_n^{l_x}$ is the $n$th word in the sentence~$x$ in language~$l$. A single sentence representation is instantiated for parallel sentences, from which the network predicts words that occur in the sentence in either language. This extension is not restricted to the bilingual case.%: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
 
 \begin{figure}\center
 \begin{subfigure}{.35\linewidth}
@@ -123,16 +123,19 @@ DE-EN			&.319		&.304		&.264		&.323		\\
 
 
 %Word embeddings as sentence average
-Using these sentence embeddings, word embeddings are defined to be the average of all sentences they occur in. This is  formalized in equation~\ref{e:words}, where $[\![ x ]\!]$ denotes the (distributional) representation of $x$, $freq(w,x)$ is the frequency of word $w$ in $x$, and $D$ is the training data.
+Word embeddings are defined to be the average of all sentences they occur in. This is  formalized in equation~\ref{e:words}, where $[\![ x ]\!]$ denotes the (distributional) representation of $x$, $freq(w,x)$ is the frequency of word $w$ in $x$, and $D$ is the training data.
 \begin{equation}
 [\![ w ]\!] =\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) [\![ s ]\!]
 \label{e:words}
 \end{equation}
 
-We thus obtained word embeddings from either 500 k sentences of aligned Europarl data in English-German, or 50 k sentences aligned between seven languages. The data in either languages is paired with English, which we used as a pivot language for the cross-lingual alignment of sentences.
+We thus obtained word embeddings from either 500 k sentences of aligned Europarl data in English-German, or 50 k sentences aligned between seven languages. We used English as a pivot language to cross-lingually align those sentences.
+
+%The data in all languages is originally paired with English, which we used as a pivot language for the cross-lingual alignment of sentences.
 
 %Evaluation: analogy and crosslingual document classification
-Evaluation of cross-lingual word embeddings is not trivial. We apply a word analogy task to measure the quality of the English word embeddings, and the cross-lingual document classification task introduced by~\cite{klementiev2012inducing} to evaluate the inter-lingual consistency. In this task, a document classifier is trained using word embeddings in one language, and tested on word embeddings in another language. We apply this evaluation with two different datasets.
+%Evaluation of cross-lingual word embeddings is not trivial. We apply a word analogy task to measure the quality of the English word embeddings. 
+To evaluate the inter-lingual consistency, we run the cross-lingual document classification task introduced by~\cite{klementiev2012inducing} with two different datasets.. In this task, a document classifier is trained using word embeddings in one language, and tested on word embeddings in another language. 
 
 
 \section*{Results}
@@ -151,13 +154,16 @@ However, we also see the that word embeddings trained on English data only, are 
 
 
 \section*{Conclusions}
-Simple model, easy and cheap to train. 
-
-Set-up can be generalized to complex compositionality, e.g. syntactic parser for one language and not for other?
-
-Relation to other models?
-
 %What are the implications of your answer? Is it going to change the world (unlikely), be a significant "win", be a nice hack, or simply serve as a road sign indicating that this path is a waste of time (all of the previous results are useful). Are your results general, potentially generalizable, or specific to a particular case?
+
+
+We came up with a simple model to obtain cross-lingual sentence embeddings in any number of languages, that is easy and cheap to train. Word embeddings are determined in a straightforward fashion. Information from one language can increase performance on document classification in another language. 
+
+
+%Set-up can be generalized to complex compositionality, e.g. syntactic parser for one language and not for other?
+
+%Relation to other models?
+
 
 
 
