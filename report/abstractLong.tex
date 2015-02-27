@@ -35,6 +35,8 @@
 
 
 \section*{Motivation}
+%Why do we care about the problem and the results? If the problem isn't obviously "interesting" it might be better to put motivation first; but if your work is incremental progress on a problem that is widely recognized as important, then it is probably better to put the problem statement first to indicate which piece of the larger problem you are breaking off to work on. This section should include the importance of your work, the difficulty of the area, and the impact it might have if successful.
+
 
 
 % Practical: multilingual IR
@@ -56,14 +58,17 @@ or tasks in which we would like to compare resources across languages%, e.g. to 
 %Practical: multilingual IR
 %Theoretical: multilinguality (arguably) results in better conceptual space
 
-
-%Why do we care about the problem and the results? If the problem isn't obviously "interesting" it might be better to put motivation first; but if your work is incremental progress on a problem that is widely recognized as important, then it is probably better to put the problem statement first to indicate which piece of the larger problem you are breaking off to work on. This section should include the importance of your work, the difficulty of the area, and the impact it might have if successful.
+%Distributional semantics is a fast developing field that concerns the establishment of a semantic vector space were words have a geometrical interpretation. We investigated how to use data in multiple languages to create a single multilingual semantic space. The word representations in this vector space may have a theoretical interest on their own right, but can also be used for tasks related to translation, such as cross-lingual information retrieval and machine translation. 
 
 
 
 
 
 \section*{Problem statement and related work}
+%What problem are you trying to solve? What is the scope of your work (a generalized approach, or for a specific situation)? Be careful not to use too much jargon. In some cases it is appropriate to put the problem statement before the motivation, but usually this only works if most readers already understand why the problem is important.
+
+
+
 We want to induce a multilingual semantic space, in which words that are translations of each other are close together. 
 \cite{klementiev2012inducing} propose a multi task learning formulation of this problem. An interaction-matrix expressing the relatedness of words in both languages is defined, based on word alignments. When a word is trained, other words are co-trained depending on their interaction score.
 
@@ -76,11 +81,14 @@ However, we aim to fulfill the task without using word alignments, just from par
 The work of \cite{SarathChandar2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder, and learns word representations by reconstructing which words occur in both aligned sentences. 
 
 
+% waar zou dit stuk moeten?
+%We induce word embeddings using a distributional representation of the bitext sentence. In this respect, our work is related to \cite{hermann2014multilingual} and \cite{SarathChandar2014autoencoder}. The work of \cite{hermann2014multilingual} proposes a general method for inducing word representations by minimizing the distance between representations of aligned sentences in contrast to unaligned sentences, and backpropagating the error signal to the word embeddings. The work of \cite{SarathChandar2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder, and learns word representations by reconstructing which words occur in both aligned sentences. Both of these methods do not rely on word alignments, and extract word embeddings from a distributional representation of the sentence. We do this directly from a simple and efficient model of sentence representations. % niet-helemaal-lekkere-zin
 
 
-%What problem are you trying to solve? What is the scope of your work (a generalized approach, or for a specific situation)? Be careful not to use too much jargon. In some cases it is appropriate to put the problem statement before the motivation, but usually this only works if most readers already understand why the problem is important.
 
 \section*{Approach}
+%How did you go about solving or making progress on the problem? Did you use simulation, analytic models, prototype construction, or analysis of field data for an actual product? What was the extent of your work (did you look at one application program or a hundred programs in twenty different programming languages?) What important variables did you control, ignore, or measure?
+
 
 Our approach is similar in the above mentioned work in that we extract word embeddings from a distributional representation of the sentence. However, we rely on a very simple and efficient model of sentence representations without requiring an explicit compositional model. Instead of backpropagating an error to word embeddings in a network, we use a simple definition of word embeddings. 
 %We do not backpropagate an error to word embeddings, but simply define words as the average of the sentences they occur in.
@@ -123,14 +131,12 @@ Using these sentence embeddings, word embeddings are defined to be the average o
 
 We thus obtained word embeddings from either 500 k sentences of aligned Europarl data in English-German, or 50 k sentences aligned between seven languages. The data in either languages is paired with English, which we used as a pivot language for the cross-lingual alignment of sentences.
 
+%Evaluation: analogy and crosslingual document classification
 Evaluation of cross-lingual word embeddings is not trivial. We apply a word analogy task to measure the quality of the English word embeddings, and the cross-lingual document classification task introduced by~\cite{klementiev2012inducing} to evaluate the inter-lingual consistency. In this task, a document classifier is trained using word embeddings in one language, and tested on word embeddings in another language. We apply this evaluation with two different datasets.
 
-%Evaluation: analogy and crosslingual document classification
-
-%How did you go about solving or making progress on the problem? Did you use simulation, analytic models, prototype construction, or analysis of field data for an actual product? What was the extent of your work (did you look at one application program or a hundred programs in twenty different programming languages?) What important variables did you control, ignore, or measure?
 
 \section*{Results}
-
+%What's the answer? Specifically, most good computer architecture papers conclude that something is so many percent faster, cheaper, smaller, or otherwise better than something else. Put the result there, in numbers. Avoid vague, hand-waving results such as "very", "small", or "significant." If you must be vague, you are only given license to do so when you can talk about orders-of-magnitude improvement. There is a tension here in that you should not provide numbers that can be easily misinterpreted, but on the other hand you don't have room for all the caveats.
 Using embeddings from multilingually trained sentence representations improves performance on the cross-lingual document classification tasks, as illustrated for the bilingual case in table~\ref{t:dbow_mono_bi}. This effect may partially be explained by there being more training data: two versions of each sentence are used to train the sentence embeddings. 
 
 However, we also see the that word embeddings trained on English data only, are more useful for the classification even of German documents, possibly because of the richer German morphology and larger vocabulary. This indicates that useful information from one language can be transferred to another by means of the shared semantic space.
@@ -142,7 +148,7 @@ However, we also see the that word embeddings trained on English data only, are 
 %Classification improves from parawords, even transfer to other language!
 
 
-%What's the answer? Specifically, most good computer architecture papers conclude that something is so many percent faster, cheaper, smaller, or otherwise better than something else. Put the result there, in numbers. Avoid vague, hand-waving results such as "very", "small", or "significant." If you must be vague, you are only given license to do so when you can talk about orders-of-magnitude improvement. There is a tension here in that you should not provide numbers that can be easily misinterpreted, but on the other hand you don't have room for all the caveats.
+
 
 \section*{Conclusions}
 Simple model, easy and cheap to train. 
