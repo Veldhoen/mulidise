@@ -52,19 +52,19 @@ The multi-lingual training signal can also improve performance on monolingual ta
 Inducing multilingual word-embeddings from parallel data without word alignments.
 
 
+
 %What problem are you trying to solve? What is the scope of your work (a generalized approach, or for a specific situation)? Be careful not to use too much jargon. In some cases it is appropriate to put the problem statement before the motivation, but usually this only works if most readers already understand why the problem is important.
 
 \section*{Approach}
 
-
-
-
+% waar zou dit stuk moeten?
+We induce word embeddings using a distributional representation of the bitext sentence. In this respect, our work is related to \cite{hermann2014multilingual} and \cite{SarathChandar2014autoencoder}. The work of \cite{hermann2014multilingual} proposes a general method for inducing word representations by minimizing the distance between representations of aligned sentences in contrast to unaligned sentences, and backpropagating the error signal to the word embeddings. The work of \cite{SarathChandar2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder, and learns word representations by reconstructing which words occur in both aligned sentences. Both of these methods do not rely on word alignments, and extract word embeddings from a distributional representation of the sentence. We do this directly from a simple and efficient model of sentence representations. % niet-helemaal-lekkere-zin
 
 %Extended Paragraph2vec \cite{Le2014} for multilingual case
 
-\cite{Le2014} introduce {\tt paragraph2vec}, a model to obtain embeddings for paragraphs, i.e. sequences of words that may range from phrases  to entire documents. The {\tt PV-DBOW} version of the model predicts the indexes of all words that occur in a sentence with a hierarchical softmax layer. 
+\cite{Le2014} introduce {\tt paragraph2vec}, a model to obtain embeddings for paragraphs, i.e. sequences of words that may range from phrases to entire documents. Using a a hierarchical softmax layer, the {\tt PV-DBOW} version of the model predicts which words occur in a sentence. Although the distributional representation of the sentence is based on the bag-of-words assumption, it is efficient to train and works well in practice.
 
-We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}. A single sentence representation is instantiated for parallel sentences. The network predicts words that occur in the sentence in either language. This extension is not restricted to the bilingual case: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
+We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}. A single sentence representation is instantiated for parallel sentences. The network predicts which words occur in the sentence in either language. This extension is not restricted to the bilingual case: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
 
 %Word embeddings as sentence average
 Using these sentence embeddings, word embeddings 
@@ -72,6 +72,7 @@ Using these sentence embeddings, word embeddings
 
 
 Evaluation: analogy and crosslingual document classification
+\cite{klementiev2012inducing}
 
 %How did you go about solving or making progress on the problem? Did you use simulation, analytic models, prototype construction, or analysis of field data for an actual product? What was the extent of your work (did you look at one application program or a hundred programs in twenty different programming languages?) What important variables did you control, ignore, or measure?
 
