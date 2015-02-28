@@ -106,22 +106,22 @@ We also extract word embeddings from a distributional representation of the sent
 We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}, where $w_n^{l_x}$ is the $n$th word in the sentence~$x$ in language~$l$. A single sentence representation is instantiated for parallel sentences, from which the network predicts words that occur in the sentence in either language. This extension can easily be applied to more than 2 languages.%: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
 
 \begin{figure}\center
-\begin{subfigure}{.35\linewidth}
+\begin{subfigure}{.49\linewidth}
 \center
 \input{figures/tikz_biling_dbow}
 \caption{Extension of {\tt PV-DBOW} for parallel sentences.}
 \label{f:model}
 \end{subfigure}
-\begin{subfigure}{.64\linewidth}
+\begin{subfigure}{.49\linewidth}
 \flushright
 \begin{tabular}{c | r r r r }
-Training data	for	&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
-word 	embeddings:	&EN-EN	&DE-DE	&DE-EN	&EN-DE		\\\hline
+&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
+&EN-EN	&DE-DE	&DE-EN	&EN-DE		\\\hline
 EN			&.274		&.286		&.305		&.284		\\
 DE			&.263		&.190		&.166		&.270		\\
 DE-EN			&.319		&.304		&.264		&.323		\\
 \end{tabular}
-\caption{F1 scores on TED classification task for sentence representations and word representations.}
+\caption{F1 scores on TED classification task for sentence representations and word representations. The left column denotes the training data	for	the word embeddings. }
 \label{t:dbow_mono_bi}
 \end{subfigure}
 \caption{Model and results}
