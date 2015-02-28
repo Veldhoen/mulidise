@@ -88,7 +88,7 @@ The work of \cite{sarath2014autoencoder} treats the multilingual sentence repres
 
 
 % waar zou dit stuk moeten?
-%We induce word embeddings using a distributional representation of the bitext sentence. In this respect, our work is related to \cite{hermann2014multilingual} and \cite{SarathChandar2014autoencoder}. The work of \cite{hermann2014multilingual} proposes a general method for inducing word representations by minimizing the distance between representations of aligned sentences in contrast to unaligned sentences, and backpropagating the error signal to the word embeddings. The work of \cite{SarathChandar2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder, and learns word representations by reconstructing which words occur in both aligned sentences. Both of these methods do not rely on word alignments, and extract word embeddings from a distributional representation of the sentence. We do this directly from a simple and efficient model of sentence representations. % niet-helemaal-lekkere-zin
+%We induce word embeddings using a distributional representation of the bitext sentence. In this respect, our work is related to \cite{hermann2014multilingual} and \cite{SarathChandar2014autoencoder}. The work of \cite{hermann2014multilingual} proposes a general method for inducing word representations by minimizing the distance between representations of aligned sentences in contrast to unaligned sentt ences, and backpropagating the error signal to the word embeddings. The work of \cite{SarathChandar2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder, and learns word representations by reconstructing which words occur in both aligned sentences. Both of these methods do not rely on word alignments, and extract word embeddings from a distributional representation of the sentence. We do this directly from a simple and efficient model of sentence representations. % niet-helemaal-lekkere-zin
 
 
 
@@ -131,6 +131,10 @@ Word embeddings are simply defined to be the average of all sentences they occur
 \label{e:words}
 \end{equation}
 
+
+Note that the training of sentence representations, and the abstraction of word embeddings are independent. Therefore, the sentence embeddings can in fact be trained monolingually after which multilingual word embeddings can still be obtained with parallel data. However, the semantic space would be biased towards the training language.
+
+
 We thus obtained word embeddings from either 500 k sentences of aligned Europarl data in English-German, or 50 k sentences aligned between seven languages. We used English as a pivot language to cross-lingually align those sentences.
 
 %The data in all languages is originally paired with English, which we used as a pivot language for the cross-lingual alignment of sentences.
@@ -142,9 +146,11 @@ To evaluate the inter-lingual consistency, we run the cross-lingual document cla
 
 \paragraph{Results}
 %What's the answer? Specifically, most good computer architecture papers conclude that something is so many percent faster, cheaper, smaller, or otherwise better than something else. Put the result there, in numbers. Avoid vague, hand-waving results such as "very", "small", or "significant." If you must be vague, you are only given license to do so when you can talk about orders-of-magnitude improvement. There is a tension here in that you should not provide numbers that can be easily misinterpreted, but on the other hand you don't have room for all the caveats.
-Using embeddings from multilingually trained sentence representations improves performance on the cross-lingual document classification tasks, as illustrated for the bilingual case in table~\ref{t:dbow_mono_bi}. This effect may partially be explained by there being more training data: two versions of each sentence are used to train the sentence embeddings. 
 
-However, we also see the that word embeddings trained on English data only are more useful for the classification even of German documents, possibly because of the richer German morphology and larger vocabulary. This indicates that useful information from one language can be transferred to another by means of the shared semantic space.
+We managed to create a joint semantic space with seven languages, and evaluated performance on the cross-lingual document classification in all possible combinations of two languages. Notably, the multilingual classification results are on par with the monolingual version of the task. 
+
+We zoom in on monolingual and bilingual training of sentence representations in table~\ref{t:dbow_mono_bi}. It is clear from the table that word embeddings from multilingually trained sentence representations improve performance on both the monolingual and crosslingual document classification. Although there is more data available for the training in the bilingual case, the other rows indicate another effect. 
+Word embeddings from monolingually trained English sentence representations are more useful for the classification even of German documents. In this case, this might have to do with German morphology. This indicates that information is indeed transferred between languages.
 
 
 
@@ -159,7 +165,8 @@ However, we also see the that word embeddings trained on English data only are m
 %What are the implications of your answer? Is it going to change the world (unlikely), be a significant "win", be a nice hack, or simply serve as a road sign indicating that this path is a waste of time (all of the previous results are useful). Are your results general, potentially generalizable, or specific to a particular case?
 
 
-We came up with a simple model to obtain cross-lingual sentence embeddings in any number of languages, that is easy and cheap to train. Word embeddings are determined in a straightforward fashion. Information from one language can increase performance on document classification in another language. 
+We present a simple model to obtain cross-lingual sentence embeddings in any number of languages, that is easy and cheap to train. Word embeddings are determined in a straightforward fashion. 
+We induce a joint space for seven languages, and show that information from one language can increase performance on document classification in another language. 
 
 
 %Set-up can be generalized to complex compositionality, e.g. syntactic parser for one language and not for other?
