@@ -41,13 +41,19 @@
 
 % Practical: multilingual IR
 % Theoretical: multilinguality (arguably) results in better conceptual space
-Distributional semantics concerns the establishment of a semantic vector space where words have a geometrical interpretation. We investigated how to use data in multiple languages to create a single semantic space. The word representations in this space can be useful for tasks such as multilingual Information Retrieval, and more structured predictions like Machine Translation. Moreover, the latent conceptual semantic space can arguably be approximated more closely by using multilingual data, as language-specific effects fade away. %We show that we can actually improve performance on monolingual tasks. 
+Distributional semantics concerns the establishment of a semantic space where words are represented by vectors and their relations have a geometrical interpretation. We investigated how to use data from multiple languages to create a single semantic space. In particular, we induce word embeddings for seven languages in a shared space.  
+
+This allows for linguistic inquiry into semantic differences between vocabularies. The latent conceptual semantic space can arguably be approximated more closely by using multilingual data, as language-specific effects fade away. 
+Moreover, a joint semantics space of many languages allows for tasks such as multilingual Information Retrieval without using a pivot language.
+
+
+%, and structured prediction tasks like Machine Translation. Moreover, this allows for linguistic inquiry into semantic differences between vocabularies. The latent conceptual semantic space can arguably be approximated more closely by using multilingual data, as language-specific effects fade away. %We show that we can actually improve performance on monolingual tasks. 
 %However, syntactic features of word embeddings partly depend on the language and may thus suffer from this approach.
 
 % lots of languages together is cool
-In particular, we induce word embeddings for seven languages in a shared space.  This allows for linguistic inquiry into semantic differences between vocabularies. It is also useful for tasks in which relevant resources might exist in many languages, %such as question answering, sentiment analysis and information retrieval, 
-or tasks in which we would like to compare resources across languages%, e.g. to compare international differences in attitude
-.
+%In particular, we induce word embeddings for seven languages in a shared space.  This allows for linguistic inquiry into semantic differences between vocabularies. It is also useful for tasks in which relevant resources might exist in many languages, %such as question answering, sentiment analysis and information retrieval, 
+%or tasks in which we would like to compare resources across languages%, e.g. to compare international differences in attitude
+%.
 
 % multilingual training is also good for monolingual semantics
 %The multi-lingual training signal can also improve performance on monolingual tasks. Incorporating information across languages leads to a richer semantic space, that might be less prone to language-specific capriciousness. While this smoothness is most useful in a complex model that also accounts for word senses and composition, we show that this smoothness is already useful in a simple model. %SMOOTHNES??
@@ -76,7 +82,7 @@ However, we aim to fulfill the task without using word alignments, just from par
 
 %Global co-occurrence information does not provide information about the syntactic and semantic role a word plays in a sentence, but moreover expresses topicality. We thus expect the resulting word-embeddings to be useful for IR-related tasks rather than structured predictions.
 
-\cite{hermann2014multilingual} approach the task without using word alignments as well. They rely on a model of composition, can range from a simple bag-of-words additive model to a syntactically motivated model. From the word embeddings and the compositional model, a representation of a sentence can be determined. The learning objective is to minimize the distance between the representations of parallel sentences, by backpropagating the error to the word embeddings.
+\cite{hermann2014multilingual} also approach the task without using word alignments. They rely on a model of composition which can range from a simple bag-of-words additive model to a syntactically motivated model. The word embeddings and the compositional model determine the representation of a sentence. The learning objective is to minimize the distance between the representations of parallel sentences, by backpropagating the error to the word embeddings.
 The work of \cite{sarath2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder. Word representations are learned by reconstructing which words occur in both aligned sentences. 
 
 
@@ -97,7 +103,7 @@ We also extract word embeddings from a distributional representation of the sent
 
 \cite{le2014distributed} introduce {\tt paragraph2vec}, a model to obtain embeddings for paragraphs, i.e. sequences of words that may range from phrases  to entire documents. The {\tt PV-DBOW} version of the model predicts the indexes of all words that occur in a sentence with a hierarchical softmax layer, thus viewing the paragraph as a bag-of-words. 
 
-We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}, where $w_n^{l_x}$ is the $n$th word in the sentence~$x$ in language~$l$. A single sentence representation is instantiated for parallel sentences, from which the network predicts words that occur in the sentence in either language. This extension is not restricted to the bilingual case.%: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
+We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}, where $w_n^{l_x}$ is the $n$th word in the sentence~$x$ in language~$l$. A single sentence representation is instantiated for parallel sentences, from which the network predicts words that occur in the sentence in either language. This extension can easily be applied to more than 2 languages.%: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
 
 \begin{figure}\center
 \begin{subfigure}{.35\linewidth}
@@ -123,7 +129,7 @@ DE-EN			&.319		&.304		&.264		&.323		\\
 
 
 %Word embeddings as sentence average
-Word embeddings are defined to be the average of all sentences they occur in. This is  formalized in equation~\ref{e:words}, where $[\![ x ]\!]$ denotes the (distributional) representation of $x$, $freq(w,x)$ is the frequency of word $w$ in $x$, and $D$ is the training data.
+Word embeddings are defined to be the average of all sentences they occur in. This is  formalized in equation~\ref{e:words}, where $[\![ x ]\!]$ denotes the (distributional) representation of $x$, $freq(w,x)$ is the frequency of word $w$ in $x$, and $s\in D$ are sentences $s$ in the training data $D$.
 \begin{equation}
 [\![ w ]\!] =\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) [\![ s ]\!]
 \label{e:words}
@@ -135,14 +141,14 @@ We thus obtained word embeddings from either 500 k sentences of aligned Europarl
 
 %Evaluation: analogy and crosslingual document classification
 %Evaluation of cross-lingual word embeddings is not trivial. We apply a word analogy task to measure the quality of the English word embeddings. 
-To evaluate the inter-lingual consistency, we run the cross-lingual document classification task introduced by~\cite{klementiev2012inducing} with two different datasets.. In this task, a document classifier is trained using word embeddings in one language, and tested on word embeddings in another language. 
+To evaluate the inter-lingual consistency, we run the cross-lingual document classification task introduced by~\cite{klementiev2012inducing} with two different datasets. In this task, a document classifier is trained using word embeddings in one language, and tested on word embeddings in another language. 
 
 
 \section*{Results}
 %What's the answer? Specifically, most good computer architecture papers conclude that something is so many percent faster, cheaper, smaller, or otherwise better than something else. Put the result there, in numbers. Avoid vague, hand-waving results such as "very", "small", or "significant." If you must be vague, you are only given license to do so when you can talk about orders-of-magnitude improvement. There is a tension here in that you should not provide numbers that can be easily misinterpreted, but on the other hand you don't have room for all the caveats.
 Using embeddings from multilingually trained sentence representations improves performance on the cross-lingual document classification tasks, as illustrated for the bilingual case in table~\ref{t:dbow_mono_bi}. This effect may partially be explained by there being more training data: two versions of each sentence are used to train the sentence embeddings. 
 
-However, we also see the that word embeddings trained on English data only, are more useful for the classification even of German documents, possibly because of the richer German morphology and larger vocabulary. This indicates that useful information from one language can be transferred to another by means of the shared semantic space.
+However, we also see the that word embeddings trained on English data only are more useful for the classification even of German documents, possibly because of the richer German morphology and larger vocabulary. This indicates that useful information from one language can be transferred to another by means of the shared semantic space.
 
 
 
