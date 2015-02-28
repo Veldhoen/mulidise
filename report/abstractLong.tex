@@ -34,7 +34,7 @@
 \pagestyle{empty}
 
 
-\section*{Motivation}
+\paragraph{Motivation}
 %Why do we care about the problem and the results? If the problem isn't obviously "interesting" it might be better to put motivation first; but if your work is incremental progress on a problem that is widely recognized as important, then it is probably better to put the problem statement first to indicate which piece of the larger problem you are breaking off to work on. This section should include the importance of your work, the difficulty of the area, and the impact it might have if successful.
 
 
@@ -70,7 +70,7 @@ Moreover, a joint semantics space of many languages allows for tasks such as mul
 
 
 
-\section*{Problem statement and related work}
+\paragraph{Problem statement and related work}
 %What problem are you trying to solve? What is the scope of your work (a generalized approach, or for a specific situation)? Be careful not to use too much jargon. In some cases it is appropriate to put the problem statement before the motivation, but usually this only works if most readers already understand why the problem is important.
 
 
@@ -82,7 +82,8 @@ However, we aim to fulfill the task without using word alignments, just from par
 
 %Global co-occurrence information does not provide information about the syntactic and semantic role a word plays in a sentence, but moreover expresses topicality. We thus expect the resulting word-embeddings to be useful for IR-related tasks rather than structured predictions.
 
-\cite{hermann2014multilingual} also approach the task without using word alignments. They rely on a model of composition which can range from a simple bag-of-words additive model to a syntactically motivated model. The word embeddings and the compositional model determine the representation of a sentence. The learning objective is to minimize the distance between the representations of parallel sentences, by backpropagating the error to the word embeddings.
+An existing approach is to induce word embeddings using a distributional representation of the bitext sentence. 
+\cite{hermann2014multilingual} learn this representation in a neural network using a predefined compositional model. The distance between the representation of aligned sentences determines the error that is backpropagated to the word embeddings.
 The work of \cite{sarath2014autoencoder} treats the multilingual sentence representation as a hidden layer in an auto-encoder. Word representations are learned by reconstructing which words occur in both aligned sentences. 
 
 
@@ -91,37 +92,32 @@ The work of \cite{sarath2014autoencoder} treats the multilingual sentence repres
 
 
 
-\section*{Approach}
+\paragraph{Approach}
 %How did you go about solving or making progress on the problem? Did you use simulation, analytic models, prototype construction, or analysis of field data for an actual product? What was the extent of your work (did you look at one application program or a hundred programs in twenty different programming languages?) What important variables did you control, ignore, or measure?
 
 
-We also extract word embeddings from a distributional representation of the sentence. However, we rely on a very simple and efficient model of sentence representations without requiring an explicit compositional model. 
-%Instead of backpropagating an error to word embeddings in a network, we use a simple definition of word embeddings. 
-%We do not backpropagate an error to word embeddings, but simply define words as the average of the sentences they occur in.
-
-%Extended Paragraph2vec \cite{Le2014} for multilingual case
-
-\cite{le2014distributed} introduce {\tt paragraph2vec}, a model to obtain embeddings for paragraphs, i.e. sequences of words that may range from phrases  to entire documents. The {\tt PV-DBOW} version of the model predicts the indexes of all words that occur in a sentence with a hierarchical softmax layer, thus viewing the paragraph as a bag-of-words. 
+We rely on a very simple and efficient model of sentence representations, introduced by \cite{le2014distributed}.
+This model, called {\tt paragraph2vec}, obtains embeddings for paragraphs, i.e. sequences of words that may range from phrases  to entire documents. The {\tt PV-DBOW} version of the model predicts the indexes of all words that occur in a sentence with a hierarchical softmax layer, thus viewing the paragraph as a bag-of-words. 
 
 We extend this model to the multilingual case, which is depicted in figure~\ref{f:model}, where $w_n^{l_x}$ is the $n$th word in the sentence~$x$ in language~$l$. A single sentence representation is instantiated for parallel sentences, from which the network predicts words that occur in the sentence in either language. This extension can easily be applied to more than 2 languages.%: in principle, sentences in any number of languages can be trained as long as they are parallel across all languages.
 
 \begin{figure}\center
-\begin{subfigure}{.35\linewidth}
+\begin{subfigure}{.49\linewidth}
 \center
 \input{figures/tikz_biling_dbow}
 \caption{Extension of {\tt PV-DBOW} for parallel sentences.}
 \label{f:model}
 \end{subfigure}
-\begin{subfigure}{.64\linewidth}
+\begin{subfigure}{.49\linewidth}
 \flushright
 \begin{tabular}{c | r r r r }
-Training data	for	&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
-word 	embeddings:	&EN-EN	&DE-DE	&DE-EN	&EN-DE		\\\hline
+&	\multicolumn{4}{c}{Classification [train]-[test]}	\\
+	&EN-EN	&DE-DE	&DE-EN	&EN-DE		\\\hline
 EN			&.274		&.286		&.305		&.284		\\
 DE			&.263		&.190		&.166		&.270		\\
 DE-EN			&.319		&.304		&.264		&.323		\\
 \end{tabular}
-\caption{F1 scores on TED classification task for sentence representations and word representations.}
+\caption{F1 scores on classification task on the TED dataset for word representations. The left column denotes the training data for the word embeddings.}
 \label{t:dbow_mono_bi}
 \end{subfigure}
 \caption{Model and results}
@@ -129,7 +125,7 @@ DE-EN			&.319		&.304		&.264		&.323		\\
 
 
 %Word embeddings as sentence average
-Word embeddings are defined to be the average of all sentences they occur in. This is  formalized in equation~\ref{e:words}, where $[\![ x ]\!]$ denotes the (distributional) representation of $x$, $freq(w,x)$ is the frequency of word $w$ in $x$, and $s\in D$ are sentences $s$ in the training data $D$.
+Word embeddings are simply defined to be the average of all sentences they occur in. This is  formalized in equation~\ref{e:words}, where $[\![ x ]\!]$ denotes the (distributional) representation of $x$, $freq(w,x)$ is the frequency of word $w$ in $x$, and $s\in D$ are sentences $s$ in the training data $D$.
 \begin{equation}
 [\![ w ]\!] =\frac{1}{freq(w,D)}\sum_{s\in D}freq(w,s) [\![ s ]\!]
 \label{e:words}
@@ -144,7 +140,7 @@ We thus obtained word embeddings from either 500 k sentences of aligned Europarl
 To evaluate the inter-lingual consistency, we run the cross-lingual document classification task introduced by~\cite{klementiev2012inducing} with two different datasets. In this task, a document classifier is trained using word embeddings in one language, and tested on word embeddings in another language. 
 
 
-\section*{Results}
+\paragraph{Results}
 %What's the answer? Specifically, most good computer architecture papers conclude that something is so many percent faster, cheaper, smaller, or otherwise better than something else. Put the result there, in numbers. Avoid vague, hand-waving results such as "very", "small", or "significant." If you must be vague, you are only given license to do so when you can talk about orders-of-magnitude improvement. There is a tension here in that you should not provide numbers that can be easily misinterpreted, but on the other hand you don't have room for all the caveats.
 Using embeddings from multilingually trained sentence representations improves performance on the cross-lingual document classification tasks, as illustrated for the bilingual case in table~\ref{t:dbow_mono_bi}. This effect may partially be explained by there being more training data: two versions of each sentence are used to train the sentence embeddings. 
 
@@ -159,7 +155,7 @@ However, we also see the that word embeddings trained on English data only are m
 
 
 
-\section*{Conclusions}
+\paragraph{Conclusions}
 %What are the implications of your answer? Is it going to change the world (unlikely), be a significant "win", be a nice hack, or simply serve as a road sign indicating that this path is a waste of time (all of the previous results are useful). Are your results general, potentially generalizable, or specific to a particular case?
 
 
